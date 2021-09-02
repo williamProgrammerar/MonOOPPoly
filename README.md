@@ -1,4 +1,8 @@
 # MonOOPPoly
 The beginning of Chalmers Monopoly
 
-William Johnston github: williamProgrammerar
+Creators:
+William Johnston, github: williamProgrammerar
+Hampus Rhedinh, github:
+Jon Emilsson, github:
+Vilhem Hedquist, github:
