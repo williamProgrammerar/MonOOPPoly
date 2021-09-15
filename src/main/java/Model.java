@@ -2,7 +2,6 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public class Model {
     List<Player> players;
 
     @FXML
-    ImageView piece = new ImageView(new Image("Images/Asmurf-icon.png"));
+    ImageView piece = new ImageView(new Image("pic/Asmurf-icon.png"));
 
     @FXML
     private Text diceText;

@@ -33,7 +33,7 @@
                   </Button>
     <ImageView fx:id="piece" fitHeight="41.0" fitWidth="39.0" layoutX="97.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/Asmurf-icon.png" />
+            <Image url="@../pic/Asmurf-icon.png" />
          </image>
       </ImageView>                  <Button layoutX="319.0" layoutY="600.0" mnemonicParsing="false" onAction="#rollDice" text="ROLL!" />
                   <Text fx:id="diceText" layoutX="-54.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />

@@ -4,13 +4,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.List;
-
 public class Monopoly extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/ChalmersMonopoly.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
         initBoard(stage, root);
     }
 

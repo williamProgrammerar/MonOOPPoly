@@ -22,7 +22,7 @@ public class Piece {
     }
     public Image gatherImage(int pieceID)  throws Exception  {
         switch(pieceID) {
-            case 1: return new Image("Images/Asmurf-icon.png");
+            case 1: return new Image("pic/Asmurf-icon.png");
         }
         throw new Exception("Invalid Piece ID");
     }
