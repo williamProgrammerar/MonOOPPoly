@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Model">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Model">
    <children>
       <Text layoutX="195.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dis is Chalmers monopoly YOO!" />
       <Button layoutX="248.0" layoutY="188.0" mnemonicParsing="false" onAction="#rollDice" text="Dice" />
       <Text fx:id="diceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
-      <Circle fx:id="playerPiece" fill="DODGERBLUE" layoutX="139.0" layoutY="125.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fx:id="piece" fitHeight="41.0" fitWidth="39.0" layoutX="97.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Asmurf-icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
