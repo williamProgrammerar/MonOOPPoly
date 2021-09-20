@@ -10,9 +10,11 @@ public class Model {
     private final Dice dice = new Dice();
     private List<Player> players;
 
+    // temporary location, will move to View-class later
     @FXML
     ImageView piece = new ImageView(new Image("pic/Asmurf-icon.png"));
 
+    // temporary location, will move to View-class later
     @FXML
     private Text diceText;
 
@@ -30,9 +32,11 @@ public class Model {
         return 1;
     }
 
+    // temporary location, will move to View-class later
     @FXML
     Button dice1;
 
+    // temporary location, will move to View-class later
     @FXML
     Button dice2;
 
