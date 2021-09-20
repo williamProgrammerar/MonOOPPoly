@@ -7,8 +7,8 @@ import javafx.scene.text.Text;
 import java.util.List;
 
 public class Model {
-    Dice dice = new Dice();
-    List<Player> players;
+    private final Dice dice = new Dice();
+    private List<Player> players;
 
     @FXML
     ImageView piece = new ImageView(new Image("pic/Asmurf-icon.png"));
