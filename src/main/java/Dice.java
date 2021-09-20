@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Dice {
-    Random rand = new Random();
+    private static final Random rand = new Random();
     private int dice1;
     private int dice2;
 
