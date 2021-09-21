@@ -1,3 +1,5 @@
+package Model;
+
 import View.Piece;
 
 public class Player {

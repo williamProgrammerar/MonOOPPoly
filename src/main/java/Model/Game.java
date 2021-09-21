@@ -1,3 +1,5 @@
+package Model;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -6,7 +8,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class Model {
+public class Game {
     private final Dice dice = new Dice();
     private List<Player> players;
 
@@ -20,7 +22,7 @@ public class Model {
 
     private Player player = new Player(0,choosePiece(),0);
 
-    public Model() throws Exception {
+    public Game() throws Exception {
     }
 
     public void choosePlayers(int amount) throws Exception {
@@ -47,5 +49,14 @@ public class Model {
         //player.move(dice.getSum()*10); //.image.setCenterX(playerPiece.getCenterX() + (dice.getSum() * 10));
         dice1.setText(String.valueOf(dice.getDice1()));
         dice2.setText(String.valueOf(dice.getDice2()));
+    }
+
+    public void move() {
+
+    }
+
+    public void next() {
+        //currentPlayer = players.get(0);
+        //players.indexOf(currentPlayer);
     }
 }
