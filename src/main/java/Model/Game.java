@@ -6,10 +6,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Game {
     private final Dice dice = new Dice();
+    private final Board board = new Board();
     private List<Player> players;
 
     // temporary location, will move to View-class later
@@ -46,7 +48,6 @@ public class Game {
         dice.rollDice();
         diceText.setText("The sum of the two dices rolled is: " + dice.getSum());
         piece.setX(piece.getX() + dice.getSum()*10);
-        //player.move(dice.getSum()*10); //.image.setCenterX(playerPiece.getCenterX() + (dice.getSum() * 10));
         dice1.setText(String.valueOf(dice.getDice1()));
         dice2.setText(String.valueOf(dice.getDice2()));
     }
