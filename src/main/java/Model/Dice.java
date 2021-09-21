@@ -23,6 +23,10 @@ public class Dice {
     public int getSum() {
         return dice1 + dice2;
     }
+
+    public boolean bothDiceShowSix() {
+        return dice1 + dice2 == 12;
+    }
 }
 
 
