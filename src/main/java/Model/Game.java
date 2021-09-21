@@ -18,10 +18,6 @@ public class Game {
     @FXML
     ImageView piece = new ImageView(new Image("pic/Asmurf-icon.png"));
 
-    // temporary location, will move to View-class later
-    @FXML
-    private Text diceText;
-
     private Player player = new Player(0,choosePiece(),0);
 
     public Game() throws Exception {
@@ -46,18 +42,27 @@ public class Game {
 
     public void rollDice() {
         dice.rollDice();
-        diceText.setText("The sum of the two dices rolled is: " + dice.getSum());
         piece.setX(piece.getX() + dice.getSum()*10);
         dice1.setText(String.valueOf(dice.getDice1()));
         dice2.setText(String.valueOf(dice.getDice2()));
     }
 
+    /**
+     * Moves the current player sum spaces.
+     */
     public void move() {
-
+        int sum = dice.getSum();
+        players.get(0).move(sum);
     }
 
+    /**
+     * Places the current player (index 0) in a temporary variable.
+     * Player index 0 in the player list is then removed, which leads to a new current player.
+     * Finally adds the player stored in the temporary variable to the back of the list.
+     */
     public void next() {
-        //currentPlayer = players.get(0);
-        //players.indexOf(currentPlayer);
+        Player temporaryPlayer = players.get(0);
+        players.remove(0);
+        players.add(temporaryPlayer);
     }
 }
