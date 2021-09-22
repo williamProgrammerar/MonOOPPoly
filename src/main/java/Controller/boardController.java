@@ -14,7 +14,7 @@ public class boardController {
         @FXML
         Button dice2;
         @FXML
-        javafx.scene.image.ImageView piece = new ImageView(new Image("pic/Asmurf-icon.png"));
+        ImageView piece = new ImageView(new Image("pic/Asmurf-icon.png"));
 
     public boardController() throws Exception {
     }
