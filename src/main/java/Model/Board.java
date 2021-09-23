@@ -8,9 +8,7 @@ public class Board {
 
     public Board() {
         List<Space> tmpList = new ArrayList<>();
-        tmpList.add(new Space("START",true));
-        tmpList.add(new Space("CHANS", false));
-        tmpList.add(new Space("DELTA PARKEN", false));
+        tmpList.add(new Locale("BASEN", 60, 30, "ORANGE", new int[] {2, 10, 30, 90, 160, 250}, 50));
         this.spaceList = tmpList;
     }
 
