@@ -10,13 +10,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-    private final Dice dice = new Dice();
+    public Dice dice = new Dice();
     private final Board board = new Board();
     private List<Player> players;
 
     // temporary location, will move to View-class later
-    @FXML
-    ImageView piece = new ImageView(new Image("pic/Asmurf-icon.png"));
+
 
     private Player player = new Player(0,choosePiece(),0);
 
@@ -33,19 +32,12 @@ public class Game {
     }
 
     // temporary location, will move to View-class later
-    @FXML
-    Button dice1;
+
 
     // temporary location, will move to View-class later
-    @FXML
-    Button dice2;
 
-    public void rollDice() {
-        dice.rollDice();
-        piece.setX(piece.getX() + dice.getSum()*10);
-        dice1.setText(String.valueOf(dice.getDice1()));
-        dice2.setText(String.valueOf(dice.getDice2()));
-    }
+
+
 
     /**
      * Moves the current player sum spaces.
