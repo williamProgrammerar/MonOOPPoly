@@ -9,4 +9,4 @@ Hampus Rhedinh, github:
 
 Jon Emilsson, github:
 
-Vilhem Hedquist, github:
+Vilhem Hedquist, github: Hedquist
