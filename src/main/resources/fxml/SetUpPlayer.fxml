@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="345.0" layoutY="59.0" prefHeight="79.0" prefWidth="85.0" text="Set up Player 1" />
+      <ImageView fitHeight="79.0" fitWidth="70.0" layoutX="27.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="79.0" fitWidth="70.0" layoutX="111.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="79.0" fitWidth="70.0" layoutX="27.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="79.0" fitWidth="70.0" layoutX="111.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="48.0" layoutY="178.0" text="Choose Piece" />
+      <TextField layoutX="298.0" layoutY="241.0" text="Player 1" />
+      <Label layoutX="321.0" layoutY="178.0" text="Choose name" />
+   </children>
+</AnchorPane>
