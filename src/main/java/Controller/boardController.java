@@ -33,13 +33,16 @@ public class boardController implements Initializable {
     @FXML
     spaceController space1Controller;
     @FXML spaceController space2Controller;
+    @FXML spaceController space3Controller;
 
     public boardController() throws Exception {
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        space1Controller.hejText.setText(board.getSpace(0).getSpaceName());
+        space1Controller.hejText.setText(board.getSpace(1).getSpaceName());
+        space2Controller.hejText.setText(board.getSpace(2).getSpaceName());
+        space3Controller.hejText.setText(board.getSpace(3).getSpaceName());
     }
 
     public void rollDice() {

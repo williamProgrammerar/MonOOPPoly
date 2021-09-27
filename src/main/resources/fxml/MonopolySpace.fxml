@@ -8,6 +8,6 @@
    <children>
       <Text layoutX="14.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRIS" />
       <Rectangle fill="DODGERBLUE" height="20.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="56.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0" />
-      <Text fx:id="hejText" layoutX="12.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAMN" />
+      <Text fx:id="hejText" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DELTA PARKEN" textAlignment="CENTER" wrappingWidth="55.40000915527344" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-2.0" />
    </children>
 </AnchorPane>
