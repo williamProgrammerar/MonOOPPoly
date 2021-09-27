@@ -10,12 +10,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-    public Dice dice = new Dice();
+    private Dice dice = new Dice();
     private final Board board = new Board();
     private List<Player> players;
-
-    // temporary location, will move to View-class later
-
 
     private Player player = new Player(0,choosePiece(),0);
 
@@ -30,14 +27,6 @@ public class Game {
     public int choosePiece(){
         return 1;
     }
-
-    // temporary location, will move to View-class later
-
-
-    // temporary location, will move to View-class later
-
-
-
 
     /**
      * Moves the current player sum spaces.

@@ -15,8 +15,8 @@ public class Monopoly extends Application {
     private void initBoard(Stage stage, Parent root) {
         stage.setTitle("Chalmers Monopoly");
         stage.setScene(new Scene(root));
-        stage.setMinWidth(800);
-        stage.setMinHeight(800);
+        //stage.setMinWidth(800);
+        //stage.setMinHeight(800);
         stage.show();
     }
 }
