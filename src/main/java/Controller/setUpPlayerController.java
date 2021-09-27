@@ -5,36 +5,33 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
-public class menuController {
-    @FXML private Button startGameButton;
+public class setUpPlayerController {
 
     @FXML
     public void startGame(ActionEvent event) throws IOException {
-        Parent monopolyParent = FXMLLoader.load(getClass().getResource("/fxml/setUpPlayer.fxml"));
+        Parent monopolyParent = FXMLLoader.load(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
         Scene monopolyScene = new Scene(monopolyParent);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
         window.setScene(monopolyScene);
         window.show();
     }
-    @FXML public void exitGame(ActionEvent event){
-        System.exit(0);
+    @FXML public void goBack(ActionEvent event) throws IOException {
+        Parent monopolyParent = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
+        Scene monopolyScene = new Scene(monopolyParent);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(monopolyScene);
+        window.show();
     }
     @FXML
-    private final ComboBox<String> playerType1CBox = new ComboBox<>();
+    private ComboBox<String> playerType1CBox;
     @FXML
     private ComboBox<String> playerType2CBox;
     @FXML
@@ -46,12 +43,9 @@ public class menuController {
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
     @FXML
     public void initialize() {
-
-        playerType1CBox.getItems().removeAll(playerType1CBox.getItems());
-        playerType1CBox.getItems().addAll("Option A", "Option B", "Option C");
-        playerType1CBox.getSelectionModel().select("Option B");
-        //playerType2CBox.setItems(playerTypes);
-        //playerType3CBox.setItems(playerTypes);
-        //playerType4CBox.setItems(playerTypes);
+        playerType1CBox.setItems(playerTypes);
+        playerType2CBox.setItems(playerTypes);
+        playerType3CBox.setItems(playerTypes);
+        playerType4CBox.setItems(playerTypes);
     }
 }
