@@ -49,7 +49,6 @@ public class Board {
         tmpList.add(new Locale("THE CLOUD", 350, 175, "TURQUOISE", new int[] {35, 175, 500, 1100, 1300, 1500}, 200));
         tmpList.add(new Tax(100));
         tmpList.add(new Locale("HUBBEN 2.1", 400, 200, "TURQUOISE", new int[] {50, 200, 600, 1400, 1700, 2000}, 200));
-        //TODO ADD REST OF THE SPACES
         this.spaceList = tmpList;
     }
 
