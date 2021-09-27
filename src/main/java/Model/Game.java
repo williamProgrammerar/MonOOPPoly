@@ -7,12 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Queue;
 
 public class Game {
     private Dice dice = new Dice();
     private final Board board = new Board();
-    private List<Player> players;
+    private Queue<Player> players;
 
     private Player player = new Player(0,choosePiece(),0);
 
@@ -33,7 +33,7 @@ public class Game {
      */
     public void move() {
         int sum = dice.getSum();
-        players.get(0).move(sum);
+        players.peek().move(sum);
     }
 
     /**
@@ -42,8 +42,7 @@ public class Game {
      * Finally adds the player stored in the temporary variable to the back of the list.
      */
     public void next() {
-        Player temporaryPlayer = players.get(0);
-        players.remove(0);
+        Player temporaryPlayer = players.poll();
         players.add(temporaryPlayer);
     }
 }

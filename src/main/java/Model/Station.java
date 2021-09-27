@@ -9,7 +9,7 @@ public class Station extends Property {
     }
 
     public int getRent() {
-        // rent * number of stations owned
+        // rent * 2 ^ (number of stations owned - 1)
         return rent;
     }
 }
