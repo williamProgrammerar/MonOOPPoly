@@ -20,9 +20,9 @@ public class boardController {
     }
 
     public void rollDice() {
-            game.dice.rollDice();
-            piece.setX(piece.getX() + game.dice.getSum()*10);
-            dice1.setText(String.valueOf(game.dice.getDice1()));
-            dice2.setText(String.valueOf(game.dice.getDice2()));
+            game.getDice().rollDice();
+            piece.setX(piece.getX() + game.getDice().getSum()*10);
+            dice1.setText(String.valueOf(game.getDice().getDice1()));
+            dice2.setText(String.valueOf(game.getDice().getDice2()));
         }
 }
