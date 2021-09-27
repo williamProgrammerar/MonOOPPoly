@@ -6,8 +6,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.menuController">
    <children>
-      <Button fx:id="startGameButton" layoutX="296.0" layoutY="303.0" mnemonicParsing="false" onAction="#blarg" prefHeight="25.0" prefWidth="203.0" text="Start game" />
-      <Button layoutX="292.0" layoutY="372.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="203.0" text="Exit game" />
+      <Button fx:id="startGameButton" layoutX="296.0" layoutY="303.0" mnemonicParsing="false" onAction="#startGame" prefHeight="25.0" prefWidth="203.0" text="Start game" />
+      <Button layoutX="292.0" layoutY="372.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="25.0" prefWidth="203.0" text="Exit game" />
       <Label layoutX="355.0" layoutY="120.0" prefHeight="17.0" prefWidth="78.0" text="MonOOPPoly" />
    </children>
 </AnchorPane>
