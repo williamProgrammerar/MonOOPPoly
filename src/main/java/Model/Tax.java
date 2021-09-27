@@ -4,8 +4,8 @@ public class Tax extends Space {
 
     private final int tax;
 
-    public Tax(String spaceName, int tax) {
-        super(spaceName);
+    public Tax(int tax) {
+        super("KÅRAVGIFT");
         this.tax = tax;
     }
 
