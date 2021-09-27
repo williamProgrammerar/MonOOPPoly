@@ -46,8 +46,4 @@ public class Game {
         players.remove(0);
         players.add(temporaryPlayer);
     }
-
-    public Dice getDice() {
-        return dice;
-    }
 }
