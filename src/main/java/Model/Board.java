@@ -19,6 +19,7 @@ public class Board {
         tmpList.add(new Locale("XP-LABBET", 100, 50, "BROWN", new int[] {6, 30, 90, 270, 400, 550}, 100));
         tmpList.add(new Locale("BULTEN", 120, 60, "BROWN", new int[] {8, 40, 100, 300, 450, 600}, 100));
         tmpList.add(new Space("OMTENTA"));
+        //TODO ADD REST OF THE SPACES
         this.spaceList = tmpList;
     }
 
