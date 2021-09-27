@@ -8,7 +8,7 @@ public class Monopoly extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         initBoard(stage, root);
     }
 
