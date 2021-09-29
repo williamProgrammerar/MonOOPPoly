@@ -10,6 +10,7 @@ public class Game {
     private Player player = new Player(0,choosePiece(),0);
 
     public Game() throws Exception {
+
     }
 
     public void choosePlayers(int amount) throws Exception {
@@ -38,5 +39,17 @@ public class Game {
         Player temporaryPlayer = players.get(0);
         players.remove(0);
         players.add(temporaryPlayer);
+    }
+
+    public Dice getDice() {
+        return dice;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 }
