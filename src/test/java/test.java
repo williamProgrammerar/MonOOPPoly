@@ -4,10 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class test {
     List<String> list = new ArrayList<>();
     Board board = new Board();
+    Random rand = new Random();
+
     @BeforeEach
     void setUp() {
         list.add("William");
@@ -31,10 +34,13 @@ public class test {
 
     @Test
     void testGetPositionUsingString() {
-        System.out.println(findSpace("BASEN"));
-        System.out.println(findSpace("HUBBEN 2.1"));
-        System.out.println(findSpace("GO"));
-        System.out.println(findSpace("KEMIGÅRDEN"));
+        String spaceName;
+        int position;
+        for (int i = 0; i < 100; i++) {
+            spaceName = board.getSpace(rand.nextInt(40)).getSpaceName();
+            position = findSpace(spaceName);
+            System.out.println(spaceName + " is located at position: " + position);
+        }
     }
 
     int findSpace(String string) {
