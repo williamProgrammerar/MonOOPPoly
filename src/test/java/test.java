@@ -1,4 +1,5 @@
 import Model.Board;
+import Model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,10 @@ public class test {
     List<String> list = new ArrayList<>();
     Board board = new Board();
     Random rand = new Random();
+    Player player = new Player(1);
+
+    public test() throws Exception {
+    }
 
     @BeforeEach
     void setUp() {
@@ -52,5 +57,31 @@ public class test {
             }
         }
         return position;
+    }
+
+    @Test
+    void testMove() {
+        player.move(20);
+        System.out.println(player.getPosition());
+        System.out.println(player.HasPassedGo());
+        player.move(20);
+        System.out.println(player.getPosition());
+        System.out.println(player.HasPassedGo());
+        player.move(-5);
+        System.out.println(player.getPosition());
+        System.out.println(player.HasPassedGo());
+    }
+
+    @Test
+    void testMoveTo() {
+        player.moveTo(20,true);
+        System.out.println(player.getPosition());
+        System.out.println(player.HasPassedGo());
+        player.moveTo(15,true);
+        System.out.println(player.getPosition());
+        System.out.println(player.HasPassedGo());
+        player.moveTo(10,false);
+        System.out.println(player.getPosition());
+        System.out.println(player.HasPassedGo());
     }
 }
