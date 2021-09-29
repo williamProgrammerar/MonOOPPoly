@@ -52,6 +52,23 @@ public class Board {
         this.spaceList = tmpList;
     }
 
+    /**
+     * findSpace is a method that given a string matching one of the spaceNames
+     * in spaceList will return the position of that spaceName.
+     * @param string name spaceName
+     * @return position (int) of the string searched for
+     */
+    int findSpace(String string) {
+        int position = 0;
+        for (int i = 0; i < spaceList.size(); i++) {
+            if (getSpace(i).getSpaceName().equals(string)) {
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
+
     public Space getSpace(int i) {
         return spaceList.get(i);
     }
