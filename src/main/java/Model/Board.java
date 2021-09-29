@@ -55,4 +55,8 @@ public class Board {
     public Space getSpace(int i) {
         return spaceList.get(i);
     }
+
+    public List<Space> getSpaceList() {
+        return spaceList;
+    }
 }
