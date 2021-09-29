@@ -58,7 +58,7 @@ public class Board {
      * @param string name spaceName
      * @return position (int) of the string searched for
      */
-    int findSpace(String string) {
+    public int findSpace(String string) {
         int position = 0;
         for (int i = 0; i < spaceList.size(); i++) {
             if (getSpace(i).getSpaceName().equals(string)) {
