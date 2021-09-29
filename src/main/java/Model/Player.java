@@ -52,6 +52,14 @@ public class Player {
         position = space;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public boolean isHasPassedGo() {
+        return hasPassedGo;
+    }
+
     public int getCapital() {
         return capital;
     }
