@@ -18,4 +18,12 @@ public class Player {
     public void move(int movement) {
         piece.getImg().setX(piece.getImg().getX() + movement);
     }
+
+    public int getCapital() {
+        return capital;
+    }
+
+    public void setCapital(int capital) {
+        this.capital = capital;
+    }
 }
