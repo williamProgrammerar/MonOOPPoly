@@ -45,10 +45,10 @@ public class Player {
      * if int space is less than current position, it means the player has either passed go or been forced to move backwards.
      * boolean passedGo determines what happened.
      * @param space space player should move to
-     * @param passedGo boolean that determines whether player should pass go or not
+     * @param isForwardMovement boolean that determines whether player walks forward or not
      */
-    public void moveTo(int space, boolean passedGo) {
-        hasPassedGo = (space < position) && passedGo;
+    public void moveTo(int space, boolean isForwardMovement) {
+        hasPassedGo = (space < position) && isForwardMovement;
         position = space;
     }
 
@@ -56,7 +56,7 @@ public class Player {
         return position;
     }
 
-    public boolean isHasPassedGo() {
+    public boolean HasPassedGo() {
         return hasPassedGo;
     }
 
