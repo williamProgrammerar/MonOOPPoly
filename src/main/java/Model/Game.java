@@ -7,7 +7,7 @@ public class Game {
     private final Board board = new Board();
     private List<Player> players;
 
-    private Player player = new Player(0,choosePiece(),0);
+    private Player player = new Player(choosePiece());
 
     public Game() throws Exception {
 
@@ -15,7 +15,7 @@ public class Game {
 
     public void choosePlayers(int amount) throws Exception {
         for(int i = 0; i - 1 < amount; i++){
-            players.add(new Player(0,choosePiece(),0));
+            players.add(new Player(choosePiece()));
         }
     }
     public int choosePiece(){

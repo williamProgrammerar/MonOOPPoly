@@ -8,11 +8,11 @@ public class Player {
     private int pieceID;   // maybe not the best approach, might add unnecessary dependencies
     private int position; // Temporary until we have fixed tile which should handle this
 
-    public Player(int capital, int pieceID, int position) throws Exception {
-        this.capital = capital;
+    public Player(int pieceID) throws Exception {
         this.pieceID = pieceID;
-        this.position = position;
         this.piece = new Piece(pieceID);
+        this.capital = 1500;
+        this.position = 0;
     }
 
     public void move(int movement) {
