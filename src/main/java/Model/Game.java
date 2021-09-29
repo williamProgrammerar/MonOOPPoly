@@ -3,7 +3,7 @@ package Model;
 import java.util.List;
 
 public class Game {
-    private Dice dice = new Dice();
+    private final Dice dice = new Dice();
     private final Board board = new Board();
     private List<Player> players;
 
