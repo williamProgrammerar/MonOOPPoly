@@ -1,29 +1,24 @@
 package Model;
 
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.Button;
-import javafx.scene.text.Text;
-
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private Dice dice = new Dice();
+    private final Dice dice = new Dice();
     private final Board board = new Board();
-    private List<Player> players;
+    private List<Player> players = new ArrayList<>();
 
-    private Player player = new Player(0,choosePiece(),0);
+    public Game() {
 
-    public Game() throws Exception {
     }
 
-    public void choosePlayers(int amount) throws Exception {
-        for(int i = 0; i - 1 < amount; i++){
-            players.add(new Player(0,choosePiece(),0));
+    public void choosePlayers(int amount) {
+        int playerId = 1;
+        for(int i = 0; i < amount; i++){
+            players.add(new Player(playerId++));
         }
     }
+
     public int choosePiece(){
         return 1;
     }
@@ -32,8 +27,14 @@ public class Game {
      * Moves the current player sum spaces.
      */
     public void move() {
+        Space currentSpace;
+        Player currentPlayer = players.get(0);
         int sum = dice.getSum();
-        players.get(0).move(sum);
+
+        currentPlayer.move(sum);
+        currentSpace = board.getSpace(currentPlayer.getPosition());
+        System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+        System.out.println(currentPlayer.getPosition());
     }
 
     /**
@@ -45,5 +46,17 @@ public class Game {
         Player temporaryPlayer = players.get(0);
         players.remove(0);
         players.add(temporaryPlayer);
+    }
+
+    public Dice getDice() {
+        return dice;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 }

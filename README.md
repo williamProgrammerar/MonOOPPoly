@@ -5,7 +5,7 @@ Creators:
 
 William Johnston, github: williamProgrammerar
 
-Hampus Rhedinh, github:
+Hampus Rhedinh, github: rhedinh
 
 Jon Emilsson, github:
 
