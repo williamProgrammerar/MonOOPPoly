@@ -1,23 +1,24 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
     private final Dice dice = new Dice();
     private final Board board = new Board();
-    private List<Player> players;
+    private List<Player> players = new ArrayList<>();
 
-    private Player player = new Player(choosePiece());
-
-    public Game() throws Exception {
+    public Game() {
 
     }
 
-    public void choosePlayers(int amount) throws Exception {
-        for(int i = 0; i - 1 < amount; i++){
-            players.add(new Player(choosePiece()));
+    public void choosePlayers(int amount) {
+        int playerId = 1;
+        for(int i = 0; i < amount; i++){
+            players.add(new Player(playerId++));
         }
     }
+
     public int choosePiece(){
         return 1;
     }
@@ -26,8 +27,14 @@ public class Game {
      * Moves the current player sum spaces.
      */
     public void move() {
+        Space currentSpace;
+        Player currentPlayer = players.get(0);
         int sum = dice.getSum();
-        players.get(0).move(sum);
+
+        currentPlayer.move(sum);
+        currentSpace = board.getSpace(currentPlayer.getPosition());
+        System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+        System.out.println(currentPlayer.getPosition());
     }
 
     /**
