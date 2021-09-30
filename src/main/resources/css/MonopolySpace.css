@@ -1,0 +1,8 @@
+.pane {
+    -fx-border-color: #00ffcc;
+    -fx-border-width: 0;
+}
+
+.localeName {
+    -fx-font-size: 7px;
+}
