@@ -5,13 +5,13 @@ import View.Piece;
 public class Player {
     private int capital;
     private Piece piece;
-    private int pieceID;   // maybe not the best approach, might add unnecessary dependencies
+    private final int playerId;
     private int position;
     private boolean hasPassedGo;
 
-    public Player(int pieceID) throws Exception {
-        this.pieceID = pieceID;
-        this.piece = new Piece(pieceID);
+    public Player(int playerId) {
+        this.playerId = playerId;
+        //this.piece = new Piece(pieceID);
         this.capital = 1500;
         this.position = 0;
     }
@@ -66,5 +66,9 @@ public class Player {
 
     public void setCapital(int capital) {
         this.capital = capital;
+    }
+
+    public int getPlayerId() {
+        return playerId;
     }
 }
