@@ -15,31 +15,6 @@
    <children>
       <StackPane layoutX="-5.0" layoutY="-4.0" maxHeight="800.0" maxWidth="800.0" minHeight="600.0" minWidth="600.0" prefHeight="700.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="700.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="CENTER">
-               <image>
-                  <Image url="@../pic/monopoly_board.png" />
-               </image>
-            </ImageView>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" StackPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="dice1" layoutX="146.0" layoutY="577.0" mnemonicParsing="false" text="  ">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="dice2" layoutX="225.0" layoutY="577.0" mnemonicParsing="false" text="  ">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-    <ImageView fx:id="piece" fitHeight="41.0" fitWidth="39.0" layoutX="97.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../pic/Asmurf-icon.png" />
-         </image>
-      </ImageView>
-                  <Text fx:id="diceText" layoutX="-54.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
-               </children>
-            </AnchorPane>
             <GridPane fx:id="boardGrid" alignment="CENTER" maxHeight="700.0" maxWidth="700.0" minHeight="700.0" minWidth="700.0" prefHeight="700.0" prefWidth="700.0" StackPane.alignment="CENTER">
               <columnConstraints>
                   <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="14.0" />
@@ -69,11 +44,56 @@
               </rowConstraints>
                <children>
                    <fx:include fx:id="space1" source="MonopolySpace.fxml" GridPane.columnIndex="9" GridPane.rowIndex="10" />
-                   <fx:include fx:id="space2" source="MonopolySpace.fxml" GridPane.columnIndex="8" GridPane.rowIndex="10" />
+                   <!--<fx:include fx:id="space2" source="MonopolySpace.fxml" GridPane.columnIndex="8" GridPane.rowIndex="10" />-->
                    <fx:include fx:id="space3" source="MonopolySpace.fxml" GridPane.columnIndex="7" GridPane.rowIndex="10" />
+                   <!--<fx:include fx:id="space4" source="MonopolySpace.fxml" GridPane.columnIndex="6" GridPane.rowIndex="10" />
+                   <fx:include fx:id="space5" source="MonopolySpace.fxml" GridPane.columnIndex="5" GridPane.rowIndex="10" />-->
+                   <fx:include fx:id="space6" source="MonopolySpace.fxml" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                   <!--<fx:include fx:id="space7" source="MonopolySpace.fxml" GridPane.columnIndex="3" GridPane.rowIndex="10" />-->
+                   <fx:include fx:id="space8" source="MonopolySpace.fxml" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                   <fx:include fx:id="space9" source="MonopolySpace.fxml" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                   <!--BRÄDA VÄNSTERSIDA  -->
+                   <fx:include fx:id="space11" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                   <fx:include fx:id="space13" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                   <fx:include fx:id="space14" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                   <fx:include fx:id="space16" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                   <fx:include fx:id="space18" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                   <fx:include fx:id="space19" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                   <!-- BRÄDA ÖVRE-->
+                   <fx:include fx:id="space21" source="MonopolySpace.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                   <!--<fx:include fx:id="space22" source="MonopolySpace.fxml" GridPane.columnIndex="2" GridPane.rowIndex="0" />-->
+                   <fx:include fx:id="space23" source="MonopolySpace.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                   <fx:include fx:id="space24" source="MonopolySpace.fxml" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                   <!--<fx:include fx:id="space25" source="MonopolySpace.fxml" GridPane.columnIndex="5" GridPane.rowIndex="0" />-->
+                   <fx:include fx:id="space26" source="MonopolySpace.fxml" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                   <!--<fx:include fx:id="space27" source="MonopolySpace.fxml" GridPane.columnIndex="7" GridPane.rowIndex="0" />-->
+                   <fx:include fx:id="space28" source="MonopolySpace.fxml" GridPane.columnIndex="8" GridPane.rowIndex="0" />
+                   <fx:include fx:id="space29" source="MonopolySpace.fxml" GridPane.columnIndex="9" GridPane.rowIndex="0" />
+                   <!-- BRÄDA HÖGERSIDA-->
+                   <fx:include fx:id="space31" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="1" />
+                   <fx:include fx:id="space33" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="3" />
+                   <fx:include fx:id="space34" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="4" />
+                   <fx:include fx:id="space37" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="7" />
+                   <fx:include fx:id="space39" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="9" />
+            <ImageView fx:id="piece" fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="10" GridPane.rowIndex="10">
+            <image>
+            <Image url="@../pic/Asmurf-icon.png" />
+            </image>
+            </ImageView>
                </children>
             </GridPane>
          </children>
-      </StackPane>                  <Button mnemonicParsing="false" onAction="#rollDice" text="ROLL!" />
+      </StackPane>                  <Button layoutX="117.0" layoutY="85.0" mnemonicParsing="false" onAction="#rollDice" text="ROLL!" />
+      <Button fx:id="dice1" layoutX="73.0" layoutY="134.0" mnemonicParsing="false" text="  ">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button fx:id="dice2" layoutX="149.0" layoutY="134.0" mnemonicParsing="false" text="  ">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Text fx:id="diceText" layoutX="-143.0" layoutY="-3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
    </children>
 </AnchorPane>
