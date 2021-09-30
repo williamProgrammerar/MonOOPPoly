@@ -1,4 +1,6 @@
 import Model.Board;
+import Model.Dice;
+import Model.Game;
 import Model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,10 +10,14 @@ import java.util.List;
 import java.util.Random;
 
 public class test {
-    List<String> list = new ArrayList<>();
-    Board board = new Board();
-    Random rand = new Random();
-    Player player = new Player(1);
+    private List<String> list = new ArrayList<>();
+    private Random rand = new Random();
+    private Player player = new Player(1);
+
+    private Game game = new Game();
+    private Board board = game.getBoard();
+    private Dice dice = game.getDice();
+    private List<Player> players = game.getPlayers();
 
     public test() throws Exception {
     }
@@ -83,5 +89,19 @@ public class test {
         player.moveTo(10,false);
         System.out.println(player.getPosition());
         System.out.println(player.HasPassedGo());
+    }
+
+    @Test
+    void testPlayerTurn() {
+        game.choosePlayers(2);
+        System.out.println("Current amount of players: " + players.size());
+
+        for (int i = 0; i < 20; i++) {
+            System.out.println();
+            dice.rollDice();
+            System.out.println("Dice rolled: " + dice.getSum());
+            game.move();
+            game.next();
+        }
     }
 }
