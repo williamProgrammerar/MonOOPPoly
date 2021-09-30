@@ -19,7 +19,6 @@ public class Board {
         tmpList.add(new Locale("XP-LABBET", 100, 50, "BROWN", new int[] {6, 30, 90, 270, 400, 550}, 100));
         tmpList.add(new Locale("BULTEN", 120, 60, "BROWN", new int[] {8, 40, 100, 300, 450, 600}, 100));
         tmpList.add(new Space("OMTENTA"));
-        tmpList.add(new Space("TENTAVAKT"));
         tmpList.add(new Locale("A-DAMMEN", 140, 70, "RED", new int[] {10, 50, 150, 450, 625, 750}, 100));
         tmpList.add(new Utility("Utility1", 150, 75));
         tmpList.add(new Locale("RÖDA RUMMET", 140, 70, "RED", new int[] {10, 50, 150, 450, 625, 750}, 100));
