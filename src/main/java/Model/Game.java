@@ -12,7 +12,7 @@ public class Game {
 
     }
 
-    public void choosePlayers(int amount) {
+    public void choosePlayers(int amount) throws Exception {
         int playerId = 1;
         for(int i = 0; i < amount; i++){
             players.add(new Player(playerId++));

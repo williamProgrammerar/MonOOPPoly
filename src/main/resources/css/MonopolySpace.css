@@ -1,6 +1,6 @@
 .pane {
-    -fx-border-color: #00ffcc;
-    -fx-border-width: 0;
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
 }
 
 .localeName {

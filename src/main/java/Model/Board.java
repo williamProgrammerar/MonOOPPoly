@@ -24,12 +24,12 @@ public class Board {
         tmpList.add(new Locale("RÖDA RUMMET", 140, 70, "RED", new int[] {10, 50, 150, 450, 625, 750}, 100));
         tmpList.add(new Locale("HALVA SB-HUSET", 160, 80, "RED", new int[] {12, 60, 180, 500, 700, 900}, 100));
         tmpList.add(new Station("Station2", 200, 100));
-        tmpList.add(new Locale("ELEKTROINNERGÅRDEN", 180, 90, "YELLOW", new int[] {14, 70, 200, 550, 750, 950}, 100));
+        tmpList.add(new Locale("ELEKTRO- INNERGÅRDEN", 180, 90, "YELLOW", new int[] {14, 70, 200, 550, 750, 950}, 100));
         tmpList.add(new Chance());
         tmpList.add(new Locale("ANKETORG", 180, 90, "YELLOW", new int[] {14, 70, 200, 550, 750, 950}, 100));
         tmpList.add(new Locale("KAJSABAREN", 200, 100, "YELLOW", new int[] {16, 80, 220, 600, 800, 1000}, 100));
         tmpList.add(new Space("SJÄLVSTUDIER"));
-        tmpList.add(new Locale("KATAKOMBERNA", 220, 110, "GREEN", new int[] {18, 90, 250, 700, 875, 1050}, 150));
+        tmpList.add(new Locale("KATA- KOMBERNA", 220, 110, "GREEN", new int[] {18, 90, 250, 700, 875, 1050}, 150));
         tmpList.add(new Chance());
         tmpList.add(new Locale("KEMIGÅRDEN", 220, 110, "GREEN", new int[] {18, 90, 250, 700, 875, 1050}, 150));
         tmpList.add(new Locale("FORT NOX", 240, 120, "GREEN", new int[] {20, 100, 300, 750, 925, 1100}, 150));
