@@ -2,13 +2,39 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="56.0" styleClass="pane" stylesheets="@../css/MonopolySpace.css" type="AnchorPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="56.0" stylesheets="@../css/MonopolySpace.css" type="AnchorPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle fx:id="spaceTile" fill="WHITE" height="98.0" smooth="false" stroke="#008bff" strokeType="INSIDE" strokeWidth="2.0" width="56.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Text layoutX="14.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRIS" />
+      <AnchorPane fx:id="ap1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="56.0" rotate="90.0" stylesheets="@../css/MonopolySpace.css" visible="false">
+         <children>
+            <Rectangle fx:id="spaceStroke1" fill="WHITE" height="98.0" smooth="false" stroke="#008bff" strokeType="INSIDE" strokeWidth="2.0" width="56.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Rectangle fx:id="localeColor1" fill="WHITE" height="20.0" smooth="false" stroke="#00aaff" strokeType="INSIDE" strokeWidth="2.0" width="56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Text fx:id="localePrice1" layoutX="31.0" layoutY="52.0" rotate="-90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRIS">
+               <font>
+                  <Font size="7.0" />
+               </font>
+            </Text>
+            <Text fx:id="localeName1" layoutX="-4.0" layoutY="46.0" rotate="-90.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="localeName" text="ELEKTRO- INNERGÅRDEN" textAlignment="CENTER" wrappingWidth="47.600006103515625" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="12.399993896484375">
+               <font>
+                  <Font size="7.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Rectangle fx:id="spaceStroke" fill="WHITE" height="98.0" smooth="false" stroke="#008bff" strokeType="INSIDE" strokeWidth="2.0" width="56.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Rectangle fx:id="localeColor" fill="WHITE" height="20.0" smooth="false" stroke="#00aaff" strokeType="INSIDE" strokeWidth="2.0" width="56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Text fx:id="localeName" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="localeName" text="ELEKTRO- INNERGÅRDEN" textAlignment="CENTER" wrappingWidth="55.40000915527344" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Text fx:id="localePrice" layoutX="21.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRIS">
+         <font>
+            <Font size="7.0" />
+         </font>
+      </Text>
+      <Text fx:id="localeName" layoutX="1.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="localeName" text="ELEKTRO- INNERGÅRDEN" textAlignment="CENTER" wrappingWidth="55.40000915527344" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-0.4000091552734375">
+         <font>
+            <Font size="7.0" />
+         </font>
+      </Text>
    </children>
 </fx:root>

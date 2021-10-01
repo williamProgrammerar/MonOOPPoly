@@ -45,9 +45,9 @@ public class boardController implements Initializable {
 
         int r = 10;
         int c = 10;
-        for (Space s : spaceList) {
-            spaceController i = new spaceController(s, this);
-            boardGrid.add(i, c, r);
+        for (Space space : spaceList) {
+            spaceController spaceController = new spaceController(space, c);
+            boardGrid.add(spaceController, c, r);
 
             if (r == 10 && c != 0) {
                 c--;

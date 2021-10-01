@@ -5,8 +5,10 @@ import Model.Space;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -15,17 +17,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class spaceController extends AnchorPane{
+public class spaceController<T> extends AnchorPane {
     @FXML
     Text localeName;
+    @FXML Text localePrice;
     @FXML
     Rectangle localeColor;
     @FXML
-    Rectangle spaceTile;
+    Rectangle spaceStroke;
+    @FXML
+    SplitPane splitSpace;
+    @FXML AnchorPane ap;
 
     private Space space;
 
-    public spaceController(Space space, boardController boardController) {
+    public spaceController(Space space, int c) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -37,18 +43,25 @@ public class spaceController extends AnchorPane{
         }
 
         this.space = space;
-        //this.parentController = recipeSearchController;
         localeName.setText(space.getSpaceName());
-    }
-/*
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
         localeColor.setStroke(Color.BLACK);
-        spaceTile.setStroke(Color.BLACK);
-    }*/
+        spaceStroke.setStroke(Color.BLACK);
+        //System.out.println(space.getClass().equals(((Model.Locale)space)));
+
+        if (c == 0) {
+            ap.setRotate(90);
+            localeName.setRotate(-90);
+            localePrice.setRotate(-90);
+        } else if (c == 10) {
+            ap.setRotate(-90);
+            localeName.setRotate(90);
+            localePrice.setRotate(90);
+        }
+
+    }
 
     private void setOwner(Color c) {
         localeColor.setStroke(c);
-        spaceTile.setStroke(c);
+        //spaceTile.setStroke(c);
     }
 }
