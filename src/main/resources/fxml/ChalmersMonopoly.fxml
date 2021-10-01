@@ -43,38 +43,6 @@
                 <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" percentHeight="14.0" prefHeight="98.0" valignment="CENTER" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                   <fx:include fx:id="space1" source="MonopolySpace.fxml" GridPane.columnIndex="9" GridPane.rowIndex="10" />
-                   <!--<fx:include fx:id="space2" source="MonopolySpace.fxml" GridPane.columnIndex="8" GridPane.rowIndex="10" />-->
-                   <fx:include fx:id="space3" source="MonopolySpace.fxml" GridPane.columnIndex="7" GridPane.rowIndex="10" />
-                   <!--<fx:include fx:id="space4" source="MonopolySpace.fxml" GridPane.columnIndex="6" GridPane.rowIndex="10" />
-                   <fx:include fx:id="space5" source="MonopolySpace.fxml" GridPane.columnIndex="5" GridPane.rowIndex="10" />-->
-                   <fx:include fx:id="space6" source="MonopolySpace.fxml" GridPane.columnIndex="4" GridPane.rowIndex="10" />
-                   <!--<fx:include fx:id="space7" source="MonopolySpace.fxml" GridPane.columnIndex="3" GridPane.rowIndex="10" />-->
-                   <fx:include fx:id="space8" source="MonopolySpace.fxml" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                   <fx:include fx:id="space9" source="MonopolySpace.fxml" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                   <!--BRÄDA VÄNSTERSIDA  -->
-                   <fx:include fx:id="space11" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-                   <fx:include fx:id="space13" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                   <fx:include fx:id="space14" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                   <fx:include fx:id="space16" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                   <fx:include fx:id="space18" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                   <fx:include fx:id="space19" rotate="90.0" source="MonopolySpace.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                   <!-- BRÄDA ÖVRE-->
-                   <fx:include fx:id="space21" source="MonopolySpace.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                   <!--<fx:include fx:id="space22" source="MonopolySpace.fxml" GridPane.columnIndex="2" GridPane.rowIndex="0" />-->
-                   <fx:include fx:id="space23" source="MonopolySpace.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                   <fx:include fx:id="space24" source="MonopolySpace.fxml" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                   <!--<fx:include fx:id="space25" source="MonopolySpace.fxml" GridPane.columnIndex="5" GridPane.rowIndex="0" />-->
-                   <fx:include fx:id="space26" source="MonopolySpace.fxml" GridPane.columnIndex="6" GridPane.rowIndex="0" />
-                   <!--<fx:include fx:id="space27" source="MonopolySpace.fxml" GridPane.columnIndex="7" GridPane.rowIndex="0" />-->
-                   <fx:include fx:id="space28" source="MonopolySpace.fxml" GridPane.columnIndex="8" GridPane.rowIndex="0" />
-                   <fx:include fx:id="space29" source="MonopolySpace.fxml" GridPane.columnIndex="9" GridPane.rowIndex="0" />
-                   <!-- BRÄDA HÖGERSIDA-->
-                   <fx:include fx:id="space31" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="1" />
-                   <fx:include fx:id="space33" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="3" />
-                   <fx:include fx:id="space34" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="4" />
-                   <fx:include fx:id="space37" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="7" />
-                   <fx:include fx:id="space39" rotate="-90.0" source="MonopolySpace.fxml" GridPane.columnIndex="10" GridPane.rowIndex="9" />
             <ImageView fx:id="piece" fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="10" GridPane.rowIndex="10">
             <image>
             <Image url="@../pic/Asmurf-icon.png" />
