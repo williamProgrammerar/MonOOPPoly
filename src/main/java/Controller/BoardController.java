@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class boardController implements Initializable {
-    Game game = new Game();
+public class BoardController implements Initializable {
+    Game game;
     Board board = game.getBoard();
     Dice dice = game.getDice();
     // everything involving controlling the dice should be moved here and removed from the Game class.
@@ -31,46 +31,51 @@ public class boardController implements Initializable {
     @FXML
     GridPane boardGrid;
     @FXML
-    spaceController space1Controller;
+    SpaceController space1Controller;
     //@FXML spaceController space2Controller;
     @FXML
-    spaceController space3Controller;
+    SpaceController space3Controller;
     @FXML
-    spaceController space6Controller;
+    SpaceController space6Controller;
     @FXML
-    spaceController space8Controller;
+    SpaceController space8Controller;
     @FXML
-    spaceController space9Controller;
+    SpaceController space9Controller;
     @FXML
-    spaceController space11Controller;
+    SpaceController space11Controller;
     @FXML
-    spaceController space13Controller;
+    SpaceController space13Controller;
     @FXML
-    spaceController space14Controller;
+    SpaceController space14Controller;
     @FXML
-    spaceController space16Controller;
+    SpaceController space16Controller;
     @FXML
-    spaceController space18Controller;
+    SpaceController space18Controller;
     @FXML
-    spaceController space19Controller;
+    SpaceController space19Controller;
     @FXML
-    spaceController space21Controller;
+    SpaceController space21Controller;
     @FXML
-    spaceController space23Controller;
+    SpaceController space23Controller;
     @FXML
-    spaceController space24Controller;
+    SpaceController space24Controller;
     @FXML
-    spaceController space26Controller;
+    SpaceController space26Controller;
     @FXML
-    spaceController space28Controller;
+    SpaceController space28Controller;
     @FXML
-    spaceController space29Controller;
-    @FXML spaceController space31Controller;
-    @FXML spaceController space33Controller;
-    @FXML spaceController space34Controller;
-    @FXML spaceController space37Controller;
-    @FXML spaceController space39Controller;
-    private final List<spaceController> spaceControllers = new ArrayList<>() {{
+    SpaceController space29Controller;
+    @FXML
+    SpaceController space31Controller;
+    @FXML
+    SpaceController space33Controller;
+    @FXML
+    SpaceController space34Controller;
+    @FXML
+    SpaceController space37Controller;
+    @FXML
+    SpaceController space39Controller;
+    private final List<SpaceController> SpaceControllers = new ArrayList<>() {{
         add(space1Controller);
         add(space3Controller);
         add(space6Controller);
@@ -97,7 +102,13 @@ public class boardController implements Initializable {
     }};
 
 
-    public boardController() throws Exception {
+    public BoardController() throws Exception {
+    }
+
+    public BoardController(Game game, Board board, Dice dice) {
+        this.game = game;
+        this.board = board;
+        this.dice = dice;
     }
 
     @Override
@@ -142,5 +153,8 @@ public class boardController implements Initializable {
         space26Controller.localeColor.setFill(Color.DARKGRAY);
         space28Controller.localeColor.setFill(Color.DARKGRAY);
         space29Controller.localeColor.setFill(Color.DARKGRAY);
+    }
+    public void initGame(Game game){
+        this.game = game;
     }
 }

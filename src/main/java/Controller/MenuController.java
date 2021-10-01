@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class menuController {
+public class MenuController {
     @FXML private Button startGameButton;
 
     @FXML

@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class spaceController {
+public class SpaceController {
     @FXML
     Text localeName;
     @FXML

@@ -4,6 +4,7 @@ import View.Piece;
 
 public class Player {
     private int capital;
+    private String name;
     private Piece piece;
     private final int playerId;
     private int position;
