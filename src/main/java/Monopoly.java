@@ -9,14 +9,14 @@ public class Monopoly extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
-        initBoard(stage, root);
-    }
 
-    private void initBoard(Stage stage, Parent root) {
+        Scene scene = new Scene(root, 1300, 700);
+
         stage.setTitle("Chalmers Monopoly");
-        stage.setScene(new Scene(root));
-        //stage.setMinWidth(800);
-        //stage.setMinHeight(800);
+        stage.setScene(scene);
         stage.show();
+    }
+    public static void main(String[] args) {
+        launch(args);
     }
 }
