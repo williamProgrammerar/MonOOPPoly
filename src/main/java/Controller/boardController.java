@@ -30,15 +30,13 @@ public class boardController implements Initializable {
     @FXML
     GridPane boardGrid;
 
-    /*public boardController() throws Exception {
-    }*/
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        updateRecipeList();
+        initSpaces();
+        initPlayers();
     }
 
-    private void updateRecipeList() {
+    private void initSpaces() {
         List<Space> spaceList = board.getSpaceList();
 
         boardGrid.getChildren().clear();
@@ -59,6 +57,10 @@ public class boardController implements Initializable {
                 r++;
             }
         }
+    }
+
+    private void initPlayers(){
+        boardGrid.add(piece,10,10);
     }
 
     public void rollDice() {

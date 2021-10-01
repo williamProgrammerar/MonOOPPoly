@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Locale;
+import Model.Property;
 import Model.Space;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,20 +15,25 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 
 public class spaceController<T> extends AnchorPane {
     @FXML
     Text localeName;
-    @FXML Text localePrice;
+    @FXML
+    Text localePrice;
     @FXML
     Rectangle localeColor;
     @FXML
     Rectangle spaceStroke;
     @FXML
     SplitPane splitSpace;
-    @FXML AnchorPane ap;
+    @FXML
+    AnchorPane ap;
+    @FXML
+    AnchorPane spaceText;
 
     private Space space;
 
@@ -46,16 +52,25 @@ public class spaceController<T> extends AnchorPane {
         localeName.setText(space.getSpaceName());
         localeColor.setStroke(Color.BLACK);
         spaceStroke.setStroke(Color.BLACK);
-        //System.out.println(space.getClass().equals(((Model.Locale)space)));
+
+        if (space instanceof Locale) {
+            localeColor.setFill(Paint.valueOf(((Locale) space).getSectionColour()));
+        } else {
+            localeColor.setVisible(false);
+        }
+
+        if (space instanceof Property) {
+            localePrice.setText(((Property) space).getPrice() + " kr");
+        } else {
+            localePrice.setVisible(false);
+        }
 
         if (c == 0) {
             ap.setRotate(90);
-            localeName.setRotate(-90);
-            localePrice.setRotate(-90);
+            spaceText.setRotate(-90);
         } else if (c == 10) {
             ap.setRotate(-90);
-            localeName.setRotate(90);
-            localePrice.setRotate(90);
+            spaceText.setRotate(90);
         }
 
     }
