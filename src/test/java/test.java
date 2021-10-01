@@ -14,7 +14,7 @@ public class test {
     private Random rand = new Random();
     private Player player = new Player(1);
 
-    private Game game = new Game();
+    private Game game = new Game(2);
     private Board board = game.getBoard();
     private Dice dice = game.getDice();
     private List<Player> players = game.getPlayers();
@@ -92,7 +92,7 @@ public class test {
     }
 
     @Test
-    void testPlayerTurn() {
+    void testPlayerTurn() throws Exception {
         game.choosePlayers(2);
         System.out.println("Current amount of players: " + players.size());
 

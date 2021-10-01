@@ -16,25 +16,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SetUpPlayerController {
-    Game game = new Game();
     @FXML
-    public void startGame(ActionEvent event) throws IOException {
+    public void startGame(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
         Parent monopolyParent = loader.load();
+        Scene monopolyScene = new Scene(monopolyParent);
         BoardController controller = loader.getController();
-        controller.initGame(game);
-        Scene monopolyScene = new Scene(monopolyParent);
+        controller.initGame(new Game(2));
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
         window.setScene(monopolyScene);
         window.show();
-        /*Parent monopolyParent = FXMLLoader.load(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
-        Scene monopolyScene = new Scene(monopolyParent);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(monopolyScene);
-        window.show();
-        */
-
     }
 
     private int checkNumberOfplayers() {
@@ -66,7 +58,6 @@ public class SetUpPlayerController {
     private CheckBox p4Checkbox;
 
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
-    @FXML
     public void initialize() {
         playerType1CBox.setItems(playerTypes);
         playerType2CBox.setItems(playerTypes);

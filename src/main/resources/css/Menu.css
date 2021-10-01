@@ -6,11 +6,13 @@
 .labelTitle{
     -fx-background-color: -standard_red;
     -fx-text-fill: white;
+    -fx-font-family: "Copperplate Gothic Bold";
+
 }
 .buttonMainMenu{
     -fx-background-color: -standard_red;
-
     -fx-font-family: "Copperplate Gothic Bold";
+
     -fx-background-radius: 5px;
     -fx-text-fill: white;
     -fx-padding: 0;

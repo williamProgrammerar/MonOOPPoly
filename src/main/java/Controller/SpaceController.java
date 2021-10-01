@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 
 
-public class spaceController<T> extends AnchorPane {
+public class SpaceController<T> extends AnchorPane {
 
     @FXML
     Text localeName;
@@ -39,7 +39,7 @@ public class spaceController<T> extends AnchorPane {
 
     private Space space;
 
-    public spaceController(Space space, int c) {
+    public SpaceController(Space space, int c) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

@@ -8,15 +8,18 @@ public class Game {
     private final Board board = new Board();
     private List<Player> players = new ArrayList<>();
 
-    public Game() {
+    public Game(int amount) throws Exception {
+       players.addAll(choosePlayers(amount));
 
     }
 
-    public void choosePlayers(int amount) throws Exception {
+    public List<Player> choosePlayers(int amount) throws Exception {
         int playerId = 1;
+        List<Player> players = new ArrayList<>();
         for(int i = 0; i < amount; i++){
             players.add(new Player(playerId++));
         }
+        return players;
     }
 
     public int choosePiece(){

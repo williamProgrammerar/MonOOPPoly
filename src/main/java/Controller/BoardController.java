@@ -10,16 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.*;
 
 
-public class BoardController implements Initializable {
-    Game game;
-    Board board = game.getBoard();
-    Dice dice = game.getDice();
+public class BoardController  {
+    private Game game;
+   // Board board = game.getBoard();
+  //  Dice dice = game.getDice();
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
     Button dice1;
@@ -30,15 +29,8 @@ public class BoardController implements Initializable {
     @FXML
     GridPane boardGrid;
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        initSpaces();
-        initPlayers();
-    }
-
     private void initSpaces() {
-        List<Space> spaceList = board.getSpaceList();
+        List<Space> spaceList = game.getBoard().getSpaceList();
 
         boardGrid.getChildren().clear();
 
@@ -46,7 +38,7 @@ public class BoardController implements Initializable {
         int r = 10;
         int c = 10;
         for (Space space : spaceList) {
-            spaceController spaceController = new spaceController(space, c);
+            SpaceController spaceController = new SpaceController(space, c);
             boardGrid.add(spaceController, c, r);
 
             if (r == 10 && c != 0) {
@@ -67,10 +59,15 @@ public class BoardController implements Initializable {
     }
 
     public void rollDice() {
-        dice.rollDice();
-        piece.setX(piece.getX() + dice.getSum() * 10);
-        dice1.setText(String.valueOf(dice.getDice1()));
-        dice2.setText(String.valueOf(dice.getDice2()));
+        game.getDice().rollDice();
+        piece.setX(piece.getX() + game.getDice().getSum() * 10);
+        dice1.setText(String.valueOf(game.getDice().getDice1()));
+        dice2.setText(String.valueOf(game.getDice().getDice2()));
     }
 
+    public void initGame(Game game) {
+      this.game = game;
+      initSpaces();
+      initPlayers();
+    }
 }
