@@ -34,6 +34,9 @@ public class boardController implements Initializable {
     @FXML
     GridPane boardGrid;
 
+    public boardController() throws Exception {
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initSpaces();

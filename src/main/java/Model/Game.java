@@ -8,8 +8,8 @@ public class Game {
     private final Board board = new Board();
     private List<Player> players = new ArrayList<>();
 
-    public Game() {
-
+    public Game() throws Exception {
+        choosePlayers(1);
     }
 
     public void choosePlayers(int amount) throws Exception {
@@ -21,7 +21,7 @@ public class Game {
 
     public int choosePiece(){
         return 1;
-    }
+    } // Temporary, might delete
 
     /**
      * Moves the current player sum spaces.
