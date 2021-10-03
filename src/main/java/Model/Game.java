@@ -9,7 +9,7 @@ public class Game {
     private List<Player> players = new ArrayList<>();
 
     public Game() throws Exception {
-        choosePlayers(1);
+        choosePlayers(4);
     }
 
     public void choosePlayers(int amount) throws Exception {
