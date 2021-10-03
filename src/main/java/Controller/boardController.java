@@ -1,9 +1,7 @@
 package Controller;
 
-import Model.Board;
-import Model.Dice;
-import Model.Game;
-import Model.Space;
+import Model.*;
+import View.Piece;
 import View.PieceView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,13 +22,12 @@ public class boardController implements Initializable {
 
     PieceView pv = new PieceView(game); // This allows PieceView to have access to the same instance of game
 
+    List<Piece> pieces = new ArrayList<>();
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
     Button dice1;
     @FXML
     Button dice2;
-    @FXML
-    ImageView piece = pv.createPiece();
     @FXML
     GridPane boardGrid;
 
@@ -67,14 +64,32 @@ public class boardController implements Initializable {
     }
 
     private void initPlayers(){
-        boardGrid.add(piece,10,10);
+        List<Player> players = game.getPlayers();
+        for (Player player : players) {
+            pieces.add(new Piece(pv.createPiece(),player));
+            System.out.println("Player added to list");
+        }
+        for (Piece piece : pieces) {
+            boardGrid.add(piece.getPiece(),10,10);
+            System.out.println("Player added to grid");
+        }
     }
 
     public void rollDice() {
         dice.rollDice();
-        piece.setX(piece.getX() + dice.getSum() * 10);
         dice1.setText(String.valueOf(dice.getDice1()));
         dice2.setText(String.valueOf(dice.getDice2()));
+        game.move();
+        game.next();
+        updateAllPieces();
+    }
+
+    public void updateAllPieces() {
+        for (Piece piece : pieces) {
+            int playerPosition = piece.getPlayer().getPosition();
+            ImageView pieceImage = piece.getPiece();
+            positionToGrid(playerPosition,pieceImage);
+        }
     }
 
     public void positionToGrid(int position, ImageView piece) {
