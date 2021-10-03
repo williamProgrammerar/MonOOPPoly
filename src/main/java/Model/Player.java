@@ -1,9 +1,9 @@
 package Model;
 
-import View.Piece;
+import View.oldPiece;
 
 public class Player {
-    private final Piece piece;
+    private final oldPiece piece;
     private int capital;
     private final int playerId;
     private int position;
@@ -13,7 +13,7 @@ public class Player {
         this.playerId = playerId;
         this.capital = 1500;
         this.position = 0;
-        this.piece = new Piece(1, this);
+        this.piece = new oldPiece(1, this);
     }
 
     /**

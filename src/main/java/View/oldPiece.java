@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Piece {
+public class oldPiece {
 
     private final Player player;
 
@@ -20,7 +20,7 @@ public class Piece {
         this.img = img;
     }
 
-    public Piece(int pieceID, Player player) throws Exception {
+    public oldPiece(int pieceID, Player player) throws Exception {
         //this.img = new ImageView(gatherImage(pieceID));
         this.player = player;
     }
