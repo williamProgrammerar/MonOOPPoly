@@ -22,7 +22,7 @@ public class boardController implements Initializable {
     Board board = game.getBoard();
     Dice dice = game.getDice();
 
-    PieceView pv = new PieceView(game);
+    PieceView pv = new PieceView(game); // This allows PieceView to have access to the same instance of game
 
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
