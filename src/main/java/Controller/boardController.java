@@ -2,14 +2,11 @@ package Controller;
 
 import Model.*;
 import View.Piece;
-import View.PieceView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.*;
@@ -20,7 +17,7 @@ public class boardController implements Initializable {
     Board board = game.getBoard();
     Dice dice = game.getDice();
 
-    PieceView pv = new PieceView(game); // This allows PieceView to have access to the same instance of game
+    PieceController pv = new PieceController(game); // This allows PieceView to have access to the same instance of game
 
     List<Piece> pieces = new ArrayList<>();
     // everything involving controlling the dice should be moved here and removed from the Game class.
