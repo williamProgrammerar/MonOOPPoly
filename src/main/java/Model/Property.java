@@ -4,7 +4,7 @@ public class Property extends Space {
 
     private boolean isOwned;
     private boolean isMortgaged;
-    private String ownerName;
+    private int ownerId;
     private final int price;
     private final int mortgage;
     private final int[] rent;
@@ -34,12 +34,12 @@ public class Property extends Space {
         isOwned = owned;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public int getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setOwnerName(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public int getPrice() {
