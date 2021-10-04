@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -14,22 +13,18 @@ import java.util.*;
 
 
 public class boardController implements Initializable {
-    Game game = new Game();
-    Board board = game.getBoard();
-    Dice dice = game.getDice();
+    private final Game game = new Game();
 
-    PieceController pv = new PieceController(game); // This allows PieceView to have access to the same instance of game
+    private final PieceController pv = new PieceController(); // This allows PieceView to have access to the same instance of game
 
-    List<Piece> pieces = new ArrayList<>();
+    private final List<Piece> pieces = new ArrayList<>();
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
-    Button dice1;
+    private Button dice1;
     @FXML
-    Button dice2;
+    private Button dice2;
     @FXML
-    GridPane boardGrid;
-    @FXML
-    AnchorPane monopolyScene;
+    private GridPane boardGrid;
 
     public boardController() throws Exception {
     }
@@ -41,7 +36,7 @@ public class boardController implements Initializable {
     }
 
     private void initSpaces() {
-        List<Space> spaceList = board.getSpaceList();
+        List<Space> spaceList = game.getBoard().getSpaceList();
 
         boardGrid.getChildren().clear();
 
@@ -76,9 +71,9 @@ public class boardController implements Initializable {
     }
 
     public void rollDice() {
-        dice.rollDice();
-        dice1.setText(String.valueOf(dice.getDice1()));
-        dice2.setText(String.valueOf(dice.getDice2()));
+        game.getDice().rollDice();
+        dice1.setText(String.valueOf(game.getDice().getDice1()));
+        dice2.setText(String.valueOf(game.getDice().getDice2()));
         game.move();
         game.next();
         updateAllPieces();
