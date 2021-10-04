@@ -13,9 +13,9 @@ import java.util.*;
 
 
 public class boardController implements Initializable {
-    Game game = new Game();
-    Board board = game.getBoard();
-    Dice dice = game.getDice();
+    private final Game game = new Game();
+    private final Board board = game.getBoard();
+    private final Dice dice = game.getDice();
 
     PieceController pv = new PieceController(game); // This allows PieceView to have access to the same instance of game
 
