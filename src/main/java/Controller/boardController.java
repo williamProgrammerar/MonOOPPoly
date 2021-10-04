@@ -20,11 +20,11 @@ public class boardController implements Initializable {
     private final List<Piece> pieces = new ArrayList<>();
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
-    Button dice1;
+    private Button dice1;
     @FXML
-    Button dice2;
+    private Button dice2;
     @FXML
-    GridPane boardGrid;
+    private GridPane boardGrid;
 
     public boardController() throws Exception {
     }
