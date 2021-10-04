@@ -1,20 +1,21 @@
 package Model;
 
-import View.Piece;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
-    private final Piece piece;
+
     private int capital;
     private String name;
     private final int playerId;
     private int position;
     private boolean hasPassedGo;
+    private List<Property> properties = new ArrayList<>();
 
-    public Player(int playerId) throws Exception {
+    public Player(int playerId) {
         this.playerId = playerId;
         this.capital = 1500;
         this.position = 0;
-        this.piece = new Piece(1, this);
     }
 
     /**
@@ -26,7 +27,6 @@ public class Player {
      * @param spaces number of spaces player should move
      */
     public void move(int spaces) {
-        //piece.getImg().setX(piece.getImg().getX() + movement);
         position += spaces;
         if(position >= 40) {
             position -= 40;
@@ -39,7 +39,6 @@ public class Player {
         else {
             hasPassedGo = false;
         }
-        notifyPiece();
     }
 
     /**
@@ -52,7 +51,6 @@ public class Player {
     public void moveTo(int space, boolean isForwardMovement) {
         hasPassedGo = (space < position) && isForwardMovement;
         position = space;
-        notifyPiece();
     }
 
     public int getPosition() {
@@ -75,7 +73,25 @@ public class Player {
         return playerId;
     }
 
-    public void notifyPiece() {
-        piece.updatePosition();
+    public void buyProperty(Property property) {
+        if(!property.isOwned()) {
+            if (property.getPrice() <= capital) {
+                properties.add(property);
+                capital -= property.getPrice();
+                property.setOwned(true);
+                property.setOwnerId(playerId);
+                System.out.println("Player " + playerId + " bought " + property.getSpaceName());
+                System.out.println("Player " + playerId + " has " + capital + " dollars left");
+            } else {
+                System.out.println("Not enough capital");
+            }
+        }
+        else {
+            System.out.println("Property already has owner");
+        }
+    }
+
+    public List<Property> getProperties() {
+        return properties;
     }
 }

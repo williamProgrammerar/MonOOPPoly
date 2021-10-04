@@ -7,10 +7,12 @@ public class Game {
     private final Dice dice = new Dice();
     private final Board board = new Board();
     private List<Player> players = new ArrayList<>();
+    private Space currentSpace;
+    private Player currentPlayer;
 
-    public Game(int amount) throws Exception {
-       players.addAll(choosePlayers(amount));
 
+    public Game() throws Exception {
+        choosePlayers(4);
     }
 
     public List<Player> choosePlayers(int amount) throws Exception {
@@ -24,26 +26,58 @@ public class Game {
 
     public int choosePiece(){
         return 1;
-    }
+    } // Temporary, might delete
 
     /**
      * Moves the current player sum spaces.
+     * @author williamProgrammerar
      */
     public void move() {
-        Space currentSpace;
-        Player currentPlayer = players.get(0);
-        int sum = dice.getSum();
-
-        currentPlayer.move(sum);
+        currentPlayer = players.get(0);
+        currentPlayer.move(dice.getSum());
         currentSpace = board.getSpace(currentPlayer.getPosition());
+
+        inspectCurrentSpace();
+
         System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
         System.out.println(currentPlayer.getPosition());
+    }
+
+    /**
+     * inspectCurrentSpace() checks what type the current space is.
+     * If the current space is a property, owned by another player and not mortgaged then the player
+     * has to pay rent to the owner of the property.
+     * @author williamProgrammerar
+     */
+    private void inspectCurrentSpace() {
+        if (isCurrentSpaceProperty()) {
+            Property property = (Property) currentSpace;
+            if(property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
+                currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
+                System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
+                for (Player player : players) {
+                    if(player.getPlayerId() == property.getOwnerId()) {
+                        player.setCapital(player.getCapital() + property.getRent());
+                        System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isCurrentSpaceProperty() {
+        return currentSpace instanceof Property;
+    }
+
+    private boolean isOwnedByCurrentPlayer(Property property) {
+        return currentPlayer.getProperties().contains(property);
     }
 
     /**
      * Places the current player (index 0) in a temporary variable.
      * Player index 0 in the player list is then removed, which leads to a new current player.
      * Finally adds the player stored in the temporary variable to the back of the list.
+     * @author williamProgrammerar
      */
     public void next() {
         Player temporaryPlayer = players.get(0);
@@ -61,5 +95,13 @@ public class Game {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public Space getCurrentSpace() {
+        return currentSpace;
     }
 }

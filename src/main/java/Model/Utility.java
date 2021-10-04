@@ -3,9 +3,11 @@ package Model;
 public class Utility extends Property {
 
     Dice dice;
+    private final int[] rent;
 
-    public Utility(String spaceName, int price, int mortgage) {
-        super(spaceName, price, mortgage);
+    public Utility(String spaceName, int price, int mortgage, int[] rent) {
+        super(spaceName, price, mortgage, rent);
+        this.rent = rent;
     }
 
     public int getRent() {
