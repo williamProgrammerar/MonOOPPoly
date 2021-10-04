@@ -7,10 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class PlayerSetUpController {
+public class PlayerSetUpController extends AnchorPane {
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
     @FXML
     private Button nextButton;
@@ -28,7 +29,7 @@ public class PlayerSetUpController {
     private ImageView pieceSelImageView;
 
 
-    public PlayerSetUpController() {
+    public PlayerSetUpController(int playerID) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/playerSetUp.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -38,6 +39,7 @@ public class PlayerSetUpController {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        pNameTextField.setText("Player " + playerID);
         playerTypeCBox.setItems(playerTypes);
 
     }

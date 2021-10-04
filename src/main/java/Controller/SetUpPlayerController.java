@@ -11,11 +11,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SetUpPlayerController {
+    @FXML
+    FlowPane flowPane;
+
     @FXML
     public void startGame(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -42,7 +48,8 @@ public class SetUpPlayerController {
     }
 
     @FXML public void addPlayer(ActionEvent event){
-        PlayerSetUpController playerSetUpController = new PlayerSetUpController();
+        flowPane.getChildren().add(new PlayerSetUpController(2));
+
 
     }
 
@@ -65,11 +72,8 @@ public class SetUpPlayerController {
 
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
     public void initialize() {
-        PlayerSetUpController playerSetUpController = new PlayerSetUpController();
-        playerType1CBox.setItems(playerTypes);
-        playerType2CBox.setItems(playerTypes);
-        playerType3CBox.setItems(playerTypes);
-        playerType4CBox.setItems(playerTypes);
+        flowPane.getChildren().addAll(new PlayerSetUpController(1));
+
     }
 
 
