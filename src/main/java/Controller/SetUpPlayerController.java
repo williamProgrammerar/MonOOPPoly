@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Game;
+import Model.GameSettings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SetUpPlayerController {
+    GameSettings gameSettings = new GameSettings();
     @FXML
     FlowPane flowPane;
 
@@ -47,8 +49,12 @@ public class SetUpPlayerController {
         window.show();
     }
 
-    @FXML public void addPlayer(ActionEvent event){
-        flowPane.getChildren().add(new PlayerSetUpController(2));
+    @FXML public void addPlayer(){
+        if (gameSettings.getPlayers().size() < 4){
+            gameSettings.addPlayer();
+            flowPane.getChildren().add(new PlayerSetUpController(gameSettings.getPlayers().size()));
+        }
+        else{System.out.println("This game only supports a maximum of 4 players");}
 
 
     }
@@ -72,7 +78,7 @@ public class SetUpPlayerController {
 
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
     public void initialize() {
-        flowPane.getChildren().addAll(new PlayerSetUpController(1));
+        addPlayer();
 
     }
 

@@ -3,18 +3,16 @@ package Controller;
 import Model.*;
 import View.Piece;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-import java.net.URL;
 import java.util.*;
 
 
 
-public class boardController {
-    private Game game = new Game();
+public class BoardController {
+    private Game game;
 
     private final PieceController pv = new PieceController();
 
@@ -28,7 +26,7 @@ public class boardController {
     @FXML
     private GridPane boardGrid;
 
-    public boardController() throws Exception {
+    public BoardController() throws Exception {
     }
 
     private void initSpaces() {
@@ -40,7 +38,7 @@ public class boardController {
         int r = 10;
         int c = 10;
         for (Space space : spaceList) {
-            spaceController spaceController = new spaceController(space, c);
+            SpaceController spaceController = new SpaceController(space, c);
             boardGrid.add(spaceController, c, r);
 
             if (r == 10 && c != 0) {

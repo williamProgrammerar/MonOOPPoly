@@ -11,9 +11,10 @@ public class Game {
     private Player currentPlayer;
 
 
-    public Game() throws Exception {
-        choosePlayers(4);
+    public Game(int amount) throws Exception {
+        choosePlayers(amount);
     }
+
 
     public List<Player> choosePlayers(int amount) throws Exception {
         int playerId = 1;
