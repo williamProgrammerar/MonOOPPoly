@@ -54,7 +54,7 @@ public class boardController implements Initializable {
                 r--;
             } else if (r == 0 && c != 10) {
                 c++;
-            } else if (c == 10 && r != 10) {
+            } else {
                 r++;
             }
         }
