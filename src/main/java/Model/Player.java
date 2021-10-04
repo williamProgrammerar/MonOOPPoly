@@ -1,19 +1,16 @@
 package Model;
 
-import View.oldPiece;
-
 public class Player {
-    private final oldPiece piece;
+
     private int capital;
     private final int playerId;
     private int position;
     private boolean hasPassedGo;
 
-    public Player(int playerId) throws Exception {
+    public Player(int playerId) {
         this.playerId = playerId;
         this.capital = 1500;
         this.position = 0;
-        this.piece = new oldPiece(1, this);
     }
 
     /**
@@ -25,7 +22,6 @@ public class Player {
      * @param spaces number of spaces player should move
      */
     public void move(int spaces) {
-        //piece.getImg().setX(piece.getImg().getX() + movement);
         position += spaces;
         if(position >= 40) {
             position -= 40;
@@ -38,7 +34,6 @@ public class Player {
         else {
             hasPassedGo = false;
         }
-        notifyPiece();
     }
 
     /**
@@ -51,7 +46,6 @@ public class Player {
     public void moveTo(int space, boolean isForwardMovement) {
         hasPassedGo = (space < position) && isForwardMovement;
         position = space;
-        notifyPiece();
     }
 
     public int getPosition() {
@@ -72,9 +66,5 @@ public class Player {
 
     public int getPlayerId() {
         return playerId;
-    }
-
-    public void notifyPiece() {
-        piece.updatePosition();
     }
 }
