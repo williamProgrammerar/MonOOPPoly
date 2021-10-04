@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -27,6 +28,8 @@ public class boardController implements Initializable {
     Button dice2;
     @FXML
     GridPane boardGrid;
+    @FXML
+    AnchorPane monopolyScene;
 
     public boardController() throws Exception {
     }
