@@ -92,7 +92,7 @@ public class test {
     }
 
     @Test
-    void testPlayerTurn() {
+    void testPlayerTurn() throws Exception {
         game.choosePlayers(2);
         System.out.println("Current amount of players: " + players.size());
 
