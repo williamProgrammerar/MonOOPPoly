@@ -17,7 +17,7 @@ public class boardController implements Initializable {
 
     private final PieceController pv = new PieceController(game); // This allows PieceView to have access to the same instance of game
 
-    List<Piece> pieces = new ArrayList<>();
+    private final List<Piece> pieces = new ArrayList<>();
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
     Button dice1;
