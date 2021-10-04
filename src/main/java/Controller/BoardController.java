@@ -3,21 +3,21 @@ package Controller;
 import Model.*;
 import View.Piece;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-import java.net.URL;
 import java.util.*;
 
 
-public class boardController implements Initializable {
-    private final Game game = new Game();
+
+public class BoardController {
+    private Game game;
 
     private final PieceController pv = new PieceController();
 
     private final List<Piece> pieces = new ArrayList<>();
+
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
     private Button dice1;
@@ -26,13 +26,7 @@ public class boardController implements Initializable {
     @FXML
     private GridPane boardGrid;
 
-    public boardController() throws Exception {
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        initSpaces();
-        initPlayers();
+    public BoardController() throws Exception {
     }
 
     private void initSpaces() {
@@ -40,10 +34,11 @@ public class boardController implements Initializable {
 
         boardGrid.getChildren().clear();
 
+
         int r = 10;
         int c = 10;
         for (Space space : spaceList) {
-            spaceController spaceController = new spaceController(space, c);
+            SpaceController spaceController = new SpaceController(space, c);
             boardGrid.add(spaceController, c, r);
 
             if (r == 10 && c != 0) {
@@ -56,6 +51,7 @@ public class boardController implements Initializable {
                 r++;
             }
         }
+
     }
 
     private void initPlayers(){
@@ -69,6 +65,11 @@ public class boardController implements Initializable {
             System.out.println("Player added to grid");
         }
     }
+	 public void initGame(Game game) {
+      this.game = game;
+      initSpaces();
+      initPlayers();
+	 }
 
     public void rollDice() {
         game.getDice().rollDice();

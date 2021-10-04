@@ -7,19 +7,13 @@ public class Game {
     private final Dice dice = new Dice();
     private final Board board = new Board();
     private List<Player> players = new ArrayList<>();
-
     private Space currentSpace;
     private Player currentPlayer;
 
-    public Game() throws Exception {
-        choosePlayers(4);
-    }
 
-    public void choosePlayers(int amount) throws Exception {
-        int playerId = 1;
-        for(int i = 0; i < amount; i++){
-            players.add(new Player(playerId++));
-        }
+    public Game(GameSettings gameSettings)  {
+       this.players.addAll(gameSettings.getPlayers());
+
     }
 
     public int choosePiece(){

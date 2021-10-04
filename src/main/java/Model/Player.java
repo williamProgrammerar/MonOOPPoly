@@ -6,14 +6,16 @@ import java.util.List;
 public class Player {
 
     private int capital;
+    private String name;
+    private String state;
     private final int playerId;
     private int position;
     private boolean hasPassedGo;
     private List<Property> properties = new ArrayList<>();
 
-    public Player(int playerId) {
+    public Player(int playerId, int capital) {
         this.playerId = playerId;
-        this.capital = 1500;
+        this.capital = capital;
         this.position = 0;
     }
 
@@ -71,6 +73,22 @@ public class Player {
     public int getPlayerId() {
         return playerId;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 
     public void buyProperty(Property property) {
         if(!property.isOwned()) {
