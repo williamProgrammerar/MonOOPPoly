@@ -78,7 +78,7 @@ public class Player {
                 properties.add(property);
                 capital -= property.getPrice();
                 property.setOwned(true);
-                // property.setOwnerName();
+                property.setOwnerId(playerId);
             } else {
                 System.out.println("Not enough capital");
             }

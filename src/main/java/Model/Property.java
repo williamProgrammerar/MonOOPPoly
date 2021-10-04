@@ -38,7 +38,7 @@ public class Property extends Space {
         return ownerId;
     }
 
-    public void setOwnerName(int ownerId) {
+    public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
 
