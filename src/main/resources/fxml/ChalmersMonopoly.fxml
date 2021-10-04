@@ -63,5 +63,6 @@
          </font>
       </Button>
       <Text fx:id="diceText" layoutX="-143.0" layoutY="-3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
+      <Button layoutX="107.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyProperty" text="Buy Property" />
    </children>
 </AnchorPane>

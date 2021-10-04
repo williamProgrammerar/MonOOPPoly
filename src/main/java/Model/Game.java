@@ -92,4 +92,12 @@ public class Game {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public Space getCurrentSpace() {
+        return currentSpace;
+    }
 }

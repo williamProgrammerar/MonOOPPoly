@@ -15,7 +15,7 @@ import java.util.*;
 public class boardController implements Initializable {
     private final Game game = new Game();
 
-    private final PieceController pv = new PieceController(); // This allows PieceView to have access to the same instance of game
+    private final PieceController pv = new PieceController();
 
     private final List<Piece> pieces = new ArrayList<>();
     // everything involving controlling the dice should be moved here and removed from the Game class.
@@ -254,5 +254,12 @@ public class boardController implements Initializable {
         }
         boardGrid.getChildren().remove(piece);
         boardGrid.add(piece,col,row);
+    }
+
+    public void buyProperty() {
+        if (game.getCurrentSpace() instanceof Property) {
+            Property property = (Property) game.getCurrentSpace();
+            game.getCurrentPlayer().buyProperty(property);
+        }
     }
 }

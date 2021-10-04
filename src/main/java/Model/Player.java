@@ -79,6 +79,8 @@ public class Player {
                 capital -= property.getPrice();
                 property.setOwned(true);
                 property.setOwnerId(playerId);
+                System.out.println("Player " + playerId + " bought " + property.getSpaceName());
+                System.out.println("Player " + playerId + " has " + capital + " dollars left");
             } else {
                 System.out.println("Not enough capital");
             }
