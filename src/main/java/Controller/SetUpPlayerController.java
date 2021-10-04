@@ -40,6 +40,12 @@ public class SetUpPlayerController {
         window.setScene(monopolyScene);
         window.show();
     }
+
+    @FXML public void addPlayer(ActionEvent event){
+        PlayerSetUpController playerSetUpController = new PlayerSetUpController();
+
+    }
+
     @FXML
     private ComboBox<String> playerType1CBox;
     @FXML
@@ -59,6 +65,7 @@ public class SetUpPlayerController {
 
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
     public void initialize() {
+        PlayerSetUpController playerSetUpController = new PlayerSetUpController();
         playerType1CBox.setItems(playerTypes);
         playerType2CBox.setItems(playerTypes);
         playerType3CBox.setItems(playerTypes);
