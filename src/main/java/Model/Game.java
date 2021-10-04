@@ -52,9 +52,11 @@ public class Game {
             Property property = (Property) currentSpace;
             if(property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
                 currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
+                System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
                 for (Player player : players) {
                     if(player.getPlayerId() == property.getOwnerId()) {
                         player.setCapital(player.getCapital() + property.getRent());
+                        System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
                     }
                 }
             }
