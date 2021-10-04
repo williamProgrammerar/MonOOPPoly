@@ -15,7 +15,7 @@ import java.util.*;
 public class boardController implements Initializable {
     private final Game game = new Game();
 
-    PieceController pv = new PieceController(game); // This allows PieceView to have access to the same instance of game
+    private final PieceController pv = new PieceController(game); // This allows PieceView to have access to the same instance of game
 
     List<Piece> pieces = new ArrayList<>();
     // everything involving controlling the dice should be moved here and removed from the Game class.
