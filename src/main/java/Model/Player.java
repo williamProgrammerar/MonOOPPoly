@@ -1,11 +1,15 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
 
     private int capital;
     private final int playerId;
     private int position;
     private boolean hasPassedGo;
+    private List<Property> properties = new ArrayList<>();
 
     public Player(int playerId) {
         this.playerId = playerId;
@@ -66,5 +70,25 @@ public class Player {
 
     public int getPlayerId() {
         return playerId;
+    }
+
+    public void buyProperty(Property property) {
+        if(!property.isOwned()) {
+            if (property.getPrice() <= capital) {
+                properties.add(property);
+                capital -= property.getPrice();
+                property.setOwned(true);
+                // property.setOwnerName();
+            } else {
+                System.out.println("Not enough capital");
+            }
+        }
+        else {
+            System.out.println("Property already has owner");
+        }
+    }
+
+    public List<Property> getProperties() {
+        return properties;
     }
 }
