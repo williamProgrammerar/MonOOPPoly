@@ -7,9 +7,11 @@ public class Property extends Space {
     private String ownerName;
     private final int price;
     private final int mortgage;
+    private final int[] rent;
 
-    public Property(String spaceName, int price, int mortgage) {
+    public Property(String spaceName, int price, int mortgage, int[] rent) {
         super(spaceName);
+        this.rent = rent;
         this.isOwned = false;
         this.isMortgaged = false;
         this.price = price;
@@ -46,5 +48,9 @@ public class Property extends Space {
 
     public int getMortgage() {
         return mortgage;
+    }
+
+    public int getRent() {
+        return rent[0];
     }
 }
