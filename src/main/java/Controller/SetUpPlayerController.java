@@ -31,7 +31,7 @@ public class SetUpPlayerController {
         Parent monopolyParent = loader.load();
         Scene monopolyScene = new Scene(monopolyParent);
         BoardController controller = loader.getController();
-        controller.initGame(new Game(2));
+        controller.initGame(new Game(gameSettings));
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
         window.setScene(monopolyScene);
         window.show();

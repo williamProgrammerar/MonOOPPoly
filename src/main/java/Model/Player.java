@@ -13,9 +13,9 @@ public class Player {
     private boolean hasPassedGo;
     private List<Property> properties = new ArrayList<>();
 
-    public Player(int playerId) {
+    public Player(int playerId, int capital) {
         this.playerId = playerId;
-        this.capital = 1500;
+        this.capital = capital;
         this.position = 0;
     }
 

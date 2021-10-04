@@ -11,18 +11,9 @@ public class Game {
     private Player currentPlayer;
 
 
-    public Game(int amount) throws Exception {
-        choosePlayers(amount);
-    }
+    public Game(GameSettings gameSettings)  {
+       this.players.addAll(gameSettings.getPlayers());
 
-
-    public List<Player> choosePlayers(int amount) throws Exception {
-        int playerId = 1;
-        List<Player> players = new ArrayList<>();
-        for(int i = 0; i < amount; i++){
-            players.add(new Player(playerId++));
-        }
-        return players;
     }
 
     public int choosePiece(){

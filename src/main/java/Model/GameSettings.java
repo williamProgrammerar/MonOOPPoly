@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameSettings {
-    public List<Player> getPlayers() {
-        return players;
-    }
+
+
+    private int startCapital = 1500;
 
     private List<Player> players = new ArrayList<>();
 
@@ -22,10 +22,21 @@ public class GameSettings {
         return players;
     }
     public void addPlayer(){
-        players.add(new Player(players.size()));
+        players.add(new Player(players.size(),startCapital));
     }
     public void removePlayer(){
         players.remove(players.size() -1);
     }
+    public List<Player> getPlayers() {
+        return players;
+    }
+    public int getStartCapital() {
+        return startCapital;
+    }
+
+    public void setStartCapital(int startCapital) {
+        this.startCapital = startCapital;
+    }
+
 
 }

@@ -1,7 +1,4 @@
-import Model.Board;
-import Model.Dice;
-import Model.Game;
-import Model.Player;
+import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,9 +9,9 @@ import java.util.Random;
 public class test {
     private List<String> list = new ArrayList<>();
     private Random rand = new Random();
-    private Player player = new Player(1);
-
-    private Game game = new Game(2);
+    private Player player = new Player(1,1500);
+    private GameSettings gameSettings = new GameSettings();
+    private Game game;
     private Board board = game.getBoard();
     private Dice dice = game.getDice();
     private List<Player> players = game.getPlayers();
@@ -93,7 +90,9 @@ public class test {
 
     @Test
     void testPlayerTurn() throws Exception {
-        game.choosePlayers(2);
+        gameSettings.addPlayer();
+        gameSettings.addPlayer();
+        game = new Game(gameSettings);
         System.out.println("Current amount of players: " + players.size());
 
         for (int i = 0; i < 20; i++) {
