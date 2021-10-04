@@ -14,8 +14,6 @@ import java.util.*;
 
 public class boardController implements Initializable {
     private final Game game = new Game();
-    private final Board board = game.getBoard();
-    private final Dice dice = game.getDice();
 
     PieceController pv = new PieceController(game); // This allows PieceView to have access to the same instance of game
 
@@ -38,7 +36,7 @@ public class boardController implements Initializable {
     }
 
     private void initSpaces() {
-        List<Space> spaceList = board.getSpaceList();
+        List<Space> spaceList = game.getBoard().getSpaceList();
 
         boardGrid.getChildren().clear();
 
@@ -73,9 +71,9 @@ public class boardController implements Initializable {
     }
 
     public void rollDice() {
-        dice.rollDice();
-        dice1.setText(String.valueOf(dice.getDice1()));
-        dice2.setText(String.valueOf(dice.getDice2()));
+        game.getDice().rollDice();
+        dice1.setText(String.valueOf(game.getDice().getDice1()));
+        dice2.setText(String.valueOf(game.getDice().getDice2()));
         game.move();
         game.next();
         updateAllPieces();
