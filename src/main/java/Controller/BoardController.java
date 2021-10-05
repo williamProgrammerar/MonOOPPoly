@@ -21,6 +21,8 @@ public class BoardController {
 
     private final List<Piece> pieces = new ArrayList<>();
 
+    private Map<String, SpaceController> spaceControllerMap = new HashMap<String, SpaceController>();
+
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
     private Button dice1;
@@ -31,6 +33,21 @@ public class BoardController {
     @FXML
     StackPane monopolyScene;
 
+    public void initGame(Game game) {
+        this.game = game;
+        initSpaceControllerMap();
+
+        initSpaces();
+        initPlayers();
+    }
+
+    private void initSpaceControllerMap() {
+        for (Space space : game.getBoard().getSpaceList()) {
+            SpaceController spaceController = new SpaceController(space);
+            spaceControllerMap.put(space.getSpaceName(), spaceController);
+        }
+    }
+
     private void initSpaces() {
         List<Space> spaceList = game.getBoard().getSpaceList();
 
@@ -40,8 +57,16 @@ public class BoardController {
         int r = 10;
         int c = 10;
         for (Space space : spaceList) {
-            SpaceController spaceController = new SpaceController(space, c);
-            boardGrid.add(spaceController, c, r);
+            SpaceController i = spaceControllerMap.get(space.getSpaceName());
+            boardGrid.add(i, c, r);
+
+            if (c == 0) {
+                i.setRotate(90);
+                i.spaceText.setRotate(-90);
+            } else if (c == 10) {
+                i.setRotate(-90);
+                i.spaceText.setRotate(90);
+            }
 
             if (r == 10 && c != 0) {
                 c--;
@@ -76,11 +101,6 @@ public class BoardController {
             System.out.println("Player added to grid");
         }
     }
-	 public void initGame(Game game) {
-      this.game = game;
-      initSpaces();
-      initPlayers();
-	 }
 
     public void rollDice() {
         game.getDice().rollDice();
@@ -271,8 +291,9 @@ public class BoardController {
     public void buyProperty() {
         if (game.getCurrentSpace() instanceof Property) {
             Property property = (Property) game.getCurrentSpace();
-            game.getCurrentPlayer().buyProperty(property);
-
+            Player player = game.getCurrentPlayer();
+            player.buyProperty(property);
+            spaceControllerMap.get(property.getSpaceName()).setOwner(player);
         }
     }
 }

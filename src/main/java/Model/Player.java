@@ -1,5 +1,8 @@
 package Model;
 
+import javafx.scene.paint.Color;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +15,14 @@ public class Player {
     private int position;
     private boolean hasPassedGo;
     private List<Property> properties = new ArrayList<>();
+    private javafx.scene.paint.Color color;
 
     public Player(int playerId, int capital) {
         this.playerId = playerId;
         this.capital = capital;
         this.position = 0;
         this.name = "Inget namn än";
+        this.color = Color.AQUAMARINE;
     }
 
     /**
@@ -89,6 +94,8 @@ public class Player {
     public void setState(String state) {
         this.state = state;
     }
+
+    public javafx.scene.paint.Color getColor(){return color;}
 
 
     public void buyProperty(Property property) {

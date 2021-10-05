@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Locale;
+import Model.Player;
 import Model.Property;
 import Model.Space;
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class SpaceController extends AnchorPane {
     @FXML
     AnchorPane spaceText;
 
-    public SpaceController(Space space, int c) {
+    public SpaceController(Space space) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -64,18 +65,11 @@ public class SpaceController extends AnchorPane {
             localePrice.setVisible(false);
         }
 
-        if (c == 0) {
-            ap.setRotate(90);
-            spaceText.setRotate(-90);
-        } else if (c == 10) {
-            ap.setRotate(-90);
-            spaceText.setRotate(90);
-        }
-
     }
 
-    private void setOwner(Color c) {
-        localeColor.setStroke(c);
-        //spaceTile.setStroke(c);
+    public void setOwner(Player player) {
+        Color color = player.getColor();
+        localeColor.setStroke(color);
+        spaceStroke.setStroke(color);
     }
 }
