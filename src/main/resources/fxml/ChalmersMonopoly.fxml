@@ -11,6 +11,7 @@
 
 <AnchorPane maxHeight="800.0" maxWidth="1400.0" minHeight="600.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BoardController">
    <children>
+      <StackPane fx:id="monopolyScene" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <StackPane layoutX="-5.0" layoutY="-4.0" maxHeight="800.0" maxWidth="800.0" minHeight="600.0" minWidth="600.0" prefHeight="700.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane fx:id="boardGrid" alignment="CENTER" maxHeight="700.0" maxWidth="700.0" minHeight="700.0" minWidth="700.0" prefHeight="700.0" prefWidth="700.0" StackPane.alignment="CENTER">
@@ -42,18 +43,18 @@
               </rowConstraints>
             </GridPane>
          </children>
-      </StackPane>                  <Button layoutX="117.0" layoutY="85.0" mnemonicParsing="false" onAction="#rollDice" text="ROLL!" />
-      <Button fx:id="dice1" layoutX="73.0" layoutY="134.0" mnemonicParsing="false" text="  ">
+      </StackPane>                  <Button layoutX="14.0" layoutY="273.0" mnemonicParsing="false" onAction="#rollDice" text="ROLL!" />
+      <Button fx:id="dice1" layoutX="73.0" layoutY="247.0" mnemonicParsing="false" text="  ">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="dice2" layoutX="149.0" layoutY="134.0" mnemonicParsing="false" text="  ">
+      <Button fx:id="dice2" layoutX="158.0" layoutY="247.0" mnemonicParsing="false" text="  ">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Text fx:id="diceText" layoutX="-143.0" layoutY="-3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
+      <Text fx:id="diceText" layoutX="-143.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
       <Button layoutX="107.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyProperty" text="Buy Property" />
    </children>
 </AnchorPane>

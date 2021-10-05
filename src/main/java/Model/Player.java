@@ -17,6 +17,7 @@ public class Player {
         this.playerId = playerId;
         this.capital = capital;
         this.position = 0;
+        this.name = "Inget namn än";
     }
 
     /**

@@ -36,7 +36,7 @@ public class SpaceController extends AnchorPane {
     AnchorPane ap;
     @FXML
     AnchorPane spaceText;
-    
+
     public SpaceController(Space space, int c) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
@@ -48,9 +48,6 @@ public class SpaceController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-
-
-        this.space = space;
         localeName.setText(space.getSpaceName());
         localeColor.setStroke(Color.BLACK);
         spaceStroke.setStroke(Color.BLACK);

@@ -3,9 +3,12 @@ package Controller;
 import Model.*;
 import View.Piece;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 import java.util.*;
 
@@ -25,9 +28,8 @@ public class BoardController {
     private Button dice2;
     @FXML
     private GridPane boardGrid;
-
-    public BoardController() throws Exception {
-    }
+    @FXML
+    StackPane monopolyScene;
 
     private void initSpaces() {
         List<Space> spaceList = game.getBoard().getSpaceList();
@@ -56,9 +58,18 @@ public class BoardController {
 
     private void initPlayers(){
         List<Player> players = game.getPlayers();
+        Deque<Pos> alignmentDeque = new LinkedList<Pos>();
+        alignmentDeque.add(Pos.TOP_LEFT);
+        alignmentDeque.add(Pos.TOP_RIGHT);
+        alignmentDeque.add(Pos.BOTTOM_LEFT);
+        alignmentDeque.add(Pos.BOTTOM_RIGHT);
+
         for (Player player : players) {
             pieces.add(new Piece(pv.createPiece(),player));
             System.out.println("Player added to list");
+            PlayerCardsController playerCardsController = new PlayerCardsController(player);
+            monopolyScene.getChildren().add(playerCardsController);
+            StackPane.setAlignment(playerCardsController, alignmentDeque.remove());
         }
         for (Piece piece : pieces) {
             boardGrid.add(piece.getPiece(),10,10);
@@ -261,6 +272,7 @@ public class BoardController {
         if (game.getCurrentSpace() instanceof Property) {
             Property property = (Property) game.getCurrentSpace();
             game.getCurrentPlayer().buyProperty(property);
+
         }
     }
 }
