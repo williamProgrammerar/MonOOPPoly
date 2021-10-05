@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class PlayerCardsController extends AnchorPane {
     @FXML
-    Text moneyLabel;
+    Text capitalLabel;
     @FXML Text nameLabel;
 
     public PlayerCardsController(Player player) {
@@ -24,7 +24,11 @@ public class PlayerCardsController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        moneyLabel.setText(player.getCapital() + " kr");
+        capitalLabel.setText(player.getCapital() + " kr");
         nameLabel.setText(player.getName());
+    }
+
+    public void updateCapital(Player player){
+        capitalLabel.setText(player.getCapital() + "kr");
     }
 }

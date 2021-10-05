@@ -13,7 +13,6 @@ import javafx.scene.layout.StackPane;
 import java.util.*;
 
 
-
 public class BoardController {
     private Game game;
 
@@ -22,6 +21,8 @@ public class BoardController {
     private final List<Piece> pieces = new ArrayList<>();
 
     private Map<String, SpaceController> spaceControllerMap = new HashMap<String, SpaceController>();
+
+    private Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<Integer, PlayerCardsController>();
 
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
@@ -36,8 +37,9 @@ public class BoardController {
     public void initGame(Game game) {
         this.game = game;
         initSpaceControllerMap();
-
         initSpaces();
+
+        initPlayerCardsControllerMap();
         initPlayers();
     }
 
@@ -81,7 +83,14 @@ public class BoardController {
 
     }
 
-    private void initPlayers(){
+    private void initPlayerCardsControllerMap() {
+        for (Player player : game.getPlayers()) {
+            PlayerCardsController playerCardsController = new PlayerCardsController(player);
+            playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
+        }
+    }
+
+    private void initPlayers() {
         List<Player> players = game.getPlayers();
         Deque<Pos> alignmentDeque = new LinkedList<Pos>();
         alignmentDeque.add(Pos.TOP_LEFT);
@@ -90,14 +99,14 @@ public class BoardController {
         alignmentDeque.add(Pos.BOTTOM_RIGHT);
 
         for (Player player : players) {
-            pieces.add(new Piece(pv.createPiece(),player));
+            pieces.add(new Piece(pv.createPiece(), player));
             System.out.println("Player added to list");
-            PlayerCardsController playerCardsController = new PlayerCardsController(player);
+            PlayerCardsController playerCardsController = playerCardsControllerMap.get(player.getPlayerId());
             monopolyScene.getChildren().add(playerCardsController);
             StackPane.setAlignment(playerCardsController, alignmentDeque.remove());
         }
         for (Piece piece : pieces) {
-            boardGrid.add(piece.getPiece(),10,10);
+            boardGrid.add(piece.getPiece(), 10, 10);
             System.out.println("Player added to grid");
         }
     }
@@ -115,7 +124,7 @@ public class BoardController {
         for (Piece piece : pieces) {
             int playerPosition = piece.getPlayer().getPosition();
             ImageView pieceImage = piece.getPiece();
-            positionToGrid(playerPosition,pieceImage);
+            positionToGrid(playerPosition, pieceImage);
         }
     }
 
@@ -285,7 +294,7 @@ public class BoardController {
             }
         }
         boardGrid.getChildren().remove(piece);
-        boardGrid.add(piece,col,row);
+        boardGrid.add(piece, col, row);
     }
 
     public void buyProperty() {
@@ -294,6 +303,7 @@ public class BoardController {
             Player player = game.getCurrentPlayer();
             player.buyProperty(property);
             spaceControllerMap.get(property.getSpaceName()).setOwner(player);
+            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
         }
     }
 }

@@ -14,6 +14,6 @@
          </image>
       </ImageView>
       <Text fx:id="nameLabel" layoutX="33.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Namn" />
-      <Text fx:id="moneyLabel" layoutX="131.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pengar" />
+      <Text fx:id="capitalLabel" layoutX="131.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pengar" />
    </children>
 </fx:root>
