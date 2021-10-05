@@ -26,7 +26,7 @@ public class BoardController {
     @FXML
     private GridPane boardGrid;
 
-    public BoardController() throws Exception {
+    public BoardController() {
     }
 
     private void initSpaces() {
