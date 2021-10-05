@@ -66,13 +66,12 @@ public class SetUpPlayerController {
         }
     }
     @FXML public void addPlayer(){
-        if (gameSettings.getPlayers().size() < 4){
-            gameSettings.addPlayer();
-            flowPane.getChildren().add(new PlayerSetUpController(gameSettings.getPlayers().size()));
-        }
-        else{System.out.println("This game only supports a maximum of 4 players");}
-
-
+           try{
+               gameSettings.addPlayer();
+           } catch (IllegalArgumentException e){
+               return;
+           }
+        flowPane.getChildren().add(new PlayerSetUpController(gameSettings.getPlayers().size()));
     }
 
     @FXML

@@ -30,8 +30,14 @@ public class GameSettings {
     public List<Player> amountOfPlayers(){
         return players;
     }
-    public void addPlayer(){
-        players.add(new Player(players.size(),startCapital));
+    public void addPlayer() {
+        if(players.size() < 4){
+            players.add(new Player(players.size(),startCapital));
+        }
+        else {
+            System.out.println("This game supports a maximum of 4 players");
+            throw new IllegalArgumentException();
+        }
     }
     public void removePlayer(){
         players.remove(players.size() -1);
@@ -51,4 +57,6 @@ public class GameSettings {
     }
 
 
+    public class TooManyPlayersExpection extends Throwable {
+    }
 }
