@@ -4,12 +4,14 @@ public class Property extends Space {
 
     private boolean isOwned;
     private boolean isMortgaged;
-    private String ownerName;
+    private int ownerId;
     private final int price;
     private final int mortgage;
+    private final int[] rent;
 
-    public Property(String spaceName, int price, int mortgage) {
+    public Property(String spaceName, int price, int mortgage, int[] rent) {
         super(spaceName);
+        this.rent = rent;
         this.isOwned = false;
         this.isMortgaged = false;
         this.price = price;
@@ -32,12 +34,12 @@ public class Property extends Space {
         isOwned = owned;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public int getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public int getPrice() {
@@ -46,5 +48,9 @@ public class Property extends Space {
 
     public int getMortgage() {
         return mortgage;
+    }
+
+    public int getRent() {
+        return rent[0];
     }
 }

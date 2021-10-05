@@ -19,7 +19,9 @@ import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 
-public class spaceController extends AnchorPane {
+
+public class SpaceController extends AnchorPane {
+
     @FXML
     Text localeName;
     @FXML
@@ -34,10 +36,8 @@ public class spaceController extends AnchorPane {
     AnchorPane ap;
     @FXML
     AnchorPane spaceText;
-
-    private Space space;
-
-    public spaceController(Space space, int c) {
+    
+    public SpaceController(Space space, int c) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
