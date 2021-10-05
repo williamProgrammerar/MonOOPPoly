@@ -1,10 +1,13 @@
 package Controller;
 
 import Model.Locale;
+import Model.Player;
 import Model.Property;
 import Model.Space;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -12,6 +15,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLOutput;
+import java.util.ResourceBundle;
 
 
 
@@ -26,12 +32,13 @@ public class SpaceController extends AnchorPane {
     @FXML
     Rectangle spaceStroke;
     @FXML
+    SplitPane splitSpace;
+    @FXML
     AnchorPane ap;
     @FXML
     AnchorPane spaceText;
 
-    public SpaceController(Space space, int c) {
-
+    public SpaceController(Space space) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -58,17 +65,11 @@ public class SpaceController extends AnchorPane {
             localePrice.setVisible(false);
         }
 
-        if (c == 0) {
-            ap.setRotate(90);
-            spaceText.setRotate(-90);
-        } else if (c == 10) {
-            ap.setRotate(-90);
-            spaceText.setRotate(90);
-        }
-
     }
 
-    private void setOwner(Color c) {
-        localeColor.setStroke(c);
+    public void setOwner(Player player) {
+        Color color = player.getColor();
+        localeColor.setStroke(color);
+        spaceStroke.setStroke(color);
     }
 }

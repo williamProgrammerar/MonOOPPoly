@@ -3,12 +3,14 @@ package Controller;
 import Model.*;
 import View.Piece;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 import java.util.*;
-
 
 
 public class BoardController {
@@ -18,6 +20,10 @@ public class BoardController {
 
     private final List<Piece> pieces = new ArrayList<>();
 
+    private Map<String, SpaceController> spaceControllerMap = new HashMap<String, SpaceController>();
+
+    private Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<Integer, PlayerCardsController>();
+
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
     private Button dice1;
@@ -25,8 +31,23 @@ public class BoardController {
     private Button dice2;
     @FXML
     private GridPane boardGrid;
+    @FXML
+    StackPane monopolyScene;
 
-    public BoardController() {
+    public void initGame(Game game) {
+        this.game = game;
+        initSpaceControllerMap();
+        initSpaces();
+
+        initPlayerCardsControllerMap();
+        initPlayers();
+    }
+
+    private void initSpaceControllerMap() {
+        for (Space space : game.getBoard().getSpaceList()) {
+            SpaceController spaceController = new SpaceController(space);
+            spaceControllerMap.put(space.getSpaceName(), spaceController);
+        }
     }
 
     private void initSpaces() {
@@ -38,8 +59,16 @@ public class BoardController {
         int r = 10;
         int c = 10;
         for (Space space : spaceList) {
-            SpaceController spaceController = new SpaceController(space, c);
-            boardGrid.add(spaceController, c, r);
+            SpaceController i = spaceControllerMap.get(space.getSpaceName());
+            boardGrid.add(i, c, r);
+
+            if (c == 0) {
+                i.setRotate(90);
+                i.spaceText.setRotate(-90);
+            } else if (c == 10) {
+                i.setRotate(-90);
+                i.spaceText.setRotate(90);
+            }
 
             if (r == 10 && c != 0) {
                 c--;
@@ -54,22 +83,33 @@ public class BoardController {
 
     }
 
-    private void initPlayers(){
+    private void initPlayerCardsControllerMap() {
+        for (Player player : game.getPlayers()) {
+            PlayerCardsController playerCardsController = new PlayerCardsController(player);
+            playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
+        }
+    }
+
+    private void initPlayers() {
         List<Player> players = game.getPlayers();
+        Deque<Pos> alignmentDeque = new LinkedList<Pos>();
+        alignmentDeque.add(Pos.TOP_LEFT);
+        alignmentDeque.add(Pos.TOP_RIGHT);
+        alignmentDeque.add(Pos.BOTTOM_LEFT);
+        alignmentDeque.add(Pos.BOTTOM_RIGHT);
+
         for (Player player : players) {
-            pieces.add(new Piece(pv.createPiece(),player));
+            pieces.add(new Piece(pv.createPiece(), player));
             System.out.println("Player added to list");
+            PlayerCardsController playerCardsController = playerCardsControllerMap.get(player.getPlayerId());
+            monopolyScene.getChildren().add(playerCardsController);
+            StackPane.setAlignment(playerCardsController, alignmentDeque.remove());
         }
         for (Piece piece : pieces) {
-            boardGrid.add(piece.getPiece(),10,10);
+            boardGrid.add(piece.getPiece(), 10, 10);
             System.out.println("Player added to grid");
         }
     }
-	 public void initGame(Game game) {
-      this.game = game;
-      initSpaces();
-      initPlayers();
-	 }
 
     public void rollDice() {
         game.getDice().rollDice();
@@ -84,7 +124,7 @@ public class BoardController {
         for (Piece piece : pieces) {
             int playerPosition = piece.getPlayer().getPosition();
             ImageView pieceImage = piece.getPiece();
-            positionToGrid(playerPosition,pieceImage);
+            positionToGrid(playerPosition, pieceImage);
         }
     }
 
@@ -254,13 +294,16 @@ public class BoardController {
             }
         }
         boardGrid.getChildren().remove(piece);
-        boardGrid.add(piece,col,row);
+        boardGrid.add(piece, col, row);
     }
 
     public void buyProperty() {
         if (game.getCurrentSpace() instanceof Property) {
             Property property = (Property) game.getCurrentSpace();
-            game.getCurrentPlayer().buyProperty(property);
+            Player player = game.getCurrentPlayer();
+            player.buyProperty(property);
+            spaceControllerMap.get(property.getSpaceName()).setOwner(player);
+            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
         }
     }
 }
