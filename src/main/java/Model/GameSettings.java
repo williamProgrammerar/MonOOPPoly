@@ -1,5 +1,8 @@
 package Model;
 
+import javafx.scene.control.TextField;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +15,17 @@ public class GameSettings {
 
     public boolean checkPlayers(){
         for (Player player: players){
-            if (player.getName().isEmpty() || player.getState().isEmpty()){
+            if (player.getName().isEmpty()){
                 return false;
             }
         }
         return true;
+    }
+    public void setPlayerInfo(List<String> nameList, List<String> stateList){
+        for (int i = 0; i< players.size();i++){
+            players.get(i).setName(nameList.get(i));
+            players.get(i).setState(stateList.get(i));
+        }
     }
     public List<Player> amountOfPlayers(){
         return players;
@@ -32,6 +41,9 @@ public class GameSettings {
     }
     public int getStartCapital() {
         return startCapital;
+    }
+    public void setPlayerName(){
+
     }
 
     public void setStartCapital(int startCapital) {

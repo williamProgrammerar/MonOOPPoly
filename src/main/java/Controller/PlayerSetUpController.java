@@ -16,6 +16,22 @@ public class PlayerSetUpController extends AnchorPane {
     @FXML
     private Button nextButton;
 
+    public TextField getpNameTextField() {
+        return pNameTextField;
+    }
+
+    public void setpNameTextField(TextField pNameTextField) {
+        this.pNameTextField = pNameTextField;
+    }
+
+    public ComboBox<String> getPlayerTypeCBox() {
+        return playerTypeCBox;
+    }
+
+    public void setPlayerTypeCBox(ComboBox<String> playerTypeCBox) {
+        this.playerTypeCBox = playerTypeCBox;
+    }
+
     @FXML
     private TextField pNameTextField;
 
