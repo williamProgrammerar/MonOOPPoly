@@ -68,21 +68,56 @@ public class Game {
             System.out.println("Player " + currentPlayer.getPlayerId() + " passed GO and recieved " + salary);
         } else if(currentSpace.getSpaceName().equals("U")) {
             currentPlayer.moveTo(10, false);
-            currentPlayer.setTurnsInJail(0);
+            currentPlayer.setTurnsInJail(1);
             System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
         }
     }
 
+    /**
+     * Checks if the player is in Jail. If they are, they must roll doubles in order to get out.
+     * If they do, move them according to the dice roll.
+     * If they fail for 3 turns, pay fine and move according to dice roll.
+     * Sets turnsInJail to 0 when they get out.
+     * @param currentPlayer
+     * @return if the player is in jail or not
+     * @author Hedquist
+     */
     private boolean jailTurn(Player currentPlayer) {
         if(currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
             int jailFine = 50;
             System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
-            if(currentPlayer.getTurnsInJail() < 3) {
-                dice.rollDice(); //this needs to be coupled to the view
-                if(dice.doubles()) {
+            dice.rollDice(); //this needs to be coupled to the view
+            if(dice.doubles()) {
+                System.out.println("You got out!");
 
+                currentPlayer.move(dice.getSum());
+                currentSpace = board.getSpace(currentPlayer.getPosition());
+
+                inspectCurrentSpace();
+
+                System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+                System.out.println(currentPlayer.getPosition());
+
+                currentPlayer.setTurnsInJail(0);
+            } else {
+                System.out.println("You're stuck!");
+                currentPlayer.setTurnsInJail(currentPlayer.getTurnsInJail() + 1);
+                if(currentPlayer.getTurnsInJail()>3) {
+                    currentPlayer.setCapital(currentPlayer.getCapital() - jailFine);
+                    System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
+
+                    currentPlayer.move(dice.getSum());
+                    currentSpace = board.getSpace(currentPlayer.getPosition());
+
+                    inspectCurrentSpace();
+
+                    System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+                    System.out.println(currentPlayer.getPosition());
+
+                    currentPlayer.setTurnsInJail(0);
                 }
             }
+            return true;
         }
         return false;
     }
