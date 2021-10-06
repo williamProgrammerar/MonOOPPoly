@@ -14,6 +14,7 @@ public class Player {
     private final int playerId;
     private int position;
     private boolean hasPassedGo;
+    private int turnsInJail;
     private List<Property> properties = new ArrayList<>();
     private javafx.scene.paint.Color color;
 
@@ -23,6 +24,7 @@ public class Player {
         this.position = 0;
         this.name = "Inget namn än";
         this.color = Color.AQUAMARINE;
+        this.turnsInJail = 0;
     }
 
     /**
@@ -118,5 +120,13 @@ public class Player {
 
     public List<Property> getProperties() {
         return properties;
+    }
+
+    public int getTurnsInJail() {
+        return turnsInJail;
+    }
+
+    public void setTurnsInJail(int turnsInJail) {
+        this.turnsInJail = turnsInJail;
     }
 }

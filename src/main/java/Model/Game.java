@@ -26,20 +26,22 @@ public class Game {
      */
     public void move() {
         currentPlayer = players.get(0);
-        currentPlayer.move(dice.getSum());
-        currentSpace = board.getSpace(currentPlayer.getPosition());
+        if(!jailTurn(currentPlayer)) {
+            currentPlayer.move(dice.getSum());
+            currentSpace = board.getSpace(currentPlayer.getPosition());
 
-        inspectCurrentSpace();
+            inspectCurrentSpace();
 
-        System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-        System.out.println(currentPlayer.getPosition());
+            System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+            System.out.println(currentPlayer.getPosition());
+        }
     }
 
     /**
      * inspectCurrentSpace() checks what type the current space is.
      * If the current space is a property, owned by another player and not mortgaged then the player
      * has to pay rent to the owner of the property.
-     * @author williamProgrammerar
+     * @author williamProgrammerar, Hedquist
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
@@ -54,7 +56,35 @@ public class Game {
                     }
                 }
             }
+        } else if(isCurrentSpaceTax()) {
+            Tax tax = (Tax) currentSpace;
+            currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
+            System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
+        } else if(isCurrentSpaceChance()) {
+            //TODO chance card
+        } else if(currentSpace.getSpaceName().equals("GO")) {
+            int salary = 200;
+            currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
+            System.out.println("Player " + currentPlayer.getPlayerId() + " passed GO and recieved " + salary);
+        } else if(currentSpace.getSpaceName().equals("U")) {
+            currentPlayer.moveTo(10, false);
+            currentPlayer.setTurnsInJail(0);
+            System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
         }
+    }
+
+    private boolean jailTurn(Player currentPlayer) {
+        if(currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
+            int jailFine = 50;
+            System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
+            if(currentPlayer.getTurnsInJail() < 3) {
+                dice.rollDice(); //this needs to be coupled to the view
+                if(dice.doubles()) {
+
+                }
+            }
+        }
+        return false;
     }
 
     private boolean isCurrentSpaceProperty() {
@@ -63,6 +93,14 @@ public class Game {
 
     private boolean isOwnedByCurrentPlayer(Property property) {
         return currentPlayer.getProperties().contains(property);
+    }
+
+    private boolean isCurrentSpaceTax() {
+        return currentSpace instanceof Tax;
+    }
+
+    private boolean isCurrentSpaceChance() {
+        return currentSpace instanceof Chance;
     }
 
     /**
