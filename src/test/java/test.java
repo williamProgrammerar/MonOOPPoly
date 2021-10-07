@@ -20,6 +20,7 @@ public class test {
     public test() throws Exception {
     }
 
+
     @BeforeEach
     void setUp() {
         list.add("William");
@@ -97,7 +98,13 @@ public class test {
         System.out.println(player.getPosition());
         System.out.println(player.HasPassedGo());
     }
-
+    @Test
+    void addPlayer(){
+        GameSettings gameSettings1 = new GameSettings();
+        gameSettings1.addPlayer();
+        Game game1 = new Game(gameSettings1);
+        assert (game1.getPlayers().size() == 1);
+    }
     @Test
     void testPlayerTurn() throws Exception {
         gameSettings.addPlayer();
