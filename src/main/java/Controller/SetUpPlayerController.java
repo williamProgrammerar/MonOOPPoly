@@ -95,7 +95,7 @@ public class SetUpPlayerController {
     private CheckBox p3Checkbox;
     @FXML
     private CheckBox p4Checkbox;
-    
+
     public void initialize() {
         addPlayer();
 

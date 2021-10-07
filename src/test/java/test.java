@@ -11,8 +11,9 @@ public class test {
     private Random rand = new Random();
     private Player player = new Player(1,1500);
     private GameSettings gameSettings = new GameSettings();
-    private Game game;
+    private Game game = new Game(gameSettings);
     private Board board = game.getBoard();
+    Locale hubben= new Locale("HUBBEN 2.1", 400, 200, "TURQUOISE", new int[] {50, 200, 600, 1400, 1700, 2000}, 200);
     private Dice dice = game.getDice();
     private List<Player> players = game.getPlayers();
 
@@ -26,7 +27,16 @@ public class test {
         list.add("Jon");
         list.add("Vilhelm");
     }
+    @Test
+    void purchaseProperty(){
+        Player player2 = new Player(2,1500);
+        int capital = player.getCapital();
+        player.buyProperty(hubben);
+        assert(player.getCapital() == capital - hubben.getPrice());
+        //assert(player2.moveTo(hubben,true);) move to should probably move a player to a specific Space right, as
+        //in the class? Like Jail or go and possibly certain Locales.
 
+    }
     @Test
     void testChangePlayer() {
         for (int r = 0; r < 10; r++) {
