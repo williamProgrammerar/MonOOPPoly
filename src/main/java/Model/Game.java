@@ -17,10 +17,6 @@ public class Game {
 
     }
 
-    public int choosePiece(){
-        return 1;
-    } // Temporary, might delete
-
     /**
      * Moves the current player sum spaces.
      * @author williamProgrammerar
@@ -88,7 +84,7 @@ public class Game {
             int jailFine = 50;
             System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
             dice.rollDice(); //this needs to be coupled to the view
-            if(dice.doubles()) {
+            if(dice.isDoubles()) {
                 System.out.println("You got out!");
 
                 currentPlayer.move(dice.getSum());

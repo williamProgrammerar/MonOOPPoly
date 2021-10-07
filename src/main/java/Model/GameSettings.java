@@ -8,7 +8,6 @@ import java.util.List;
 
 public class GameSettings {
 
-
     private int startCapital = 1500;
 
     private List<Player> players = new ArrayList<>();
@@ -72,6 +71,6 @@ public class GameSettings {
     }
 
 
-    public class TooManyPlayersExpection extends Throwable {
+    public static class TooManyPlayersExpection extends Throwable {
     }
 }

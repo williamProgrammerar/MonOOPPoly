@@ -7,10 +7,9 @@ public class Dice {
     private int dice1;
     private int dice2;
 
-    public int rollDice() {
+    public void rollDice() {
         dice1 = rand.nextInt(6) + 1;
         dice2 = rand.nextInt(6) + 1;
-        return getSum();
     }
 
     public int getDice1() {
@@ -25,11 +24,7 @@ public class Dice {
         return dice1 + dice2;
     }
 
-    public boolean bothDiceShowSix() {
-        return dice1 + dice2 == 12;
-    }
-
-    public boolean doubles() {
+    public boolean isDoubles() {
         return dice1 == dice2;
     }
 }
