@@ -13,7 +13,7 @@ public class Game {
 
     public Game(GameSettings gameSettings)  {
        this.players.addAll(gameSettings.getPlayers());
-       //System.out.println(players.get(0).getName());
+       System.out.println(players.get(0).getName());
 
     }
 
@@ -25,9 +25,9 @@ public class Game {
      * Moves the current player sum spaces.
      * @author williamProgrammerar
      */
-    public void move() {
+    public void move(int diceSum) {
         currentPlayer = players.get(0);
-        currentPlayer.move(dice.getSum());
+        currentPlayer.move(diceSum);
         currentSpace = board.getSpace(currentPlayer.getPosition());
 
         inspectCurrentSpace();

@@ -13,7 +13,7 @@ public class test {
     private GameSettings gameSettings = new GameSettings();
     private Game game = new Game(gameSettings);
     private Board board = game.getBoard();
-    Locale hubben= new Locale("HUBBEN 2.1", 400, 200, "TURQUOISE", new int[] {50, 200, 600, 1400, 1700, 2000}, 200);
+    private Locale hubben= new Locale("HUBBEN 2.1", 400, 200, "TURQUOISE", new int[] {50, 200, 600, 1400, 1700, 2000}, 200);
     private Dice dice = game.getDice();
     private List<Player> players = game.getPlayers();
 
@@ -135,9 +135,9 @@ public class test {
 
         for (int i = 0; i < 20; i++) {
             System.out.println();
-            dice.rollDice();
+
             System.out.println("Dice rolled: " + dice.getSum());
-            game.move();
+            game.move( dice.rollDice());
             game.next();
         }
     }

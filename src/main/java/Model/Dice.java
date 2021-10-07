@@ -7,9 +7,10 @@ public class Dice {
     private int dice1;
     private int dice2;
 
-    public void rollDice() {
+    public int rollDice() {
         dice1 = rand.nextInt(6) + 1;
         dice2 = rand.nextInt(6) + 1;
+        return getSum();
     }
 
     public int getDice1() {
