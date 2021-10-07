@@ -28,6 +28,10 @@ public class Dice {
     public boolean bothDiceShowSix() {
         return dice1 + dice2 == 12;
     }
+
+    public boolean doubles() {
+        return dice1 == dice2;
+    }
 }
 
 

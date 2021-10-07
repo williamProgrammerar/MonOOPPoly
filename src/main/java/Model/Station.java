@@ -10,7 +10,7 @@ public class Station extends Property {
     }
 
     public int getRent() {
-        // rent * number of stations owned
+        //TODO fix so this checks amount of owned staions
         return rent[nrOfStationsOwned];
     }
 }
