@@ -10,31 +10,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SetUpPlayerController {
     GameSettings gameSettings = new GameSettings();
+    private List<String> nameList = new ArrayList<>();
+    private List<String> stateList = new ArrayList<>();
     @FXML
     FlowPane flowPane;
 
     @FXML
     public void startGame(ActionEvent event) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
-        Parent monopolyParent = loader.load();
-        Scene monopolyScene = new Scene(monopolyParent);
-        BoardController controller = loader.getController();
-        controller.initGame(new Game(gameSettings));
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(monopolyScene);
-        window.show();
+        updatePlayerInfo();
+        gameSettings.setPlayerInfo(nameList,stateList);
+       if(gameSettings.checkPlayers()){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
+            Parent monopolyParent = loader.load();
+            Scene monopolyScene = new Scene(monopolyParent);
+            BoardController controller = loader.getController();
+            controller.initGame(new Game(gameSettings));
+            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+            window.setScene(monopolyScene);
+            window.show();
+      }
+       else {
+            System.out.println("player info not complete, or valid");
+      }
+
     }
 
     private int checkNumberOfplayers() {
@@ -48,15 +57,21 @@ public class SetUpPlayerController {
         window.setScene(monopolyScene);
         window.show();
     }
-
-    @FXML public void addPlayer(){
-        if (gameSettings.getPlayers().size() < 4){
-            gameSettings.addPlayer();
-            flowPane.getChildren().add(new PlayerSetUpController(gameSettings.getPlayers().size()));
+    private void updatePlayerInfo(){
+        nameList.clear();
+        stateList.clear();
+        for(Node node : flowPane.getChildren()){
+            nameList.add(((PlayerSetUpController)node).getpNameTextField().getText());
+            stateList.add(((PlayerSetUpController)node).getPlayerTypeCBox().getValue());
         }
-        else{System.out.println("This game only supports a maximum of 4 players");}
-
-
+    }
+    @FXML public void addPlayer(){
+           try{
+               gameSettings.addPlayer();
+           } catch (IllegalArgumentException e){
+               return;
+           }
+        flowPane.getChildren().add(new PlayerSetUpController(gameSettings.getPlayers().size()));
     }
 
     @FXML
