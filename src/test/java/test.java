@@ -1,4 +1,5 @@
 import Model.*;
+import org.junit.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +12,9 @@ public class test {
     private Random rand = new Random();
     private Player player = new Player(1,1500);
     private GameSettings gameSettings = new GameSettings();
-    private Game game;
+    private Game game = new Game(gameSettings);
     private Board board = game.getBoard();
+    private Locale hubben= new Locale("HUBBEN 2.1", 400, 200, "TURQUOISE", new int[] {50, 200, 600, 1400, 1700, 2000}, 200);
     private Dice dice = game.getDice();
     private List<Player> players = game.getPlayers();
 
@@ -26,7 +28,16 @@ public class test {
         list.add("Jon");
         list.add("Vilhelm");
     }
+    @Test
+    void purchaseProperty(){
+        Player player2 = new Player(2,1500);
+        int capital = player.getCapital();
+        player.buyProperty(hubben);
+        assert(player.getCapital() == capital - hubben.getPrice());
+        //assert(player2.moveTo(hubben,true);) move to should probably move a player to a specific Space right, as
+        //in the class? Like Jail or go and possibly certain Locales.
 
+    }
     @Test
     void testChangePlayer() {
         for (int r = 0; r < 10; r++) {
@@ -87,7 +98,34 @@ public class test {
         System.out.println(player.getPosition());
         System.out.println(player.HasPassedGo());
     }
+    @Test
+    void setPlayerInfo(){
+        GameSettings gameSettings1 = new GameSettings();
+        gameSettings1.addPlayer();
+        gameSettings1.addPlayer();
+        List<String> nameList = new ArrayList<>();
+        List<String> stateList = new ArrayList<>();
+        stateList.add("Human");
+        stateList.add("Human");
+        nameList.add("Hej");
+        nameList.add("Svejs");
+        gameSettings1.setPlayerInfo(nameList,stateList);
 
+    }
+    @Test
+    void checkPlayers(){
+        GameSettings gameSettings1 = new GameSettings();
+        gameSettings1.addPlayer();
+        gameSettings1.getPlayers().get(0).setName("");
+        gameSettings1.checkPlayers();
+    }
+    @Test
+    void addPlayer(){
+        GameSettings gameSettings1 = new GameSettings();
+        gameSettings1.addPlayer();
+        Game game1 = new Game(gameSettings1);
+        assert (game1.getPlayers().size() == 1);
+    }
     @Test
     void testPlayerTurn() throws Exception {
         gameSettings.addPlayer();
@@ -110,7 +148,7 @@ public class test {
         Player player = gameSettings.getPlayers().get(0);
         player.moveTo(23, true);
         game.move(7);
-        
+
     }
 
     @Test

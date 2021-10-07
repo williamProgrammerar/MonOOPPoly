@@ -12,9 +12,25 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class PlayerSetUpController extends AnchorPane {
-    private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
+    private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human");
     @FXML
     private Button nextButton;
+
+    public TextField getpNameTextField() {
+        return pNameTextField;
+    }
+
+    public void setpNameTextField(TextField pNameTextField) {
+        this.pNameTextField = pNameTextField;
+    }
+
+    public ComboBox<String> getPlayerTypeCBox() {
+        return playerTypeCBox;
+    }
+
+    public void setPlayerTypeCBox(ComboBox<String> playerTypeCBox) {
+        this.playerTypeCBox = playerTypeCBox;
+    }
 
     @FXML
     private TextField pNameTextField;
@@ -28,7 +44,11 @@ public class PlayerSetUpController extends AnchorPane {
     @FXML
     private ImageView pieceSelImageView;
 
-
+    /**
+     * Simply creates a playerSetUpController and applies that to a newly created Fxml file. Sets info in
+     * ComboBoxes and the predetermined player name to player ID.
+     * @param playerID Player ID is used to set the name.
+     */
     public PlayerSetUpController(int playerID) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/playerSetUp.fxml"));
         fxmlLoader.setRoot(this);
@@ -41,6 +61,7 @@ public class PlayerSetUpController extends AnchorPane {
         }
         pNameTextField.setText("Player " + playerID);
         playerTypeCBox.setItems(playerTypes);
+        playerTypeCBox.getSelectionModel().selectFirst();
 
     }
 }
