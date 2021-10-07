@@ -115,7 +115,7 @@ public class BoardController {
         game.getDice().rollDice();
         dice1.setText(String.valueOf(game.getDice().getDice1()));
         dice2.setText(String.valueOf(game.getDice().getDice2()));
-        game.move();
+        game.move(game.getDice().getSum());
         game.next();
         updateAllPieces();
     }

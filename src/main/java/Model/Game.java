@@ -24,10 +24,10 @@ public class Game {
      * Moves the current player sum spaces.
      * @author williamProgrammerar
      */
-    public void move() {
+    public void move(int spaces) {
         currentPlayer = players.get(0);
         if(!jailTurn(currentPlayer)) {
-            currentPlayer.move(dice.getSum());
+            currentPlayer.move(spaces);
             currentSpace = board.getSpace(currentPlayer.getPosition());
 
             inspectCurrentSpace();

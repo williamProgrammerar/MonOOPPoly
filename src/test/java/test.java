@@ -99,8 +99,30 @@ public class test {
             System.out.println();
             dice.rollDice();
             System.out.println("Dice rolled: " + dice.getSum());
-            game.move();
+            game.move(dice.getSum());
             game.next();
         }
+    }
+
+    @Test
+    void testU() {
+        gameSettings.addPlayer();
+        Player player = gameSettings.getPlayers().get(0);
+        player.moveTo(23, true);
+        game.move(7);
+        
+    }
+
+    @Test
+    void testJailTurn() {
+        gameSettings.addPlayer();
+        player.moveTo(10, false);
+        player.setTurnsInJail(1);
+        game = new Game(gameSettings);
+
+        game.move(game.getDice().getSum());
+
+        //if(player.)
+
     }
 }
