@@ -99,6 +99,27 @@ public class test {
         System.out.println(player.HasPassedGo());
     }
     @Test
+    void setPlayerInfo(){
+        GameSettings gameSettings1 = new GameSettings();
+        gameSettings1.addPlayer();
+        gameSettings1.addPlayer();
+        List<String> nameList = new ArrayList<>();
+        List<String> stateList = new ArrayList<>();
+        stateList.add("Human");
+        stateList.add("Human");
+        nameList.add("Hej");
+        nameList.add("Svejs");
+        gameSettings1.setPlayerInfo(nameList,stateList);
+
+    }
+    @Test
+    void checkPlayers(){
+        GameSettings gameSettings1 = new GameSettings();
+        gameSettings1.addPlayer();
+        gameSettings1.getPlayers().get(0).setName("");
+        gameSettings1.checkPlayers();
+    }
+    @Test
     void addPlayer(){
         GameSettings gameSettings1 = new GameSettings();
         gameSettings1.addPlayer();
