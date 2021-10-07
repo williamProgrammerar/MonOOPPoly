@@ -13,7 +13,7 @@ public class Game {
 
     public Game(GameSettings gameSettings)  {
        this.players.addAll(gameSettings.getPlayers());
-       System.out.println(players.get(0).getName());
+       //System.out.println(players.get(0).getName());
 
     }
 

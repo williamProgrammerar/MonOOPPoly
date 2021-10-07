@@ -1,5 +1,6 @@
 import Model.*;
 import org.junit.*;
+import org.junit.Assert.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -147,20 +148,31 @@ public class test {
         gameSettings.addPlayer();
         Player player = gameSettings.getPlayers().get(0);
         player.moveTo(23, true);
+        game = new Game(gameSettings);
         game.move(7);
 
+        Assert.assertEquals(10, player.getPosition());
+        Assert.assertTrue(player.getTurnsInJail() > 0);
     }
 
     @Test
     void testJailTurn() {
         gameSettings.addPlayer();
+        Player player = gameSettings.getPlayers().get(0);
         player.moveTo(10, false);
         player.setTurnsInJail(1);
         game = new Game(gameSettings);
 
-        game.move(game.getDice().getSum());
+        game.move(game.getDice().rollDice());
 
-        //if(player.)
+        if(game.getDice().doubles()) {
+            Assert.assertEquals("Doubles rolled", game.getDice().getSum(), player.getPosition()-10);
+            Assert.assertEquals(0, player.getTurnsInJail());
+        }
+        else {
+            Assert.assertEquals("No doubles", 10, player.getPosition());
+            Assert.assertEquals(2, player.getTurnsInJail());
+        }
 
     }
 }
