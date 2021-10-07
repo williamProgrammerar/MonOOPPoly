@@ -9,7 +9,7 @@ public class Property extends Space {
     private final int mortgage;
     private final int[] rent;
 
-    public Property(String spaceName, int price, int mortgage, int[] rent) {
+    public Property(String spaceName, int price, int mortgage, int[] rent, Section section) {
         super(spaceName);
         this.rent = rent;
         this.isOwned = false;

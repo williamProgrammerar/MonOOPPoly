@@ -128,7 +128,11 @@ public class Player {
             System.out.println("Property already has owner");
         }
     }
-
+    public boolean isMonopoly(Locale locale){
+        for(Property property : properties){
+            prop.get
+        }
+    }
     public List<Property> getProperties() {
         return properties;
     }
