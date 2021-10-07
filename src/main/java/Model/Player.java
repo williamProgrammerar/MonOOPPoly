@@ -22,7 +22,20 @@ public class Player {
         this.capital = capital;
         this.position = 0;
         this.name = "Inget namn än";
-        this.color = Color.AQUAMARINE;
+        switch (playerId){
+            case 0 -> {
+                this.color = Color.RED;
+            }
+            case 1 -> {
+                this.color = Color.DARKTURQUOISE;
+            }
+            case 2 -> {
+                this.color = Color.GREEN;
+            }
+            case 3 -> {
+                this.color = Color.ORANGE;
+            }
+        }
     }
 
     /**
