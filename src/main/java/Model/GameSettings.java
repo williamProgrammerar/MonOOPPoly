@@ -13,6 +13,10 @@ public class GameSettings {
 
     private List<Player> players = new ArrayList<>();
 
+    /**
+     * This method makes sure that all active players has a name.
+     * @return
+     */
     public boolean checkPlayers(){
         for (Player player: players){
             if (player.getName().isEmpty()){
@@ -21,6 +25,12 @@ public class GameSettings {
         }
         return true;
     }
+
+    /**
+     * this method sets the names and "state" in gameSettings from the input it has recieved.
+     * @param nameList A list of names
+     * @param stateList A list of states, if the player is human or not.
+     */
     public void setPlayerInfo(List<String> nameList, List<String> stateList){
         for (int i = 0; i< players.size();i++){
             players.get(i).setName(nameList.get(i));
@@ -30,6 +40,11 @@ public class GameSettings {
     public List<Player> amountOfPlayers(){
         return players;
     }
+
+    /**
+     * This Method adds a player to the gameSettings it does not allow more then 4 players and throws an exception
+     * if a user tries to implement more.
+     */
     public void addPlayer() {
         if(players.size() < 4){
             players.add(new Player(players.size(),startCapital));

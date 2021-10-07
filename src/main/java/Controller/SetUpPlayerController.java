@@ -57,6 +57,11 @@ public class SetUpPlayerController {
         window.setScene(monopolyScene);
         window.show();
     }
+
+    /**
+     * This method simply updates the playerinfo that is later sent to game, so that
+     * customized names are properly registered.
+     */
     private void updatePlayerInfo(){
         nameList.clear();
         stateList.clear();
@@ -90,8 +95,7 @@ public class SetUpPlayerController {
     private CheckBox p3Checkbox;
     @FXML
     private CheckBox p4Checkbox;
-
-    private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
+    
     public void initialize() {
         addPlayer();
 
