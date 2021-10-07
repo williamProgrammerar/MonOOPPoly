@@ -1,12 +1,13 @@
-import Model.*;
-import org.junit.*;
-import org.junit.Assert.*;
+/*import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class test {
     private List<String> list = new ArrayList<>();
@@ -50,41 +51,6 @@ public class test {
             list.add(tmp);
             System.out.println();
         }
-    }
-
-    @Test
-    void testGetPositionUsingString() {
-        String spaceName;
-        int position;
-        for (int i = 0; i < 100; i++) {
-            spaceName = board.getSpace(rand.nextInt(40)).getSpaceName();
-            position = findSpace(spaceName);
-            System.out.println(spaceName + " is located at position: " + position);
-        }
-    }
-
-    int findSpace(String string) {
-        int position = 0;
-        for (int i = 0; i < board.getSpaceList().size(); i++) {
-            if (board.getSpace(i).getSpaceName().equals(string)) {
-                position = i;
-                break;
-            }
-        }
-        return position;
-    }
-
-    @Test
-    void testMove() {
-        player.move(20);
-        System.out.println(player.getPosition());
-        System.out.println(player.HasPassedGo());
-        player.move(20);
-        System.out.println(player.getPosition());
-        System.out.println(player.HasPassedGo());
-        player.move(-5);
-        System.out.println(player.getPosition());
-        System.out.println(player.HasPassedGo());
     }
 
     @Test
@@ -151,28 +117,9 @@ public class test {
         game = new Game(gameSettings);
         game.move(7);
 
-        Assert.assertEquals(10, player.getPosition());
-        Assert.assertTrue(player.getTurnsInJail() > 0);
+        assertEquals(10, player.getPosition());
+        assertTrue(player.getTurnsInJail() > 0);
     }
 
-    @Test
-    void testJailTurn() {
-        gameSettings.addPlayer();
-        Player player = gameSettings.getPlayers().get(0);
-        player.moveTo(10, false);
-        player.setTurnsInJail(1);
-        game = new Game(gameSettings);
 
-        game.move(game.getDice().rollDice());
-
-        if(game.getDice().doubles()) {
-            Assert.assertEquals("Doubles rolled", game.getDice().getSum(), player.getPosition()-10);
-            Assert.assertEquals(0, player.getTurnsInJail());
-        }
-        else {
-            Assert.assertEquals("No doubles", 10, player.getPosition());
-            Assert.assertEquals(2, player.getTurnsInJail());
-        }
-
-    }
-}
+}*/
