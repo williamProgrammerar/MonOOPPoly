@@ -9,8 +9,11 @@ public class Station extends Property {
         this.rent = rent;
     }
 
+    public void setNrOfStationsOwned(int i) {
+        nrOfStationsOwned = i - 1;
+    }
+
     public int getRent() {
-        //TODO fix so this checks amount of owned staions
         return rent[nrOfStationsOwned];
     }
 }

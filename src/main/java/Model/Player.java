@@ -2,7 +2,6 @@ package Model;
 
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +14,8 @@ public class Player {
     private int position;
     private boolean hasPassedGo;
     private int turnsInJail;
-    private List<Property> properties = new ArrayList<>();
-    private javafx.scene.paint.Color color;
+    private final List<Property> properties = new ArrayList<>();
+    private final javafx.scene.paint.Color color;
 
     public Player(int playerId, int capital) {
         this.playerId = playerId;
@@ -24,18 +23,11 @@ public class Player {
         this.position = 0;
         this.name = "Inget namn än";
         switch (playerId){
-            case 0 -> {
-                this.color = Color.RED;
-            }
-            case 1 -> {
-                this.color = Color.DARKTURQUOISE;
-            }
-            case 2 -> {
-                this.color = Color.GREEN;
-            }
-            case 3 -> {
-                this.color = Color.ORANGE;
-            }
+            case 0 -> this.color = Color.RED;
+            case 1 -> this.color = Color.DARKTURQUOISE;
+            case 2 -> this.color = Color.GREEN;
+            case 3 -> this.color = Color.ORANGE;
+            default -> throw new IllegalStateException("Unexpected value: " + playerId);
         }
         this.turnsInJail = 0;
     }
@@ -102,6 +94,7 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getState() {
         return state;
     }

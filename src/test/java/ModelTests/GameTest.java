@@ -73,7 +73,6 @@ public class GameTest {
         player.setTurnsInJail(1);
         game = new Game(gameSettings);
 
-        game.getDice().rollDice();
         game.move(game.getDice().getSum());
 
         if(game.getDice().isDoubles()) {
@@ -85,6 +84,6 @@ public class GameTest {
             assertEquals(2, player.getTurnsInJail());
         }
 
-        //if(!game.getDice().isDoubles())
+
     }
 }
