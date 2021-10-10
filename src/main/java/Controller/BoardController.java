@@ -43,6 +43,9 @@ public class BoardController {
         initPlayers();
     }
 
+    /**
+     * Goes through every space on the board and assigns a controller to each space.
+     */
     private void initSpaceControllerMap() {
         for (Space space : game.getBoard().getSpaceList()) {
             SpaceController spaceController = new SpaceController(space);
@@ -50,6 +53,10 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method goes through all the spaces in board and places them around the edges of a grid
+     * in order to give the visual board a similar look to the original Monopoly game.
+     */
     private void initSpaces() {
         List<Space> spaceList = game.getBoard().getSpaceList();
 
@@ -90,6 +97,10 @@ public class BoardController {
         }
     }
 
+    /**
+     * Method initiates all the players.
+     * It creates a visual piece for each player and places all the pieces on the board.
+     */
     private void initPlayers() {
         List<Player> players = game.getPlayers();
         Deque<Pos> alignmentDeque = new LinkedList<Pos>();
@@ -111,6 +122,10 @@ public class BoardController {
         }
     }
 
+    /**
+     * When the dice button is pressed this method will role the dice, and send the values to the game class.
+     * Game class will move the current player and then change the player.
+     */
     public void rollDice() {
         game.getDice().rollDice();
         dice1.setText(String.valueOf(game.getDice().getDice1()));
@@ -120,6 +135,9 @@ public class BoardController {
         updateAllPieces();
     }
 
+    /**
+     * Updates the position of all the visual pieces.
+     */
     public void updateAllPieces() {
         for (Piece piece : pieces) {
             int playerPosition = piece.getPlayer().getPosition();
@@ -128,6 +146,11 @@ public class BoardController {
         }
     }
 
+    /**
+     * Converts the players position to corresponding row and column.
+     * @param position the players position
+     * @param piece the players piece image
+     */
     public void positionToGrid(int position, ImageView piece) {
         int col, row;
 
