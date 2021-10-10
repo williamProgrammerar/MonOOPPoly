@@ -105,7 +105,12 @@ public class Player {
 
     public javafx.scene.paint.Color getColor(){return color;}
 
-
+    /**
+     * buyProperty checks if property is unowned. If the property is unowned the method then checks
+     * if the player can afford it. If the player can afford the property the transaction will begin and the player will
+     * receive the property.
+     * @param property the property player is attempting to buy
+     */
     public void buyProperty(Property property) {
         if(!property.isOwned()) {
             if (property.getPrice() <= capital) {
