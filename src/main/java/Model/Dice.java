@@ -2,6 +2,12 @@ package Model;
 
 import java.util.Random;
 
+/**
+ * Dice is the class used to generate random integers one through six.
+ * Supports throwing two different dices at once.
+ *
+ * @author williamProgrammerar
+ */
 public class Dice {
     private static final Random rand = new Random();
     private int dice1;

@@ -3,6 +3,14 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Game class is responsible for
+ *
+ * @author williamProgrammerar
+ * @author rhedinh
+ * @author JonEmilsson
+ * @author HedQuist
+ */
 public class Game {
     private final Dice dice = new Dice();
     private final Board board = new Board();
@@ -38,7 +46,8 @@ public class Game {
      * inspectCurrentSpace() checks what type the current space is.
      * If the current space is a property, owned by another player and not mortgaged then the player
      * has to pay rent to the owner of the property.
-     * @author williamProgrammerar, Hedquist
+     * @author williamProgrammerar
+     * @author Hedquist
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
