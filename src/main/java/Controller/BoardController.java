@@ -92,7 +92,9 @@ public class BoardController {
 
     private void initPlayerCardsControllerMap() {
         for (Player player : game.getPlayers()) {
-            PlayerCardsController playerCardsController = new PlayerCardsController(player);
+            Piece piece = new Piece(pv.createPiece(), player);
+            pieces.add(piece);
+            PlayerCardsController playerCardsController = new PlayerCardsController(piece);
             playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
         }
     }
@@ -110,7 +112,7 @@ public class BoardController {
         alignmentDeque.add(Pos.BOTTOM_RIGHT);
 
         for (Player player : players) {
-            pieces.add(new Piece(pv.createPiece(), player));
+            //pieces.add(new Piece(pv.createPiece(), player));
             System.out.println("Player added to list");
             PlayerCardsController playerCardsController = playerCardsControllerMap.get(player.getPlayerId());
             monopolyScene.getChildren().add(playerCardsController);
