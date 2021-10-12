@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -328,10 +327,12 @@ public class BoardController {
     public void buyProperty() {
         if (game.getCurrentSpace() instanceof Property) {
             Property property = (Property) game.getCurrentSpace();
-            Player player = game.getCurrentPlayer();
-            player.buyProperty(property);
-            spaceControllerMap.get(property.getSpaceName()).setOwner(player);
-            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+            if (!property.isOwned()) {
+                Player player = game.getCurrentPlayer();
+                player.buyProperty(property);
+                spaceControllerMap.get(property.getSpaceName()).setOwner(player);
+                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+            }
         }
     }
 }
