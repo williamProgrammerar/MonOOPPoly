@@ -65,7 +65,14 @@ public class Game {
     private boolean isOwnedByCurrentPlayer(Property property) {
         return currentPlayer.getProperties().contains(property);
     }
-
+    public void buyHouse(Locale locale){
+        if (currentPlayer.hasMonopoly(locale)){
+            locale.buildHouse();
+        }
+        else{
+            System.out.println("You do not own all properties within this section");
+        }
+    }
     /**
      * Places the current player (index 0) in a temporary variable.
      * Player index 0 in the player list is then removed, which leads to a new current player.
