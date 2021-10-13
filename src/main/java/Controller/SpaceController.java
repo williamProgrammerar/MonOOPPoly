@@ -19,6 +19,12 @@ import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
+/**
+ * Controlls the spaces
+ *
+ * @author rhedinh
+ */
+
 
 
 public class SpaceController extends AnchorPane {
