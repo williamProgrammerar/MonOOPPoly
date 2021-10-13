@@ -5,8 +5,8 @@ public class Utility extends Property {
     Dice dice;
     private final int[] rent;
 
-    public Utility(String spaceName, int price, int mortgage, int[] rent,Section section) {
-        super(spaceName, price, mortgage, rent, section);
+    public Utility(String spaceName, int price, int mortgage, int[] rent) {
+        super(spaceName, price, mortgage, rent);
         this.rent = rent;
     }
 
