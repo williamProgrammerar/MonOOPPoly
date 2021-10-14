@@ -5,6 +5,7 @@ import View.Piece;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -33,6 +34,8 @@ public class BoardController {
     private GridPane boardGrid;
     @FXML
     StackPane monopolyScene;
+    @FXML
+    TextArea chanceCardText;
 
     public void initGame(Game game) {
         this.game = game;
@@ -162,6 +165,8 @@ public class BoardController {
             case 2 -> {
                 col = 8;
                 row = 10;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 3 -> {
                 col = 7;
@@ -182,6 +187,8 @@ public class BoardController {
             case 7 -> {
                 col = 3;
                 row = 10;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 8 -> {
                 col = 2;
@@ -222,6 +229,8 @@ public class BoardController {
             case 17 -> {
                 col = 0;
                 row = 3;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 18 -> {
                 col = 0;
@@ -242,6 +251,8 @@ public class BoardController {
             case 22 -> {
                 col = 2;
                 row = 0;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 23 -> {
                 col = 3;
@@ -282,6 +293,8 @@ public class BoardController {
             case 32 -> {
                 col = 10;
                 row = 2;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 33 -> {
                 col = 10;
@@ -298,6 +311,8 @@ public class BoardController {
             case 36 -> {
                 col = 10;
                 row = 6;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 37 -> {
                 col = 10;

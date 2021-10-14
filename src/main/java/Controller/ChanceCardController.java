@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.ChanceCardCreator;
 import Model.IChanceCard;
 import java.util.List;
 
@@ -10,6 +11,9 @@ import java.util.List;
  */
 
 public class ChanceCardController {
-    private List<IChanceCard> cards;
+    private IChanceCard chanceCard;
 
+    public ChanceCardController() {
+        chanceCard = new ChanceCardCreator().getChanceCard();
+    }
 }

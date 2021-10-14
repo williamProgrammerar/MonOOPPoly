@@ -4,12 +4,19 @@ package Model;
  *
  * @author rhedinh
  */
-public class MoneyChanceCard implements IChanceCard {
-    private int money;
-    private String text;
+public class MoneyChanceCard extends IChanceCard {
+    private final int money;
 
-    public MoneyChanceCard(int money, String text) {
+    public MoneyChanceCard(String text, int money) {
+        super(text);
         this.money = money;
-        this.text = text;
+    }
+
+    /**
+     * Makes sure that whatever action the chance card says should happen, will happen.
+     */
+    @Override
+    public void doAction(Player player) {
+
     }
 }
