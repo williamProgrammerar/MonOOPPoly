@@ -23,4 +23,8 @@ public class Locale extends Property {
     public int getRent() {
         return rent[nrOfHouses];
     }
+
+    public int getHouseCost() {
+        return houseCost;
+    }
 }
