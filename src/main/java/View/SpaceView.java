@@ -6,7 +6,6 @@ import Model.Property;
 import Model.Space;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -15,11 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLOutput;
-import java.util.ResourceBundle;
-
-
 
 public class SpaceView extends AnchorPane {
 
