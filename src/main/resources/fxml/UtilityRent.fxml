@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
@@ -30,13 +31,14 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox prefHeight="5.0" prefWidth="200.0" spacing="28.0">
+                  <HBox prefHeight="5.0" prefWidth="200.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Price">
                            <font>
                               <Font size="7.0" />
                            </font>
                         </Text>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Text fx:id="PurchasePrice" strokeType="OUTSIDE" strokeWidth="0.0" text="420kr">
                            <font>
                               <Font size="7.0" />
@@ -44,10 +46,10 @@
                         </Text>
                      </children>
                      <VBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="5.0" prefWidth="200.0" spacing="22.0">
+                  <HBox prefHeight="5.0" prefWidth="200.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mortgage Value">
                            <font>
@@ -57,6 +59,7 @@
                               <Insets />
                            </HBox.margin>
                         </Text>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Text fx:id="MortgageValue" strokeType="OUTSIDE" strokeWidth="0.0" text="210kr">
                            <font>
                               <Font size="7.0" />
@@ -64,7 +67,7 @@
                         </Text>
                      </children>
                      <VBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </HBox>
                   <Line endX="100.0" startX="10.0">

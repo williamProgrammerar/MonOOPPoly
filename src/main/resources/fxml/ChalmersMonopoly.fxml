@@ -58,6 +58,6 @@
       <Text fx:id="diceText" layoutX="-143.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
       <Button layoutX="107.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyProperty" text="Buy Property" />
       <Button layoutX="117.0" layoutY="385.0" mnemonicParsing="false" onAction="#endTurn" text="End Turn" />
-      <FlowPane fx:id="boardFlowPane" layoutX="1050.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0" />
+      <FlowPane fx:id="boardFlowPane" alignment="TOP_CENTER" columnHalignment="CENTER" layoutX="668.0" layoutY="250.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="150.0" />
    </children>
 </AnchorPane>
