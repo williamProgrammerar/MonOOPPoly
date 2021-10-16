@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="100.0" stylesheets="@../css/MonopolySpace.css" type="AnchorPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fx:id="spaceStroke" fill="WHITE" height="152.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Rectangle fill="WHITE" height="30.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="PropertyName" strokeType="OUTSIDE" strokeWidth="0.0" text="Utility1" textAlignment="CENTER" wrappingWidth="70.0">
+                     <font>
+                        <Font name="System Bold" size="7.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="spaceText" layoutY="21.0" prefHeight="71.0" prefWidth="56.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox prefHeight="5.0" prefWidth="200.0" spacing="28.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Price">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="PurchasePrice" strokeType="OUTSIDE" strokeWidth="0.0" text="420kr">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="5.0" prefWidth="200.0" spacing="22.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mortgage Value">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="MortgageValue" strokeType="OUTSIDE" strokeWidth="0.0" text="210kr">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Line endX="100.0" startX="10.0">
+                     <VBox.margin>
+                        <Insets top="1.0" />
+                     </VBox.margin>
+                  </Line>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <Text fx:id="Rent0" strokeType="OUTSIDE" strokeWidth="0.0" text="If 1 utility is owned the rent is n times the sum of the two dices rolled" textAlignment="CENTER" wrappingWidth="65.0">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="Rent1" strokeType="OUTSIDE" strokeWidth="0.0" text="If 2 utilities are owned the rent is n times the sum of the two dices rolled" textAlignment="CENTER" wrappingWidth="65.0">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>
