@@ -1,12 +1,13 @@
 package Controller;
 
 import Model.*;
-import View.Piece;
-import View.SpaceView;
+import Model.Locale;
+import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -20,9 +21,13 @@ public class BoardController {
 
     private final List<Piece> pieces = new ArrayList<>();
 
-    private Map<String, SpaceView> spaceViewMap = new HashMap<String, SpaceView>();
+    private final Map<String, SpaceView> spaceViewMap = new HashMap<>();
 
-    private Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<Integer, PlayerCardsController>();
+    private final Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<>();
+
+    private final Map<String, LocaleRentView> localeRentViewMap = new HashMap<>();
+    private final Map<String, StationRentView> stationRentViewMap = new HashMap<>();
+    private final Map<String, UtilityRentView> utilityRentViewMap = new HashMap<>();
 
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
@@ -34,23 +39,57 @@ public class BoardController {
     @FXML
     StackPane monopolyScene;
 
+    @FXML
+    FlowPane boardFlowPane;
+
     public void initGame(Game game) {
         this.game = game;
-        initSpaceControllerMap();
+        initSpaceViewMap();
         initSpaces();
 
         initPlayerCardsControllerMap();
         initPlayers();
+
+        initRentViewMaps();
     }
 
     /**
      * Goes through every space on the board and assigns a controller to each space.
      */
-    private void initSpaceControllerMap() {
+    private void initSpaceViewMap() {
         for (Space space : game.getBoard().getSpaceList()) {
             SpaceView spaceView = new SpaceView(space);
             spaceViewMap.put(space.getSpaceName(), spaceView);
         }
+    }
+
+    private void initRentViewMaps() {
+        for (Space space : game.getBoard().getSpaceList()) {
+            if (space instanceof Locale) {
+                setUpLocaleViewMap((Locale) space);
+            }
+            else if (space instanceof Station) {
+                setUpStationViewMap((Station) space);
+            }
+            else if (space instanceof Utility) {
+                setUpUtilityViewMap((Utility) space);
+            }
+        }
+    }
+
+    private void setUpLocaleViewMap(Locale locale) {
+        LocaleRentView localeRentView = new LocaleRentView(locale);
+        localeRentViewMap.put(locale.getSpaceName(), localeRentView);
+    }
+
+    private void setUpStationViewMap(Station station) {
+        StationRentView stationRentView = new StationRentView(station);
+        stationRentViewMap.put(station.getSpaceName(), stationRentView);
+    }
+
+    private void setUpUtilityViewMap(Utility utility) {
+        UtilityRentView utilityRentView = new UtilityRentView(utility);
+        utilityRentViewMap.put(utility.getSpaceName(), utilityRentView);
     }
 
     /**
@@ -105,7 +144,7 @@ public class BoardController {
      */
     private void initPlayers() {
         List<Player> players = game.getPlayers();
-        Deque<Pos> alignmentDeque = new LinkedList<Pos>();
+        Deque<Pos> alignmentDeque = new LinkedList<>();
         alignmentDeque.add(Pos.TOP_LEFT);
         alignmentDeque.add(Pos.TOP_RIGHT);
         alignmentDeque.add(Pos.BOTTOM_LEFT);
@@ -149,6 +188,34 @@ public class BoardController {
             ImageView pieceImage = piece.getPiece();
             positionToGrid(playerPosition, pieceImage);
         }
+        // TODO extract the if-statements below, this is just a temporary location
+        if (game.getCurrentSpace() instanceof Locale) {
+            updateLocaleRentView();
+        }
+        else if (game.getCurrentSpace() instanceof Station) {
+            updateStationRentView();
+        }
+        else if (game.getCurrentSpace() instanceof Utility) {
+            updateUtilityRentView();
+        }
+        else { clearBoardFlowPane(); }
+    }
+
+    private void clearBoardFlowPane() { boardFlowPane.getChildren().clear(); }
+
+    private void updateLocaleRentView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    }
+
+    private void updateStationRentView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(stationRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    }
+
+    private void updateUtilityRentView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(utilityRentViewMap.get(game.getCurrentSpace().getSpaceName()));
     }
 
     /**
