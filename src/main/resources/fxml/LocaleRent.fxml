@@ -14,7 +14,7 @@
       <Rectangle fx:id="spaceStroke" fill="WHITE" height="152.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Rectangle fx:id="localeColor" fill="RED" height="30.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Rectangle fx:id="localeColor" fill="WHITE" height="30.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Text fx:id="PropertyName" strokeType="OUTSIDE" strokeWidth="0.0" text="ELEKTRO- INNERGÅRDEN" textAlignment="CENTER" wrappingWidth="70.0">
@@ -76,7 +76,7 @@
                      <children>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="63.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent">
+                              <Text fx:id="RentText0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent">
                                  <font>
                                     <Font size="7.0" />
                                  </font>
@@ -96,7 +96,7 @@
                         </HBox>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="16.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with colour set">
+                              <Text fx:id="RentText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with colour set">
                                  <font>
                                     <Font size="7.0" />
                                  </font>
@@ -116,7 +116,7 @@
                         </HBox>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="22.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 1 house">
+                              <Text fx:id="RentText2" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 1 house">
                                  <font>
                                     <Font size="7.0" />
                                  </font>
@@ -139,7 +139,7 @@
                         </HBox>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="14.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 2 houses">
+                              <Text fx:id="RentText3" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 2 houses">
                                  <font>
                                     <Font size="7.0" />
                                  </font>
@@ -159,7 +159,7 @@
                         </HBox>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="14.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 3 houses">
+                              <Text fx:id="RentText4" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 3 houses">
                                  <font>
                                     <Font size="7.0" />
                                  </font>
@@ -179,7 +179,7 @@
                         </HBox>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="14.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 4 houses">
+                              <Text fx:id="RentText5" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 4 houses">
                                  <font>
                                     <Font size="7.0" />
                                  </font>
@@ -196,7 +196,7 @@
                         </HBox>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="21.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 1 hotel">
+                              <Text fx:id="RentText6" strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 1 hotel">
                                  <font>
                                     <Font size="7.0" />
                                  </font>
@@ -218,7 +218,7 @@
                         <Insets bottom="1.0" top="2.0" />
                      </VBox.margin>
                   </Line>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <HBox prefHeight="10.0" prefWidth="200.0" spacing="36.0">
                            <children>
