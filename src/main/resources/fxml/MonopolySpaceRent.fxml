@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="100.0" stylesheets="@../css/MonopolySpace.css" type="AnchorPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fx:id="spaceStroke" fill="WHITE" height="152.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Rectangle fx:id="localeColor" fill="RED" height="30.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="PropertyName" strokeType="OUTSIDE" strokeWidth="0.0" text="ELEKTRO- INNERGÅRDEN" textAlignment="CENTER" wrappingWidth="70.0">
+                     <font>
+                        <Font name="System Bold" size="7.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="spaceText" layoutY="21.0" prefHeight="71.0" prefWidth="56.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox prefHeight="5.0" prefWidth="200.0" spacing="29.0">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Price">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="PurchasePrice" strokeType="OUTSIDE" strokeWidth="0.0" text="420kr">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="5.0" prefWidth="200.0" spacing="24.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mortgage Value">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="-1.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text fx:id="MortgageValue" strokeType="OUTSIDE" strokeWidth="0.0" text="210kr">
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Line endX="100.0" startX="10.0">
+                     <VBox.margin>
+                        <Insets bottom="1.0" top="2.0" />
+                     </VBox.margin>
+                  </Line>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="63.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="Rent0" strokeType="OUTSIDE" strokeWidth="0.0" text="10kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="16.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with colour set">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="RentWithSet" strokeType="OUTSIDE" strokeWidth="0.0" text="20kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="22.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 1 house">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="Rent1" strokeType="OUTSIDE" strokeWidth="0.0" text="50kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="-1.0" />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="14.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 2 houses">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="Rent2" strokeType="OUTSIDE" strokeWidth="0.0" text="150kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="14.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 3 houses">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="Rent3" strokeType="OUTSIDE" strokeWidth="0.0" text="450kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="14.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 4 houses">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="Rent4" strokeType="OUTSIDE" strokeWidth="0.0" text="625kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="21.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rent with 1 hotel">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="Rent5" strokeType="OUTSIDE" strokeWidth="0.0" text="750kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Line endX="100.0" startX="10.0">
+                     <VBox.margin>
+                        <Insets bottom="1.0" top="2.0" />
+                     </VBox.margin>
+                  </Line>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="36.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Houses cost">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="HouseCost" strokeType="OUTSIDE" strokeWidth="0.0" text="100kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="10.0" prefWidth="200.0" spacing="2.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotels cost 4 houses">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="HotelCost" strokeType="OUTSIDE" strokeWidth="0.0" text="100kr">
+                                 <font>
+                                    <Font size="7.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>
