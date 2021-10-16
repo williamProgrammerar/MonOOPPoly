@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.Piece;
+import View.SpaceView;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ public class BoardController {
 
     private final List<Piece> pieces = new ArrayList<>();
 
-    private Map<String, SpaceController> spaceControllerMap = new HashMap<String, SpaceController>();
+    private Map<String, SpaceView> spaceViewMap = new HashMap<String, SpaceView>();
 
     private Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<Integer, PlayerCardsController>();
 
@@ -47,8 +48,8 @@ public class BoardController {
      */
     private void initSpaceControllerMap() {
         for (Space space : game.getBoard().getSpaceList()) {
-            SpaceController spaceController = new SpaceController(space);
-            spaceControllerMap.put(space.getSpaceName(), spaceController);
+            SpaceView spaceView = new SpaceView(space);
+            spaceViewMap.put(space.getSpaceName(), spaceView);
         }
     }
 
@@ -65,15 +66,15 @@ public class BoardController {
         int r = 10;
         int c = 10;
         for (Space space : spaceList) {
-            SpaceController i = spaceControllerMap.get(space.getSpaceName());
+            SpaceView i = spaceViewMap.get(space.getSpaceName());
             boardGrid.add(i, c, r);
 
             if (c == 0) {
                 i.setRotate(90);
-                i.spaceText.setRotate(-90);
+                i.getSpaceText().setRotate(-90);
             } else if (c == 10) {
                 i.setRotate(-90);
-                i.spaceText.setRotate(90);
+                i.getSpaceText().setRotate(90);
             }
 
             if (r == 10 && c != 0) {
@@ -330,7 +331,7 @@ public class BoardController {
             if (!property.isOwned()) {
                 Player player = game.getCurrentPlayer();
                 player.buyProperty(property);
-                spaceControllerMap.get(property.getSpaceName()).setOwner(player);
+                spaceViewMap.get(property.getSpaceName()).setOwner(player);
                 playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
             }
         }

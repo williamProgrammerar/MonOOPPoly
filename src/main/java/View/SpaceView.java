@@ -1,4 +1,4 @@
-package Controller;
+package View;
 
 import Model.Locale;
 import Model.Player;
@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 
 
-public class SpaceController extends AnchorPane {
+public class SpaceView extends AnchorPane {
 
     @FXML
     Text localeName;
@@ -38,7 +38,7 @@ public class SpaceController extends AnchorPane {
     @FXML
     AnchorPane spaceText;
 
-    public SpaceController(Space space) {
+    public SpaceView(Space space) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -71,5 +71,9 @@ public class SpaceController extends AnchorPane {
         Color color = player.getColor();
         localeColor.setStroke(color);
         spaceStroke.setStroke(color);
+    }
+
+    public AnchorPane getSpaceText() {
+        return spaceText;
     }
 }
