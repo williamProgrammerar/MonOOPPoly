@@ -5,7 +5,6 @@ import Model.Locale;
 import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -29,21 +28,24 @@ public class BoardController {
     private final Map<String, StationRentView> stationRentViewMap = new HashMap<>();
     private final Map<String, UtilityRentView> utilityRentViewMap = new HashMap<>();
 
-    // everything involving controlling the dice should be moved here and removed from the Game class.
-    @FXML
-    private Button dice1;
-    @FXML
-    private Button dice2;
-    @FXML
-    private GridPane boardGrid;
-    @FXML
-    StackPane monopolyScene;
+    private DiceView diceView;
 
     @FXML
-    FlowPane boardFlowPane;
+    private GridPane boardGrid;
+
+    @FXML
+    private StackPane monopolyScene;
+
+    @FXML
+    private FlowPane boardFlowPane;
+
+    @FXML
+    private FlowPane diceFlowPane;
 
     public void initGame(Game game) {
         this.game = game;
+        this.diceView  = new DiceView(game.getDice());
+        diceFlowPane.getChildren().add(diceView);
         initSpaceViewMap();
         initSpaces();
 
@@ -169,8 +171,7 @@ public class BoardController {
      */
     public void rollDice() {
         game.getDice().rollDice();
-        dice1.setText(String.valueOf(game.getDice().getDice1()));
-        dice2.setText(String.valueOf(game.getDice().getDice2()));
+        diceView.updateDice();
         game.move(game.getDice().getSum());
         updateAllPieces();
     }
@@ -201,7 +202,10 @@ public class BoardController {
         else { clearBoardFlowPane(); }
     }
 
-    private void clearBoardFlowPane() { boardFlowPane.getChildren().clear(); }
+    private void clearBoardFlowPane() {
+        boardFlowPane.getChildren().clear();
+        diceView.updateDice();
+    }
 
     private void updateLocaleRentView() {
         clearBoardFlowPane();
