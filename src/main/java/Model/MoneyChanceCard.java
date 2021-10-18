@@ -17,6 +17,7 @@ public class MoneyChanceCard extends IChanceCard {
      */
     @Override
     public void doAction(Player player) {
-
+        player.setCapital(player.getCapital() + money);
+        System.out.println("HEJ");
     }
 }
