@@ -14,6 +14,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLOutput;
+import java.util.ResourceBundle;
+
+/**
+ * View for the spaces
+ *
+ * @author rhedinh
+ */
+
 
 public class SpaceView extends AnchorPane {
 

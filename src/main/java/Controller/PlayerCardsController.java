@@ -10,6 +10,12 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
+/**
+ * Controlls the playercards
+ *
+ * @author rhedinh
+ */
+
 public class PlayerCardsController extends AnchorPane {
     @FXML
     Text capitalLabel;
