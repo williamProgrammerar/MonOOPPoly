@@ -6,12 +6,15 @@ import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 
 public class BoardController {
@@ -29,6 +32,8 @@ public class BoardController {
     private final Map<String, StationRentView> stationRentViewMap = new HashMap<>();
     private final Map<String, UtilityRentView> utilityRentViewMap = new HashMap<>();
 
+    private Map<Integer, Point> spaceCellMap = new HashMap<Integer, Point>();
+
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
     private Button dice1;
@@ -38,12 +43,15 @@ public class BoardController {
     private GridPane boardGrid;
     @FXML
     StackPane monopolyScene;
+    @FXML
+    TextArea chanceCardText;
 
     @FXML
     FlowPane boardFlowPane;
 
     public void initGame(Game game) {
         this.game = game;
+        initSpaceCellMap();
         initSpaceViewMap();
         initSpaces();
 
@@ -90,6 +98,24 @@ public class BoardController {
     private void setUpUtilityViewMap(Utility utility) {
         UtilityRentView utilityRentView = new UtilityRentView(utility);
         utilityRentViewMap.put(utility.getSpaceName(), utilityRentView);
+    }
+
+    private void initSpaceCellMap(){
+        int r = 10;
+        int c = 10;
+
+        for (int i = 0; i < game.getBoard().getSpaceList().size(); i++) {
+            spaceCellMap.put(i, new Point(r, c));
+            if (r == 10 && c != 0) {
+                c--;
+            } else if (c == 0 && r != 0) {
+                r--;
+            } else if (r == 0 && c != 10) {
+                c++;
+            } else {
+                r++;
+            }
+        }
     }
 
     /**
@@ -220,13 +246,14 @@ public class BoardController {
 
     /**
      * Converts the players position to corresponding row and column.
+     *
      * @param position the players position
-     * @param piece the players piece image
+     * @param piece    the players piece image
      */
     public void positionToGrid(int position, ImageView piece) {
-        int col, row;
+        double col, row;
 
-        switch (position) {
+        /*switch (position) {
             case 1 -> {
                 col = 9;
                 row = 10;
@@ -234,6 +261,8 @@ public class BoardController {
             case 2 -> {
                 col = 8;
                 row = 10;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 3 -> {
                 col = 7;
@@ -254,6 +283,8 @@ public class BoardController {
             case 7 -> {
                 col = 3;
                 row = 10;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 8 -> {
                 col = 2;
@@ -294,6 +325,8 @@ public class BoardController {
             case 17 -> {
                 col = 0;
                 row = 3;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 18 -> {
                 col = 0;
@@ -314,6 +347,8 @@ public class BoardController {
             case 22 -> {
                 col = 2;
                 row = 0;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 23 -> {
                 col = 3;
@@ -354,6 +389,8 @@ public class BoardController {
             case 32 -> {
                 col = 10;
                 row = 2;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 33 -> {
                 col = 10;
@@ -370,6 +407,8 @@ public class BoardController {
             case 36 -> {
                 col = 10;
                 row = 6;
+                IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+                chanceCardText.setText(chanceCard.getText());
             }
             case 37 -> {
                 col = 10;
@@ -387,9 +426,17 @@ public class BoardController {
                 col = 10;
                 row = 10;
             }
+        }*/
+        row = spaceCellMap.get(position).getX();
+        col = spaceCellMap.get(position).getY();
+        if (game.getBoard().getSpaceList().get(position) instanceof Chance){
+            IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+            chanceCardText.setText(chanceCard.getText());
+            chanceCard.doAction(game.getCurrentPlayer());
+            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
         }
         boardGrid.getChildren().remove(piece);
-        boardGrid.add(piece, col, row);
+        boardGrid.add(piece, (int) col, (int) row);
     }
 
     public void buyProperty() {
