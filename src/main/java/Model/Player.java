@@ -2,7 +2,6 @@ package Model;
 
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +13,9 @@ public class Player {
     private final int playerId;
     private int position;
     private boolean hasPassedGo;
-    private List<Property> properties = new ArrayList<>();
-    private javafx.scene.paint.Color color;
+    private int turnsInJail;
+    private final List<Property> properties = new ArrayList<>();
+    private final javafx.scene.paint.Color color;
 
     public Player(int playerId, int capital) {
         this.playerId = playerId;
@@ -23,19 +23,13 @@ public class Player {
         this.position = 0;
         this.name = "Inget namn än";
         switch (playerId){
-            case 0 -> {
-                this.color = Color.RED;
-            }
-            case 1 -> {
-                this.color = Color.DARKTURQUOISE;
-            }
-            case 2 -> {
-                this.color = Color.GREEN;
-            }
-            case 3 -> {
-                this.color = Color.ORANGE;
-            }
+            case 0 -> this.color = Color.RED;
+            case 1 -> this.color = Color.DARKTURQUOISE;
+            case 2 -> this.color = Color.GREEN;
+            case 3 -> this.color = Color.ORANGE;
+            default -> throw new IllegalStateException("Unexpected value: " + playerId);
         }
+        this.turnsInJail = 0;
     }
 
     /**
@@ -100,6 +94,7 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getState() {
         return state;
     }
@@ -110,7 +105,12 @@ public class Player {
 
     public javafx.scene.paint.Color getColor(){return color;}
 
-
+    /**
+     * buyProperty checks if property is unowned. If the property is unowned the method then checks
+     * if the player can afford it. If the player can afford the property the transaction will begin and the player will
+     * receive the property.
+     * @param property the property player is attempting to buy
+     */
     public void buyProperty(Property property) {
         if(!property.isOwned()) {
             if (property.getPrice() <= capital) {
@@ -133,5 +133,13 @@ public class Player {
     }
     public List<Property> getProperties() {
         return properties;
+    }
+
+    public int getTurnsInJail() {
+        return turnsInJail;
+    }
+
+    public void setTurnsInJail(int turnsInJail) {
+        this.turnsInJail = turnsInJail;
     }
 }

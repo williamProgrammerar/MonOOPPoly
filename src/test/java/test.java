@@ -1,11 +1,18 @@
+
 import Model.*;
 //import org.junit.*;
+
+/*import Model.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class test {
     private List<String> list = new ArrayList<>();
@@ -20,7 +27,6 @@ public class test {
 
     public test() throws Exception {
     }
-
 
     @BeforeEach
     void setUp() {
@@ -50,41 +56,6 @@ public class test {
             list.add(tmp);
             System.out.println();
         }
-    }
-
-    @Test
-    void testGetPositionUsingString() {
-        String spaceName;
-        int position;
-        for (int i = 0; i < 100; i++) {
-            spaceName = board.getSpace(rand.nextInt(40)).getSpaceName();
-            position = findSpace(spaceName);
-            System.out.println(spaceName + " is located at position: " + position);
-        }
-    }
-
-    int findSpace(String string) {
-        int position = 0;
-        for (int i = 0; i < board.getSpaceList().size(); i++) {
-            if (board.getSpace(i).getSpaceName().equals(string)) {
-                position = i;
-                break;
-            }
-        }
-        return position;
-    }
-
-    @Test
-    void testMove() {
-        player.move(20);
-        System.out.println(player.getPosition());
-        System.out.println(player.HasPassedGo());
-        player.move(20);
-        System.out.println(player.getPosition());
-        System.out.println(player.HasPassedGo());
-        player.move(-5);
-        System.out.println(player.getPosition());
-        System.out.println(player.HasPassedGo());
     }
 
     @Test
@@ -136,10 +107,24 @@ public class test {
 
         for (int i = 0; i < 20; i++) {
             System.out.println();
-
+            dice.rollDice();
             System.out.println("Dice rolled: " + dice.getSum());
-            game.move( dice.rollDice());
+            game.move(dice.getSum());
             game.next();
         }
     }
-}
+
+    @Test
+    void testU() {
+        gameSettings.addPlayer();
+        Player player = gameSettings.getPlayers().get(0);
+        player.moveTo(23, true);
+        game = new Game(gameSettings);
+        game.move(7);
+
+        assertEquals(10, player.getPosition());
+        assertTrue(player.getTurnsInJail() > 0);
+    }
+
+
+}*/

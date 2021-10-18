@@ -3,6 +3,13 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Board is the class where all the different types of spaces are added to one list.
+ * This class has methods to find certain spaces.
+ *
+ * @author williamProgrammerar
+ * @author HedQuist
+ */
 public class Board {
     Section orange = new Section(2);
     Section brown = new Section(2);
@@ -14,6 +21,9 @@ public class Board {
     Section turqoise = new Section(3);
     private final List<Space> spaceList;
 
+    /**
+     * Board constructor adds all the different spaces to the list spaceList.
+     */
     public Board() {
         List<Space> tmpList = new ArrayList<>();
         tmpList.add(new Space("GO"));
@@ -60,8 +70,8 @@ public class Board {
     }
 
     /**
-     * findSpace is a method that given a string matching one of the spaceNames
-     * in spaceList will return the position of that spaceName.
+     * findSpace() is a method that given a string matching one of the spaceNames
+     * in spaceList it will return the position of that spaceName.
      * @param string name spaceName
      * @return position (int) of the string searched for
      */

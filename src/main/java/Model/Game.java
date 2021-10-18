@@ -3,6 +3,14 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Game class is responsible for
+ *
+ * @author williamProgrammerar
+ * @author rhedinh
+ * @author JonEmilsson
+ * @author HedQuist
+ */
 public class Game {
     private final Dice dice = new Dice();
     private final Board board = new Board();
@@ -10,30 +18,32 @@ public class Game {
     private Space currentSpace;
     private Player currentPlayer;
 
+    private boolean hasMoved = false;
 
     public Game(GameSettings gameSettings)  {
        this.players.addAll(gameSettings.getPlayers());
-       System.out.println(players.get(0).getName());
-
     }
-
-    public int choosePiece(){
-        return 1;
-    } // Temporary, might delete
 
     /**
      * Moves the current player sum spaces.
      * @author williamProgrammerar
      */
-    public void move(int diceSum) {
-        currentPlayer = players.get(0);
-        currentPlayer.move(diceSum);
-        currentSpace = board.getSpace(currentPlayer.getPosition());
+    public void move(int spaces) {
+        if(!hasMoved) {
+            currentPlayer = players.get(0);
+            if (!jailTurn(currentPlayer)) {
+                currentPlayer.move(spaces);
+                currentSpace = board.getSpace(currentPlayer.getPosition());
 
-        inspectCurrentSpace();
+                inspectCurrentSpace();
 
-        System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-        System.out.println(currentPlayer.getPosition());
+                hasMoved = true;
+
+                System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+                System.out.println(currentPlayer.getPosition());
+
+            }
+        }
     }
 
     /**
@@ -41,6 +51,7 @@ public class Game {
      * If the current space is a property, owned by another player and not mortgaged then the player
      * has to pay rent to the owner of the property.
      * @author williamProgrammerar
+     * @author Hedquist
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
@@ -55,6 +66,77 @@ public class Game {
                     }
                 }
             }
+        } else if(isCurrentSpaceTax()) {
+            Tax tax = (Tax) currentSpace;
+            currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
+            System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
+        } else if(isCurrentSpaceChance()) {
+            //TODO chance card
+        } else if(currentSpace.getSpaceName().equals("GO")) {
+            int salary = 200;
+            currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
+            System.out.println("Player " + currentPlayer.getPlayerId() + " passed GO and recieved " + salary);
+        } else if(currentSpace.getSpaceName().equals("U")) {
+            currentPlayer.moveTo(10, false);
+            currentPlayer.setTurnsInJail(1);
+            System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
+        }
+    }
+
+    /**
+     * Checks if the player is in Jail. If they are, they must roll doubles in order to get out.
+     * If they do, move them according to the dice roll.
+     * If they fail for 3 turns, pay fine and move according to dice roll.
+     * Sets turnsInJail to 0 when they get out.
+     * @param currentPlayer
+     * @return if the player is in jail or not
+     * @author Hedquist
+     */
+    private boolean jailTurn(Player currentPlayer) {
+        if(currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
+            int jailFine = 50;
+            System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
+            dice.rollDice(); //this needs to be coupled to the view
+            if(dice.isDoubles()) {
+                System.out.println("You got out!");
+
+                currentPlayer.move(dice.getSum());
+                currentSpace = board.getSpace(currentPlayer.getPosition());
+
+                inspectCurrentSpace();
+
+                System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+                System.out.println(currentPlayer.getPosition());
+
+                currentPlayer.setTurnsInJail(0);
+            } else {
+                System.out.println("You're stuck!");
+                currentPlayer.setTurnsInJail(currentPlayer.getTurnsInJail() + 1);
+                if(currentPlayer.getTurnsInJail()>3) {
+                    currentPlayer.setCapital(currentPlayer.getCapital() - jailFine);
+                    System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
+
+                    currentPlayer.move(dice.getSum());
+                    currentSpace = board.getSpace(currentPlayer.getPosition());
+
+                    inspectCurrentSpace();
+
+                    System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+                    System.out.println(currentPlayer.getPosition());
+
+                    currentPlayer.setTurnsInJail(0);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void endTurn () {
+        if (dice.isHasRolled()) {
+            next();
+            dice.setHasRolled(false);
+            hasMoved = false;
         }
     }
 
@@ -65,6 +147,7 @@ public class Game {
     private boolean isOwnedByCurrentPlayer(Property property) {
         return currentPlayer.getProperties().contains(property);
     }
+
     public void buyHouse(Locale locale){
         if (currentPlayer.hasMonopoly(locale)){
             locale.buildHouse();
@@ -73,6 +156,17 @@ public class Game {
             System.out.println("You do not own all properties within this section");
         }
     }
+
+
+    private boolean isCurrentSpaceTax() {
+        return currentSpace instanceof Tax;
+    }
+
+    private boolean isCurrentSpaceChance() {
+        return currentSpace instanceof Chance;
+    }
+
+
     /**
      * Places the current player (index 0) in a temporary variable.
      * Player index 0 in the player list is then removed, which leads to a new current player.

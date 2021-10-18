@@ -27,4 +27,8 @@ public class Locale extends Property {
     public Section getSection(){
         return section;
     }
+
+    public int getHouseCost() {
+        return houseCost;
+    }
 }
