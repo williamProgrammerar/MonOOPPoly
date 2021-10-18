@@ -6,6 +6,7 @@ import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -30,6 +31,12 @@ public class BoardController {
 
     private DiceView diceView;
 
+    private final UnownedPropertyController unownedPropertyController = new UnownedPropertyController(this);
+    private final UnownedPropertyView unownedPropertyView = new UnownedPropertyView(unownedPropertyController);
+
+    private final AuctionController auctionController = new AuctionController(this);
+    private final AuctionView auctionView = new AuctionView(auctionController);
+
     @FXML
     private GridPane boardGrid;
 
@@ -45,7 +52,7 @@ public class BoardController {
     public void initGame(Game game) {
         this.game = game;
         this.diceView  = new DiceView(game.getDice());
-        diceFlowPane.getChildren().add(diceView);
+        showDiceView();
         initSpaceViewMap();
         initSpaces();
 
@@ -65,6 +72,10 @@ public class BoardController {
         }
     }
 
+    /**
+     * Goes through every space on the board and places spaces that are either instances of Locale, Station and Utility
+     * in their respective maps.
+     */
     private void initRentViewMaps() {
         for (Space space : game.getBoard().getSpaceList()) {
             if (space instanceof Locale) {
@@ -92,6 +103,23 @@ public class BoardController {
     private void setUpUtilityViewMap(Utility utility) {
         UtilityRentView utilityRentView = new UtilityRentView(utility);
         utilityRentViewMap.put(utility.getSpaceName(), utilityRentView);
+    }
+
+    private void showDiceView() {
+        diceFlowPane.getChildren().add(diceView);
+    }
+
+    private void showUnownedPropertyView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(unownedPropertyView);
+        unownedPropertyController.setFlowPane(getPropertyRentView());
+    }
+
+    public void showAuctionView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(auctionView);
+        auctionController.setFlowPane(getPropertyRentView());
+        auctionController.startAuction();
     }
 
     /**
@@ -172,8 +200,24 @@ public class BoardController {
     public void rollDice() {
         game.getDice().rollDice();
         diceView.updateDice();
+        moveCurrentPlayer();
+    }
+
+    private void moveCurrentPlayer() {
         game.move(game.getDice().getSum());
         updateAllPieces();
+        landedOnProperty();
+        updatePlayerCapital();
+    }
+
+    private void landedOnProperty() {
+        if (game.getCurrentSpace() instanceof Property) {
+            Property property = (Property) game.getCurrentSpace();
+            if (!property.isOwned()) {
+                showUnownedPropertyView();
+            }
+            // TODO if owned then show who payed rent to who
+        }
     }
 
     public void endTurn() {
@@ -189,37 +233,35 @@ public class BoardController {
             ImageView pieceImage = piece.getPiece();
             positionToGrid(playerPosition, pieceImage);
         }
-        // TODO extract the if-statements below, this is just a temporary location
+    }
+
+    public AnchorPane getPropertyRentView() {
         if (game.getCurrentSpace() instanceof Locale) {
-            updateLocaleRentView();
+            return getLocaleRentView();
         }
         else if (game.getCurrentSpace() instanceof Station) {
-            updateStationRentView();
+            return getStationRentView();
         }
-        else if (game.getCurrentSpace() instanceof Utility) {
-            updateUtilityRentView();
+        else {
+            return getUtilityRentView();
         }
-        else { clearBoardFlowPane(); }
     }
 
-    private void clearBoardFlowPane() {
+    private AnchorPane getLocaleRentView() {
+        return localeRentViewMap.get(game.getCurrentSpace().getSpaceName());
+    }
+
+    private AnchorPane getStationRentView() {
+        return stationRentViewMap.get(game.getCurrentSpace().getSpaceName());
+    }
+
+    private AnchorPane getUtilityRentView() {
+        return utilityRentViewMap.get(game.getCurrentSpace().getSpaceName());
+    }
+
+    public void clearBoardFlowPane() {
         boardFlowPane.getChildren().clear();
-        diceView.updateDice();
-    }
-
-    private void updateLocaleRentView() {
-        clearBoardFlowPane();
-        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
-    }
-
-    private void updateStationRentView() {
-        clearBoardFlowPane();
-        boardFlowPane.getChildren().add(stationRentViewMap.get(game.getCurrentSpace().getSpaceName()));
-    }
-
-    private void updateUtilityRentView() {
-        clearBoardFlowPane();
-        boardFlowPane.getChildren().add(utilityRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+        updatePlayerCapital();
     }
 
     /**
@@ -402,9 +444,23 @@ public class BoardController {
             if (!property.isOwned()) {
                 Player player = game.getCurrentPlayer();
                 player.buyProperty(property);
-                spaceViewMap.get(property.getSpaceName()).setOwner(player);
-                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+                newPropertyOwner(property, player);
             }
         }
+    }
+
+    public void newPropertyOwner(Property property, Player player) {
+        spaceViewMap.get(property.getSpaceName()).setOwner(player);
+        updatePlayerCapital();
+    }
+
+    private void updatePlayerCapital() {
+        for (Player player : game.getPlayers()) {
+            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+        }
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
