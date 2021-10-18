@@ -11,7 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 
 public class BoardController {
@@ -24,6 +26,8 @@ public class BoardController {
     private Map<String, SpaceController> spaceControllerMap = new HashMap<String, SpaceController>();
 
     private Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<Integer, PlayerCardsController>();
+
+    private Map<Integer, Point> spaceCellMap = new HashMap<Integer, Point>();
 
     // everything involving controlling the dice should be moved here and removed from the Game class.
     @FXML
@@ -40,6 +44,7 @@ public class BoardController {
     public void initGame(Game game) {
         this.game = game;
         initSpaceControllerMap();
+        initSpaceCellMap();
         initSpaces();
 
         initPlayerCardsControllerMap();
@@ -53,6 +58,24 @@ public class BoardController {
         for (Space space : game.getBoard().getSpaceList()) {
             SpaceController spaceController = new SpaceController(space);
             spaceControllerMap.put(space.getSpaceName(), spaceController);
+        }
+    }
+
+    private void initSpaceCellMap(){
+        int r = 10;
+        int c = 10;
+
+        for (int i = 0; i < game.getBoard().getSpaceList().size(); i++) {
+            spaceCellMap.put(i, new Point(r, c));
+            if (r == 10 && c != 0) {
+                c--;
+            } else if (c == 0 && r != 0) {
+                r--;
+            } else if (r == 0 && c != 10) {
+                c++;
+            } else {
+                r++;
+            }
         }
     }
 
@@ -151,13 +174,14 @@ public class BoardController {
 
     /**
      * Converts the players position to corresponding row and column.
+     *
      * @param position the players position
-     * @param piece the players piece image
+     * @param piece    the players piece image
      */
     public void positionToGrid(int position, ImageView piece) {
-        int col, row;
+        double col, row;
 
-        switch (position) {
+        /*switch (position) {
             case 1 -> {
                 col = 9;
                 row = 10;
@@ -330,9 +354,17 @@ public class BoardController {
                 col = 10;
                 row = 10;
             }
+        }*/
+        row = spaceCellMap.get(position).getX();
+        col = spaceCellMap.get(position).getY();
+        if (game.getBoard().getSpaceList().get(position) instanceof Chance){
+            IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+            chanceCardText.setText(chanceCard.getText());
+            chanceCard.doAction(game.getCurrentPlayer());
+            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
         }
         boardGrid.getChildren().remove(piece);
-        boardGrid.add(piece, col, row);
+        boardGrid.add(piece, (int) col, (int) row);
     }
 
     public void buyProperty() {
