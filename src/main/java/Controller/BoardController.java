@@ -5,7 +5,6 @@ import Model.Locale;
 import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -235,6 +234,7 @@ public class BoardController {
         game.move(game.getDice().getSum());
         updateAllPieces();
         landedOnProperty();
+        landedOnChance();
         updatePlayerCapital();
     }
 
@@ -245,6 +245,15 @@ public class BoardController {
                 showUnownedPropertyView();
             }
             // TODO if owned then show who payed rent to who
+        }
+    }
+
+    private void landedOnChance() {
+        if (game.getCurrentSpace() instanceof Chance){
+            IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+            chanceCardText.setText(chanceCard.getText());
+            chanceCard.doAction(game.getCurrentPlayer());
+            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
         }
     }
 
@@ -477,12 +486,6 @@ public class BoardController {
         }*/
         row = spaceCellMap.get(position).getX();
         col = spaceCellMap.get(position).getY();
-        if (game.getBoard().getSpaceList().get(position) instanceof Chance){
-            IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
-            chanceCardText.setText(chanceCard.getText());
-            chanceCard.doAction(game.getCurrentPlayer());
-            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
-        }
         boardGrid.getChildren().remove(piece);
         boardGrid.add(piece, (int) col, (int) row);
     }
