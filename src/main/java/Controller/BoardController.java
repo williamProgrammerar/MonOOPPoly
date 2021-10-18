@@ -234,6 +234,7 @@ public class BoardController {
         game.move(game.getDice().getSum());
         updateAllPieces();
         landedOnProperty();
+        chanceCardText.setText("CHANCE CARD");
         landedOnChance();
         updatePlayerCapital();
     }
