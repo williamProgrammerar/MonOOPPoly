@@ -42,7 +42,9 @@ public class BoardController {
         initPlayerCardsControllerMap();
         initPlayers();
     }
+    public void buyHouse(){
 
+    }
     private void initSpaceControllerMap() {
         for (Space space : game.getBoard().getSpaceList()) {
             SpaceController spaceController = new SpaceController(space);

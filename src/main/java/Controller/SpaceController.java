@@ -66,7 +66,9 @@ public class SpaceController extends AnchorPane {
         }
 
     }
+    public void buyHouse(){
 
+    }
     public void setOwner(Player player) {
         Color color = player.getColor();
         localeColor.setStroke(color);
