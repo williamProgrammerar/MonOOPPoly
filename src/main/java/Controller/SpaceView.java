@@ -1,9 +1,7 @@
-package View;
+package Controller;
 
-import Model.Locale;
-import Model.Player;
-import Model.Property;
-import Model.Space;
+import Model.*;
+import Observers.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -14,9 +12,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLOutput;
-import java.util.ResourceBundle;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * View for the spaces
@@ -26,11 +23,16 @@ import java.util.ResourceBundle;
 
 
 public class SpaceView extends AnchorPane {
-
+    private List<Observer> observers = new ArrayList<>();
     @FXML
     Text localeName;
     @FXML
     Text localePrice;
+
+    Game game;
+    Space space;
+
+    SelectedSpaceController buyHouseController;
     @FXML
     Rectangle localeColor;
     @FXML
@@ -42,11 +44,12 @@ public class SpaceView extends AnchorPane {
     @FXML
     AnchorPane spaceText;
 
-    public SpaceView(Space space) {
+    public SpaceView(Space space, Game game) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-
+        this.space = space;
+        this.game = game;
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -63,6 +66,8 @@ public class SpaceView extends AnchorPane {
             localeColor.setVisible(false);
         }
 
+         */
+
         if (space instanceof Property) {
             localePrice.setText(((Property) space).getPrice() + " kr");
         } else {
@@ -70,9 +75,18 @@ public class SpaceView extends AnchorPane {
         }
 
     }
-    public void buyHouse(){
+
+    private void notifyObservers(){
 
     }
+
+    public SelectedSpaceController getBuyHouseController() {
+        return buyHouseController;
+    }
+    private void spaceSelected(){
+       game.setSelectedSpace(space);
+    }
+
     public void setOwner(Player player) {
         Color color = player.getColor();
         localeColor.setStroke(color);

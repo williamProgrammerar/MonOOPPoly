@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import Model.Locale;
+import Observers.Observer;
 import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.List;
 
 
-public class BoardController {
+public class BoardController implements Observer {
     private Game game;
 
     private final PieceController pv = new PieceController();
@@ -60,9 +61,7 @@ public class BoardController {
 
         initRentViewMaps();
     }
-    public void buyHouse(){
 
-    }
    
     /**
      * Goes through every space on the board and assigns a controller to each space.
@@ -71,9 +70,11 @@ public class BoardController {
 
         for (Space space : game.getBoard().getSpaceList()) {
             SpaceView spaceView = new SpaceView(space);
+
             spaceViewMap.put(space.getSpaceName(), spaceView);
         }
     }
+
 
     private void initRentViewMaps() {
         for (Space space : game.getBoard().getSpaceList()) {
@@ -88,7 +89,6 @@ public class BoardController {
             }
         }
     }
-
     private void setUpLocaleViewMap(Locale locale) {
         LocaleRentView localeRentView = new LocaleRentView(locale);
         localeRentViewMap.put(locale.getSpaceName(), localeRentView);
@@ -167,7 +167,9 @@ public class BoardController {
             playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
         }
     }
-
+    private void displayBuyHouseController(){
+        
+    }
     /**
      * Method initiates all the players.
      * It creates a visual piece for each player and places all the pieces on the board.
@@ -232,7 +234,9 @@ public class BoardController {
     }
 
     private void clearBoardFlowPane() { boardFlowPane.getChildren().clear(); }
-
+    private void showSelectedSpace(SpaceView spaceView){
+        game.setSpaceSelected();
+    }
     private void updateLocaleRentView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
@@ -247,6 +251,7 @@ public class BoardController {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(utilityRentViewMap.get(game.getCurrentSpace().getSpaceName()));
     }
+
 
     /**
      * Converts the players position to corresponding row and column.
@@ -442,6 +447,9 @@ public class BoardController {
         boardGrid.getChildren().remove(piece);
         boardGrid.add(piece, (int) col, (int) row);
     }
+    private void buyHouse(){
+
+    }
 
     public void buyProperty() {
         if (game.getCurrentSpace() instanceof Property) {
@@ -453,5 +461,14 @@ public class BoardController {
                 playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
             }
         }
+    }
+
+    @Override
+    public void update() {
+        if (game.getSelectedSpace() instanceof Locale){
+            SelectedSpaceController selectedSpaceController = new SelectedSpaceController(game.getSelectedSpace());
+        }
+
+
     }
 }

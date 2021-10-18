@@ -1,5 +1,7 @@
 package Model;
 
+import Observers.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,9 @@ public class Game {
     private List<Player> players = new ArrayList<>();
     private Space currentSpace;
     private Player currentPlayer;
-
+    private Space selectedSpace;
     private boolean hasMoved = false;
+    List<Observer> observers = new ArrayList<>();
 
     public Game(GameSettings gameSettings)  {
        this.players.addAll(gameSettings.getPlayers());
@@ -198,4 +201,21 @@ public class Game {
     public Space getCurrentSpace() {
         return currentSpace;
     }
+    public Space getSelectedSpace() { return selectedSpace; }
+
+    public void setSelectedSpace(Space selectedSpace) {
+        this.selectedSpace = selectedSpace;
+        notifyAllObservers();
+    }
+
+    public void notifyAllObservers() {
+        for (Observer observer: observers){
+            observer.update();
+        }
+
+    }
+    public void attach(Observer observer){
+        observers.add(observer);
+    }
+
 }
