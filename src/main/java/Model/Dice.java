@@ -12,10 +12,14 @@ public class Dice {
     private static final Random rand = new Random();
     private int dice1;
     private int dice2;
+    private boolean hasRolled = false;
 
     public void rollDice() {
-        dice1 = rand.nextInt(6) + 1;
-        dice2 = rand.nextInt(6) + 1;
+        if (!hasRolled) {
+            dice1 = rand.nextInt(6) + 1;
+            dice2 = rand.nextInt(6) + 1;
+            hasRolled = true;
+        }
     }
 
     public int getDice1() {
@@ -32,6 +36,14 @@ public class Dice {
 
     public boolean isDoubles() {
         return dice1 == dice2;
+    }
+
+    public void setHasRolled(boolean hasRolled) {
+        this.hasRolled = hasRolled;
+    }
+
+    public boolean isHasRolled() {
+        return hasRolled;
     }
 }
 

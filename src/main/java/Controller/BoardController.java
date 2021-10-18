@@ -1,13 +1,14 @@
 package Controller;
 
 import Model.*;
-import View.Piece;
+import Model.Locale;
+import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -23,9 +24,13 @@ public class BoardController {
 
     private final List<Piece> pieces = new ArrayList<>();
 
-    private Map<String, SpaceController> spaceControllerMap = new HashMap<String, SpaceController>();
+    private final Map<String, SpaceView> spaceViewMap = new HashMap<>();
 
-    private Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<Integer, PlayerCardsController>();
+    private final Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<>();
+
+    private final Map<String, LocaleRentView> localeRentViewMap = new HashMap<>();
+    private final Map<String, StationRentView> stationRentViewMap = new HashMap<>();
+    private final Map<String, UtilityRentView> utilityRentViewMap = new HashMap<>();
 
     private Map<Integer, Point> spaceCellMap = new HashMap<Integer, Point>();
 
@@ -41,24 +46,58 @@ public class BoardController {
     @FXML
     TextArea chanceCardText;
 
+    @FXML
+    FlowPane boardFlowPane;
+
     public void initGame(Game game) {
         this.game = game;
-        initSpaceControllerMap();
         initSpaceCellMap();
+        initSpaceViewMap();
         initSpaces();
 
         initPlayerCardsControllerMap();
         initPlayers();
+
+        initRentViewMaps();
     }
 
     /**
      * Goes through every space on the board and assigns a controller to each space.
      */
-    private void initSpaceControllerMap() {
+    private void initSpaceViewMap() {
         for (Space space : game.getBoard().getSpaceList()) {
-            SpaceController spaceController = new SpaceController(space);
-            spaceControllerMap.put(space.getSpaceName(), spaceController);
+            SpaceView spaceView = new SpaceView(space);
+            spaceViewMap.put(space.getSpaceName(), spaceView);
         }
+    }
+
+    private void initRentViewMaps() {
+        for (Space space : game.getBoard().getSpaceList()) {
+            if (space instanceof Locale) {
+                setUpLocaleViewMap((Locale) space);
+            }
+            else if (space instanceof Station) {
+                setUpStationViewMap((Station) space);
+            }
+            else if (space instanceof Utility) {
+                setUpUtilityViewMap((Utility) space);
+            }
+        }
+    }
+
+    private void setUpLocaleViewMap(Locale locale) {
+        LocaleRentView localeRentView = new LocaleRentView(locale);
+        localeRentViewMap.put(locale.getSpaceName(), localeRentView);
+    }
+
+    private void setUpStationViewMap(Station station) {
+        StationRentView stationRentView = new StationRentView(station);
+        stationRentViewMap.put(station.getSpaceName(), stationRentView);
+    }
+
+    private void setUpUtilityViewMap(Utility utility) {
+        UtilityRentView utilityRentView = new UtilityRentView(utility);
+        utilityRentViewMap.put(utility.getSpaceName(), utilityRentView);
     }
 
     private void initSpaceCellMap(){
@@ -92,15 +131,15 @@ public class BoardController {
         int r = 10;
         int c = 10;
         for (Space space : spaceList) {
-            SpaceController i = spaceControllerMap.get(space.getSpaceName());
+            SpaceView i = spaceViewMap.get(space.getSpaceName());
             boardGrid.add(i, c, r);
 
             if (c == 0) {
                 i.setRotate(90);
-                i.spaceText.setRotate(-90);
+                i.getSpaceText().setRotate(-90);
             } else if (c == 10) {
                 i.setRotate(-90);
-                i.spaceText.setRotate(90);
+                i.getSpaceText().setRotate(90);
             }
 
             if (r == 10 && c != 0) {
@@ -118,7 +157,9 @@ public class BoardController {
 
     private void initPlayerCardsControllerMap() {
         for (Player player : game.getPlayers()) {
-            PlayerCardsController playerCardsController = new PlayerCardsController(player);
+            Piece piece = new Piece(pv.createPiece(), player);
+            pieces.add(piece);
+            PlayerCardsController playerCardsController = new PlayerCardsController(piece);
             playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
         }
     }
@@ -129,14 +170,14 @@ public class BoardController {
      */
     private void initPlayers() {
         List<Player> players = game.getPlayers();
-        Deque<Pos> alignmentDeque = new LinkedList<Pos>();
+        Deque<Pos> alignmentDeque = new LinkedList<>();
         alignmentDeque.add(Pos.TOP_LEFT);
         alignmentDeque.add(Pos.TOP_RIGHT);
         alignmentDeque.add(Pos.BOTTOM_LEFT);
         alignmentDeque.add(Pos.BOTTOM_RIGHT);
 
         for (Player player : players) {
-            pieces.add(new Piece(pv.createPiece(), player));
+            //pieces.add(new Piece(pv.createPiece(), player));
             System.out.println("Player added to list");
             PlayerCardsController playerCardsController = playerCardsControllerMap.get(player.getPlayerId());
             monopolyScene.getChildren().add(playerCardsController);
@@ -157,8 +198,11 @@ public class BoardController {
         dice1.setText(String.valueOf(game.getDice().getDice1()));
         dice2.setText(String.valueOf(game.getDice().getDice2()));
         game.move(game.getDice().getSum());
-        game.next();
         updateAllPieces();
+    }
+
+    public void endTurn() {
+        game.endTurn();
     }
 
     /**
@@ -170,6 +214,34 @@ public class BoardController {
             ImageView pieceImage = piece.getPiece();
             positionToGrid(playerPosition, pieceImage);
         }
+        // TODO extract the if-statements below, this is just a temporary location
+        if (game.getCurrentSpace() instanceof Locale) {
+            updateLocaleRentView();
+        }
+        else if (game.getCurrentSpace() instanceof Station) {
+            updateStationRentView();
+        }
+        else if (game.getCurrentSpace() instanceof Utility) {
+            updateUtilityRentView();
+        }
+        else { clearBoardFlowPane(); }
+    }
+
+    private void clearBoardFlowPane() { boardFlowPane.getChildren().clear(); }
+
+    private void updateLocaleRentView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    }
+
+    private void updateStationRentView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(stationRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    }
+
+    private void updateUtilityRentView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(utilityRentViewMap.get(game.getCurrentSpace().getSpaceName()));
     }
 
     /**
@@ -370,10 +442,12 @@ public class BoardController {
     public void buyProperty() {
         if (game.getCurrentSpace() instanceof Property) {
             Property property = (Property) game.getCurrentSpace();
-            Player player = game.getCurrentPlayer();
-            player.buyProperty(property);
-            spaceControllerMap.get(property.getSpaceName()).setOwner(player);
-            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+            if (!property.isOwned()) {
+                Player player = game.getCurrentPlayer();
+                player.buyProperty(property);
+                spaceViewMap.get(property.getSpaceName()).setOwner(player);
+                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+            }
         }
     }
 }

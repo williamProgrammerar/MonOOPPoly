@@ -1,8 +1,10 @@
 package Controller;
 
 import Model.Player;
+import View.Piece;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -18,8 +20,10 @@ public class PlayerCardsController extends AnchorPane {
     @FXML
     Text capitalLabel;
     @FXML Text nameLabel;
+    @FXML
+    ImageView playerIcon;
 
-    public PlayerCardsController(Player player) {
+    public PlayerCardsController(Piece piece) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerCard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -30,8 +34,9 @@ public class PlayerCardsController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        capitalLabel.setText(player.getCapital() + " kr");
-        nameLabel.setText(player.getName());
+        capitalLabel.setText(piece.getPlayer().getCapital() + " kr");
+        nameLabel.setText(piece.getPlayer().getName());
+        playerIcon.setImage(piece.getPiece().getImage());
     }
 
     public void updateCapital(Player player){

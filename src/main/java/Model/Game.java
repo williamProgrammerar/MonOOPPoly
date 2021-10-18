@@ -18,11 +18,10 @@ public class Game {
     private Space currentSpace;
     private Player currentPlayer;
 
+    private boolean hasMoved = false;
 
     public Game(GameSettings gameSettings)  {
        this.players.addAll(gameSettings.getPlayers());
-       //System.out.println(players.get(0).getName());
-
     }
 
     /**
@@ -30,15 +29,20 @@ public class Game {
      * @author williamProgrammerar
      */
     public void move(int spaces) {
-        currentPlayer = players.get(0);
-        if(!jailTurn(currentPlayer)) {
-            currentPlayer.move(spaces);
-            currentSpace = board.getSpace(currentPlayer.getPosition());
+        if(!hasMoved) {
+            currentPlayer = players.get(0);
+            if (!jailTurn(currentPlayer)) {
+                currentPlayer.move(spaces);
+                currentSpace = board.getSpace(currentPlayer.getPosition());
 
-            inspectCurrentSpace();
+                inspectCurrentSpace();
 
-            System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-            System.out.println(currentPlayer.getPosition());
+                hasMoved = true;
+
+                System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
+                System.out.println(currentPlayer.getPosition());
+
+            }
         }
     }
 
@@ -126,6 +130,14 @@ public class Game {
             return true;
         }
         return false;
+    }
+
+    public void endTurn () {
+        if (dice.isHasRolled()) {
+            next();
+            dice.setHasRolled(false);
+            hasMoved = false;
+        }
     }
 
     private boolean isCurrentSpaceProperty() {

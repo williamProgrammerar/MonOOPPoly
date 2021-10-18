@@ -4,6 +4,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
@@ -15,7 +16,7 @@
       <StackPane fx:id="monopolyScene" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <StackPane layoutX="-5.0" layoutY="-4.0" maxHeight="800.0" maxWidth="800.0" minHeight="600.0" minWidth="600.0" prefHeight="700.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane fx:id="boardGrid" alignment="CENTER" maxHeight="700.0" maxWidth="700.0" minHeight="700.0" minWidth="700.0" prefHeight="700.0" prefWidth="700.0" StackPane.alignment="CENTER">
+            <GridPane fx:id="boardGrid" alignment="CENTER" maxHeight="700.0" maxWidth="700.0" minHeight="700.0" minWidth="700.0" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
               <columnConstraints>
                   <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="14.0" />
                   <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="8.0" prefWidth="56.0" />
@@ -57,6 +58,8 @@
       </Button>
       <Text fx:id="diceText" layoutX="-143.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
       <Button layoutX="107.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyProperty" text="Buy Property" />
+      <Button layoutX="117.0" layoutY="385.0" mnemonicParsing="false" onAction="#endTurn" text="End Turn" />
+      <FlowPane fx:id="boardFlowPane" layoutX="1050.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0" />
       <TextArea fx:id="chanceCardText" editable="false" layoutX="493.0" layoutY="118.0" prefHeight="200.0" prefWidth="324.0" promptText="CHANS KORT TEXT">
          <font>
             <Font size="17.0" />
