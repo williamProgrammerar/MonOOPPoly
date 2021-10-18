@@ -15,7 +15,7 @@
       <Rectangle fx:id="spaceStroke" fill="WHITE" height="152.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Rectangle fx:id="localeColor" fill="WHITE" height="30.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Rectangle fx:id="localeColor" fill="#ff5959" height="30.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Text fx:id="PropertyName" strokeType="OUTSIDE" strokeWidth="0.0" text="ELEKTRO- INNERGÅRDEN" textAlignment="CENTER" wrappingWidth="70.0">
