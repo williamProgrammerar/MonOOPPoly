@@ -168,7 +168,6 @@ public class Game {
         }
         else{
             System.out.println("You do not own all properties within this section");
-            throw new IllegalArgumentException();
         }
     }
 
