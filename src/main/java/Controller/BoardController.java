@@ -6,9 +6,9 @@ import Observers.Observer;
 import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -33,25 +33,35 @@ public class BoardController implements Observer {
     private final Map<String, StationRentView> stationRentViewMap = new HashMap<>();
     private final Map<String, UtilityRentView> utilityRentViewMap = new HashMap<>();
 
-    private Map<Integer, Point> spaceCellMap = new HashMap<Integer, Point>();
+    private final Map<Integer, Point> spaceCellMap = new HashMap<>();
 
-    // everything involving controlling the dice should be moved here and removed from the Game class.
-    @FXML
-    private Button dice1;
-    @FXML
-    private Button dice2;
+    private DiceView diceView;
+
+    private final UnownedPropertyController unownedPropertyController = new UnownedPropertyController(this);
+    private final UnownedPropertyView unownedPropertyView = new UnownedPropertyView(unownedPropertyController);
+
+    private final AuctionController auctionController = new AuctionController(this);
+    private final AuctionView auctionView = new AuctionView(auctionController);
+
     @FXML
     private GridPane boardGrid;
-    @FXML
-    StackPane monopolyScene;
-    @FXML
-    TextArea chanceCardText;
 
     @FXML
-    FlowPane boardFlowPane;
+    private StackPane monopolyScene;
+
+    @FXML
+    private TextArea chanceCardText;
+
+    @FXML
+    private FlowPane boardFlowPane;
+
+    @FXML
+    private FlowPane diceFlowPane;
 
     public void initGame(Game game) {
         this.game = game;
+        this.diceView  = new DiceView(game.getDice());
+        showDiceView();
         initSpaceCellMap();
         initSpaceViewMap();
         initSpaces();
@@ -75,6 +85,11 @@ public class BoardController implements Observer {
         }
     }
 
+
+    /**
+     * Goes through every space on the board and places spaces that are either instances of Locale, Station and Utility
+     * in their respective maps.
+     */
 
     private void initRentViewMaps() {
         for (Space space : game.getBoard().getSpaceList()) {
@@ -120,6 +135,23 @@ public class BoardController implements Observer {
                 r++;
             }
         }
+    }
+
+    private void showDiceView() {
+        diceFlowPane.getChildren().add(diceView);
+    }
+
+    private void showUnownedPropertyView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(unownedPropertyView);
+        unownedPropertyController.setFlowPane(getPropertyRentView());
+    }
+
+    public void showAuctionView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(auctionView);
+        auctionController.setFlowPane(getPropertyRentView());
+        auctionController.startAuction();
     }
 
     /**
@@ -201,10 +233,36 @@ public class BoardController implements Observer {
      */
     public void rollDice() {
         game.getDice().rollDice();
-        dice1.setText(String.valueOf(game.getDice().getDice1()));
-        dice2.setText(String.valueOf(game.getDice().getDice2()));
+        diceView.updateDice();
+        moveCurrentPlayer();
+    }
+
+    private void moveCurrentPlayer() {
         game.move(game.getDice().getSum());
         updateAllPieces();
+        landedOnProperty();
+        chanceCardText.setText("CHANCE CARD");
+        landedOnChance();
+        updatePlayerCapital();
+    }
+
+    private void landedOnProperty() {
+        if (game.getCurrentSpace() instanceof Property) {
+            Property property = (Property) game.getCurrentSpace();
+            if (!property.isOwned()) {
+                showUnownedPropertyView();
+            }
+            // TODO if owned then show who payed rent to who
+        }
+    }
+
+    private void landedOnChance() {
+        if (game.getCurrentSpace() instanceof Chance){
+            IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+            chanceCardText.setText(chanceCard.getText());
+            chanceCard.doAction(game.getCurrentPlayer());
+            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
+        }
     }
 
     public void endTurn() {
@@ -220,18 +278,20 @@ public class BoardController implements Observer {
             ImageView pieceImage = piece.getPiece();
             positionToGrid(playerPosition, pieceImage);
         }
-        // TODO extract the if-statements below, this is just a temporary location
+    }
+
+    public AnchorPane getPropertyRentView() {
         if (game.getCurrentSpace() instanceof Locale) {
-            updateLocaleRentView();
+            return getLocaleRentView();
         }
         else if (game.getCurrentSpace() instanceof Station) {
-            updateStationRentView();
+            return getStationRentView();
         }
-        else if (game.getCurrentSpace() instanceof Utility) {
-            updateUtilityRentView();
+        else {
+            return getUtilityRentView();
         }
-        else { clearBoardFlowPane(); }
     }
+
 
     private void clearBoardFlowPane() { boardFlowPane.getChildren().clear(); }
     private void showSelectedSpace(SpaceView spaceView){
@@ -239,16 +299,23 @@ public class BoardController implements Observer {
     private void updateLocaleRentView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+
+    private AnchorPane getLocaleRentView() {
+        return localeRentViewMap.get(game.getCurrentSpace().getSpaceName());
     }
 
-    private void updateStationRentView() {
-        clearBoardFlowPane();
-        boardFlowPane.getChildren().add(stationRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    private AnchorPane getStationRentView() {
+        return stationRentViewMap.get(game.getCurrentSpace().getSpaceName());
+
     }
 
-    private void updateUtilityRentView() {
-        clearBoardFlowPane();
-        boardFlowPane.getChildren().add(utilityRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    private AnchorPane getUtilityRentView() {
+        return utilityRentViewMap.get(game.getCurrentSpace().getSpaceName());
+    }
+
+    public void clearBoardFlowPane() {
+        boardFlowPane.getChildren().clear();
+        updatePlayerCapital();
     }
     private void updateLocaleShown(){
         clearBoardFlowPane();
@@ -441,12 +508,6 @@ public class BoardController implements Observer {
         }*/
         row = spaceCellMap.get(position).getX();
         col = spaceCellMap.get(position).getY();
-        if (game.getBoard().getSpaceList().get(position) instanceof Chance){
-            IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
-            chanceCardText.setText(chanceCard.getText());
-            chanceCard.doAction(game.getCurrentPlayer());
-            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
-        }
         boardGrid.getChildren().remove(piece);
         boardGrid.add(piece, (int) col, (int) row);
     }
@@ -460,11 +521,11 @@ public class BoardController implements Observer {
             if (!property.isOwned()) {
                 Player player = game.getCurrentPlayer();
                 player.buyProperty(property);
-                spaceViewMap.get(property.getSpaceName()).setOwner(player);
-                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+                newPropertyOwner(property, player);
             }
         }
     }
+
 
     @Override
     public void update() {
@@ -474,5 +535,19 @@ public class BoardController implements Observer {
         }
 
 
+
+    public void newPropertyOwner(Property property, Player player) {
+        spaceViewMap.get(property.getSpaceName()).setOwner(player);
+        updatePlayerCapital();
+    }
+
+    private void updatePlayerCapital() {
+        for (Player player : game.getPlayers()) {
+            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+        }
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
