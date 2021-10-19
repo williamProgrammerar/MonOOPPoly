@@ -14,7 +14,13 @@ public class Locale extends Property {
 
     private final String sectionColour;
     public void buildHouse(){
-        houses.add(new House());
+        if(houses.size() < maxHouses){
+            houses.add(new House());
+        }
+        else {
+            System.out.println("Maximum of houses reached");
+        }
+
     }
     private final List<House> houses = new ArrayList<>();
     Section section;

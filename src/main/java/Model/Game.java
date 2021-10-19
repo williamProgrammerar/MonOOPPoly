@@ -153,10 +153,16 @@ public class Game {
 
     public void buyHouse(Locale locale){
         if (currentPlayer.hasMonopoly(locale)){
-            locale.buildHouse();
+            currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
+            try {
+                locale.buildHouse();
+            }
+            catch (IllegalArgumentException ignored){
+            }
         }
         else{
             System.out.println("You do not own all properties within this section");
+            throw new IllegalArgumentException();
         }
     }
 
