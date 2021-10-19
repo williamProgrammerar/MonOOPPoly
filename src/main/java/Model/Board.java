@@ -16,9 +16,9 @@ public class Board {
     Section red = new Section(3, "RED");
     Section yellow = new Section(3,"YELLOW");
     Section green = new Section(3,"GREEN");
-    Section gray = new Section(3,"GRAY");
+    Section gray = new Section(3,"GREY");
     Section purple = new Section(3,"PURPLE");
-    Section turqoise = new Section(3,"TURQOISE");
+    Section turqoise = new Section(3,"TURQUOISE");
     private final List<Space> spaceList;
 
     /**

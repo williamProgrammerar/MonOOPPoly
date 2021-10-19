@@ -61,7 +61,7 @@ public class SpaceView extends AnchorPane {
         spaceStroke.setStroke(Color.BLACK);
 
         if (space instanceof Locale) {
-           // localeColor.setFill(Paint.valueOf(((Locale) space).getSectionColour()));
+            localeColor.setFill(Paint.valueOf(((Locale) space).getSectionColour()));
         } else {
             localeColor.setVisible(false);
         }
@@ -80,7 +80,9 @@ public class SpaceView extends AnchorPane {
     }
     @FXML
     public void spaceSelected(){
-       game.setSelectedSpace(space);
+
+        game.setSelectedSpace(space);
+        System.out.println("I was Clicked");
     }
 
     public void setOwner(Player player) {
