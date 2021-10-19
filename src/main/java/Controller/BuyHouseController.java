@@ -8,12 +8,12 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public class BuyHouseController {
-    Locale locale;
-    public BuyHouseController(Locale locale){
+    Game game;
+    public BuyHouseController(Game game){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/buyHouse.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        this.locale = locale;
+        this.game = game;
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -21,7 +21,8 @@ public class BuyHouseController {
         }
 
     }
+
     public void buyHouse(){
-        locale.buildHouse();
+       Locale locale = (Locale) game.getSelectedSpace();
     }
 }

@@ -39,7 +39,6 @@ public class BoardController implements Observer {
 
     private final UnownedPropertyController unownedPropertyController = new UnownedPropertyController(this);
     private final UnownedPropertyView unownedPropertyView = new UnownedPropertyView(unownedPropertyController);
-
     private final AuctionController auctionController = new AuctionController(this);
     private final AuctionView auctionView = new AuctionView(auctionController);
 
@@ -59,7 +58,9 @@ public class BoardController implements Observer {
     private FlowPane diceFlowPane;
 
     public void initGame(Game game) {
+
         this.game = game;
+        game.attach(this);
         this.diceView  = new DiceView(game.getDice());
         showDiceView();
         initSpaceCellMap();
@@ -529,8 +530,8 @@ public class BoardController implements Observer {
     @Override
     public void update() {
         if (game.getSelectedSpace() instanceof Locale) {
-            BuyHouseController buyHouseController = new BuyHouseController((Locale) game.getSelectedSpace());
-            updateLocaleRentView();
+            //BuyHouseController buyHouseController = new BuyHouseController((Locale) game.getSelectedSpace());
+            updateLocaleShown();
         }
     }
 
