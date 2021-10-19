@@ -7,12 +7,13 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 
-public class SelectedSpaceController {
-    public SelectedSpaceController(Space space){
+public class BuyHouseController {
+    Locale locale;
+    public BuyHouseController(Locale locale){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/buyHouse.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-
+        this.locale = locale;
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -20,7 +21,7 @@ public class SelectedSpaceController {
         }
 
     }
-    public void buyHouse(Locale locale){
-
+    public void buyHouse(){
+        locale.buildHouse();
     }
 }

@@ -8,6 +8,11 @@ public class Locale extends Property {
     private final int maxHouses = 5;
     private final int houseCost;
 
+    public String getSectionColour() {
+        return sectionColour;
+    }
+
+    private final String sectionColour;
     public void buildHouse(){
         houses.add(new House());
     }
@@ -20,7 +25,7 @@ public class Locale extends Property {
         this.houseCost = houseCost;
         this.section = section;
         this.rent= rent;
-
+        this.sectionColour = section.getSectionColour();
         section.addLocale(this);
     }
     public int getRent() {

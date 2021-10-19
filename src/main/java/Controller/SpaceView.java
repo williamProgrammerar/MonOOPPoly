@@ -32,7 +32,7 @@ public class SpaceView extends AnchorPane {
     Game game;
     Space space;
 
-    SelectedSpaceController buyHouseController;
+    BuyHouseController buyHouseController;
     @FXML
     Rectangle localeColor;
     @FXML
@@ -61,12 +61,11 @@ public class SpaceView extends AnchorPane {
         spaceStroke.setStroke(Color.BLACK);
 
         if (space instanceof Locale) {
-            localeColor.setFill(Paint.valueOf(((Locale) space).getSectionColour()));
+           // localeColor.setFill(Paint.valueOf(((Locale) space).getSectionColour()));
         } else {
             localeColor.setVisible(false);
         }
 
-         */
 
         if (space instanceof Property) {
             localePrice.setText(((Property) space).getPrice() + " kr");
@@ -76,14 +75,11 @@ public class SpaceView extends AnchorPane {
 
     }
 
-    private void notifyObservers(){
-
-    }
-
-    public SelectedSpaceController getBuyHouseController() {
+    public BuyHouseController getBuyHouseController() {
         return buyHouseController;
     }
-    private void spaceSelected(){
+    @FXML
+    public void spaceSelected(){
        game.setSelectedSpace(space);
     }
 

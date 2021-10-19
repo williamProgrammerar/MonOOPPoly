@@ -69,7 +69,7 @@ public class BoardController implements Observer {
     private void initSpaceViewMap() {
 
         for (Space space : game.getBoard().getSpaceList()) {
-            SpaceView spaceView = new SpaceView(space);
+            SpaceView spaceView = new SpaceView(space,game);
 
             spaceViewMap.put(space.getSpaceName(), spaceView);
         }
@@ -235,7 +235,6 @@ public class BoardController implements Observer {
 
     private void clearBoardFlowPane() { boardFlowPane.getChildren().clear(); }
     private void showSelectedSpace(SpaceView spaceView){
-        game.setSpaceSelected();
     }
     private void updateLocaleRentView() {
         clearBoardFlowPane();
@@ -250,6 +249,10 @@ public class BoardController implements Observer {
     private void updateUtilityRentView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(utilityRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    }
+    private void updateLocaleShown(){
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
     }
 
 
@@ -466,7 +469,8 @@ public class BoardController implements Observer {
     @Override
     public void update() {
         if (game.getSelectedSpace() instanceof Locale){
-            SelectedSpaceController selectedSpaceController = new SelectedSpaceController(game.getSelectedSpace());
+            BuyHouseController buyHouseController = new BuyHouseController((Locale) game.getSelectedSpace());
+            updateLocaleRentView();
         }
 
 

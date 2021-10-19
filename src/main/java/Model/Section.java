@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Section {
-    public Section(int amountForMonopoly) {
+    public String getSectionColour() {
+        return sectionColour;
+    }
+
+    String sectionColour;
+    public Section(int amountForMonopoly, String sectionColour) {
+
         this.amountForMonopoly = amountForMonopoly;
+        this.sectionColour = sectionColour;
     }
 
 

@@ -11,14 +11,14 @@ import java.util.List;
  * @author HedQuist
  */
 public class Board {
-    Section orange = new Section(2);
-    Section brown = new Section(2);
-    Section red = new Section(3);
-    Section yellow = new Section(3);
-    Section green = new Section(3);
-    Section gray = new Section(3);
-    Section purple = new Section(3);
-    Section turqoise = new Section(3);
+    Section orange = new Section(2, "ORANGE");
+    Section brown = new Section(2, "BROWN");
+    Section red = new Section(3, "RED");
+    Section yellow = new Section(3,"YELLOW");
+    Section green = new Section(3,"GREEN");
+    Section gray = new Section(3,"GRAY");
+    Section purple = new Section(3,"PURPLE");
+    Section turqoise = new Section(3,"TURQOISE");
     private final List<Space> spaceList;
 
     /**
