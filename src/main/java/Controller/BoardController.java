@@ -317,6 +317,11 @@ public class BoardController implements Observer {
         boardFlowPane.getChildren().clear();
         updatePlayerCapital();
     }
+
+    /**
+     * This is called when a space is selected, making sure that that space is shown and that a buy house controller
+     * is created with the current instance of game.
+     */
     private void updateLocaleShown(){
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
@@ -527,7 +532,10 @@ public class BoardController implements Observer {
         }
     }
 
-
+    /**
+     * This method makes sure that when it gets information from an observer about a space being selected it
+     * will visualise that on the screen and call updateLocaleShown.
+     */
     @Override
     public void update() {
         if (game.getSelectedSpace() instanceof Locale) {

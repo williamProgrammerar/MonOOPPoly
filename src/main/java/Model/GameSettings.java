@@ -5,7 +5,9 @@ import javafx.scene.control.TextField;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author JonEmilsson
+ */
 public class GameSettings {
 
     private int startCapital = 1500;

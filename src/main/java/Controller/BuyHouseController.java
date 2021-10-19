@@ -8,6 +8,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * @author JonEmilsson
+ */
 public class BuyHouseController extends AnchorPane {
     Game game;
     public BuyHouseController(Game game){
@@ -23,8 +26,11 @@ public class BuyHouseController extends AnchorPane {
 
     }
 
+    /**
+     * This method simply calls for game to buy house, when buy house is clicked.
+     */
     public void buyHouse(){
-        Locale locale = (Locale) game.getSelectedSpace();
+        Locale locale = (Locale) game.getSelectedSpace(); // should probably not cast and this should be changed
         game.buyHouse(locale);
     }
 }

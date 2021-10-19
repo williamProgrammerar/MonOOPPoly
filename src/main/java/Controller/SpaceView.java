@@ -74,9 +74,6 @@ public class SpaceView extends AnchorPane {
 
     }
 
-    public BuyHouseController getBuyHouseController() {
-        return buyHouseController;
-    }
     @FXML
     public void spaceSelected(){
 

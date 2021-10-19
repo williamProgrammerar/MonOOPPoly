@@ -151,11 +151,17 @@ public class Game {
         return currentPlayer.getProperties().contains(property);
     }
 
+    /**
+     * This method makes sure that the a house is bought and then built, it takes a locale which the player whiches to
+     * buy houses on then makes sure that player is eligble, then tries to build and draw the correct amount
+     * @param locale The locale that the player whishes to buy houses on.
+     */
     public void buyHouse(Locale locale){
         if (currentPlayer.hasMonopoly(locale)){
-            currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
+
             try {
                 locale.buildHouse();
+                currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
             }
             catch (IllegalArgumentException ignored){
             }
@@ -209,17 +215,27 @@ public class Game {
     }
     public Space getSelectedSpace() { return selectedSpace; }
 
+    /**
+     * This notifes observers that a space has been selected and sets the selected space to that space.
+     * @param selectedSpace
+     */
     public void setSelectedSpace(Space selectedSpace) {
         this.selectedSpace = selectedSpace;
         notifyAllObservers();
     }
 
+    /**
+     * Notifies all observer of a change
+     */
     public void notifyAllObservers() {
         for (Observer observer: observers){
             observer.update();
         }
 
     }
+    /**
+     * This method attaches an observer to this class.
+     */
     public void attach(Observer observer){
         observers.add(observer);
     }

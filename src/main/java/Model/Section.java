@@ -2,7 +2,9 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author JonEmilsson
+ */
 public class Section {
     public String getSectionColour() {
         return sectionColour;
@@ -20,8 +22,12 @@ public class Section {
     }
 
     List<Locale> localeList = new ArrayList<>();
-    int amountForMonopoly;
 
+    /**
+     * This adds a locale to the current section, so that section can keep track how many locales are neccary for
+     * monopoly
+     * @param locale this parameter is the locale being added.
+     */
     public void addLocale(Locale locale){
         localeList.add(locale);
     }
