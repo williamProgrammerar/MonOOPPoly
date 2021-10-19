@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author JonEmilsson
+ */
 public class SetUpPlayerController {
     GameSettings gameSettings = new GameSettings();
     private List<String> nameList = new ArrayList<>();

@@ -130,7 +130,9 @@ public class Player {
             System.out.println("Property already has owner");
         }
     }
-
+    public boolean hasMonopoly(Locale locale){
+        return properties.containsAll(locale.getSection().getLocaleList());
+    }
     public List<Property> getProperties() {
         return properties;
     }
