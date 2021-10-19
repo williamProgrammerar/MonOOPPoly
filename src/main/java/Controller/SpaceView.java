@@ -23,7 +23,6 @@ import java.util.List;
 
 
 public class SpaceView extends AnchorPane {
-    private List<Observer> observers = new ArrayList<>();
     @FXML
     Text localeName;
     @FXML

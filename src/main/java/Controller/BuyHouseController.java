@@ -4,10 +4,11 @@ import Model.Game;
 import Model.Locale;
 import Model.Space;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class BuyHouseController {
+public class BuyHouseController extends AnchorPane {
     Game game;
     public BuyHouseController(Game game){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/buyHouse.fxml"));
@@ -23,6 +24,7 @@ public class BuyHouseController {
     }
 
     public void buyHouse(){
-       Locale locale = (Locale) game.getSelectedSpace();
+        Locale locale = (Locale) game.getSelectedSpace();
+        game.buyHouse(locale);
     }
 }

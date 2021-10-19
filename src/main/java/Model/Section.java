@@ -9,9 +9,8 @@ public class Section {
     }
 
     String sectionColour;
-    public Section(int amountForMonopoly, String sectionColour) {
+    public Section( String sectionColour) {
 
-        this.amountForMonopoly = amountForMonopoly;
         this.sectionColour = sectionColour;
     }
 

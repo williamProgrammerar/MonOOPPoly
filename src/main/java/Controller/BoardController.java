@@ -320,6 +320,7 @@ public class BoardController implements Observer {
     private void updateLocaleShown(){
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
+        boardFlowPane.getChildren().add(new BuyHouseController(game));
     }
 
 
@@ -530,7 +531,6 @@ public class BoardController implements Observer {
     @Override
     public void update() {
         if (game.getSelectedSpace() instanceof Locale) {
-            //BuyHouseController buyHouseController = new BuyHouseController((Locale) game.getSelectedSpace());
             updateLocaleShown();
         }
     }

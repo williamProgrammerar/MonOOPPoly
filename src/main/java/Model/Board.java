@@ -11,14 +11,14 @@ import java.util.List;
  * @author HedQuist
  */
 public class Board {
-    Section orange = new Section(2, "ORANGE");
-    Section brown = new Section(2, "BROWN");
-    Section red = new Section(3, "RED");
-    Section yellow = new Section(3,"YELLOW");
-    Section green = new Section(3,"GREEN");
-    Section gray = new Section(3,"GREY");
-    Section purple = new Section(3,"PURPLE");
-    Section turqoise = new Section(3,"TURQUOISE");
+    Section orange = new Section( "ORANGE");
+    Section brown = new Section( "BROWN");
+    Section red = new Section( "RED");
+    Section yellow = new Section("YELLOW");
+    Section green = new Section("GREEN");
+    Section gray = new Section("GREY");
+    Section purple = new Section("PURPLE");
+    Section turqoise = new Section("TURQUOISE");
     private final List<Space> spaceList;
 
     /**
@@ -32,7 +32,7 @@ public class Board {
         tmpList.add(new Locale("DELTA PARKEN", 60, 30, orange, new int[] {4, 20, 60, 180, 320, 450}, 50));
         tmpList.add(new Tax("Kåravgift1",200));
         tmpList.add(new Station("Station1", 200, 100, new int[] {25,50,100,200}));
-        tmpList.add(new Locale("WINDEN", 100, 50, orange, new int[] {6, 30, 90, 270, 400, 550}, 100));
+        tmpList.add(new Locale("WINDEN", 100, 50, brown, new int[] {6, 30, 90, 270, 400, 550}, 100));
         tmpList.add(new Chance("Chans2"));
         tmpList.add(new Locale("XP-LABBET", 100, 50, brown, new int[] {6, 30, 90, 270, 400, 550}, 100));
         tmpList.add(new Locale("BULTEN", 120, 60, brown, new int[] {8, 40, 100, 300, 450, 600}, 100));
