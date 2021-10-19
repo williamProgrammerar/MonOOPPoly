@@ -72,7 +72,7 @@ public class BoardController implements Observer {
         initRentViewMaps();
     }
 
-   
+
     /**
      * Goes through every space on the board and assigns a controller to each space.
      */
@@ -200,7 +200,7 @@ public class BoardController implements Observer {
         }
     }
     private void displayBuyHouseController(){
-        
+
     }
     /**
      * Method initiates all the players.
@@ -293,13 +293,12 @@ public class BoardController implements Observer {
     }
 
 
-    private void clearBoardFlowPane() { boardFlowPane.getChildren().clear(); }
     private void showSelectedSpace(SpaceView spaceView){
     }
     private void updateLocaleRentView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
-
+    }
     private AnchorPane getLocaleRentView() {
         return localeRentViewMap.get(game.getCurrentSpace().getSpaceName());
     }
@@ -529,25 +528,27 @@ public class BoardController implements Observer {
 
     @Override
     public void update() {
-        if (game.getSelectedSpace() instanceof Locale){
+        if (game.getSelectedSpace() instanceof Locale) {
             BuyHouseController buyHouseController = new BuyHouseController((Locale) game.getSelectedSpace());
             updateLocaleRentView();
         }
-
-
-
-    public void newPropertyOwner(Property property, Player player) {
-        spaceViewMap.get(property.getSpaceName()).setOwner(player);
-        updatePlayerCapital();
     }
 
-    private void updatePlayerCapital() {
-        for (Player player : game.getPlayers()) {
-            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+
+
+        public void newPropertyOwner(Property property, Player player) {
+            spaceViewMap.get(property.getSpaceName()).setOwner(player);
+            updatePlayerCapital();
         }
-    }
+
+        private void updatePlayerCapital() {
+            for (Player player : game.getPlayers()) {
+                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+            }
+        }
 
     public Game getGame() {
         return game;
     }
 }
+
