@@ -42,6 +42,9 @@ public class BoardController {
     private final AuctionController auctionController = new AuctionController(this);
     private final AuctionView auctionView = new AuctionView(auctionController);
 
+    private final TradeController tradeController = new TradeController(this);
+    private final TradeView tradeView = new TradeView(tradeController);
+
     @FXML
     private GridPane boardGrid;
 
@@ -69,6 +72,7 @@ public class BoardController {
         initPlayers();
 
         initRentViewMaps();
+        showTradeView();
     }
 
     /**
@@ -149,6 +153,10 @@ public class BoardController {
         auctionController.startAuction();
     }
 
+    public void showTradeView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(tradeView);
+    }
     /**
      * Method goes through all the spaces in board and places them around the edges of a grid
      * in order to give the visual board a similar look to the original Monopoly game.
