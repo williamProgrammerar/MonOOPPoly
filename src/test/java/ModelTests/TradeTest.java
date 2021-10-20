@@ -17,9 +17,9 @@ public class TradeTest {
 
     @Test
     void startTradeTest() {
-        trade.setTradeOngoing(false);
+        trade.setTradeActive(false);
         trade.startTrade(playerA, playerB);
-        assertTrue(trade.isTradeOngoing());
+        assertTrue(trade.isTradeActive());
         assertEquals(trade.getPlayers().length, 2);
     }
 
@@ -27,36 +27,36 @@ public class TradeTest {
     void cancelTradeTest() {
         trade.startTrade(playerA, playerB);
         trade.closeTrade();
-        assertFalse(trade.isTradeOngoing());
+        assertFalse(trade.isTradeActive());
         assertEquals(trade.getPlayers().length, 0);
     }
 
     @Test
     void addCurrencyToTradeTest() {
         // Make sure there is no currency in trade
-        assertEquals(trade.getCurrencyInTrade().size(), 0);
+        assertEquals(trade.getCurrencyOffers().size(), 0);
 
         // playerA adds 500kr to the trade
         trade.addCurrencyToTrade(playerA,500);
-        assertEquals(trade.getCurrencyInTrade().get(playerA), 500);
+        assertEquals(trade.getCurrencyOffers().get(playerA), 500);
 
         // playerA changes their offer to 200kr from 500kr.
         trade.addCurrencyToTrade(playerA,200);
-        assertEquals(trade.getCurrencyInTrade().get(playerA), 200);
+        assertEquals(trade.getCurrencyOffers().get(playerA), 200);
 
         // PlayerB adds 700kr to trade.
         // There should be two currency offers in trade.
         trade.addCurrencyToTrade(playerB, 700);
-        assertEquals(trade.getCurrencyInTrade().get(playerB), 700);
-        assertEquals(trade.getCurrencyInTrade().size(), 2);
+        assertEquals(trade.getCurrencyOffers().get(playerB), 700);
+        assertEquals(trade.getCurrencyOffers().size(), 2);
 
         // playerB attempts to add more money than they currently have. Their offer should remain as 700kr.
         trade.addCurrencyToTrade(playerB, 1500);
-        assertEquals(trade.getCurrencyInTrade().get(playerB), 700);
+        assertEquals(trade.getCurrencyOffers().get(playerB), 700);
 
         // playerA attempts to add an invalid value to the trade. Their offer should remain as 200kr.
         trade.addCurrencyToTrade(playerA,-100);
-        assertEquals(trade.getCurrencyInTrade().get(playerA), 200);
+        assertEquals(trade.getCurrencyOffers().get(playerA), 200);
     }
 
     @Test
@@ -66,21 +66,21 @@ public class TradeTest {
 
         playerB.getProperties().add(propertyC);
 
-        assertEquals(trade.getPropertiesInTrade().size(), 0);
+        assertEquals(trade.getPropertyOffers().size(), 0);
 
         // playerA does not own propertyC, so there should be no offers
         trade.addPropertyToTrade(playerA, propertyC);
-        assertEquals(trade.getPropertiesInTrade().size(), 0);
+        assertEquals(trade.getPropertyOffers().size(), 0);
 
         trade.addPropertyToTrade(playerA, propertyA);
-        assertEquals(trade.getPropertiesInTrade().size(), 1);
+        assertEquals(trade.getPropertyOffers().size(), 1);
 
         // There should be two properties in playerA's offer
         trade.addPropertyToTrade(playerA, propertyB);
-        assertEquals(trade.getPropertiesInTrade().get(playerA).size(), 2);
+        assertEquals(trade.getPropertyOffers().get(playerA).size(), 2);
 
         trade.addPropertyToTrade(playerA, propertyB);
-        assertEquals(trade.getPropertiesInTrade().get(playerA).size(), 2);
+        assertEquals(trade.getPropertyOffers().get(playerA).size(), 2);
     }
 
     @Test
