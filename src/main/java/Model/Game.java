@@ -1,5 +1,7 @@
 package Model;
 
+import Observers.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,9 @@ public class Game {
     private List<Player> players = new ArrayList<>();
     private Space currentSpace;
     private Player currentPlayer;
-
+    private Space selectedSpace;
     private boolean hasMoved = false;
+    List<Observer> observers = new ArrayList<>();
 
     public Game(GameSettings gameSettings)  {
        this.players.addAll(gameSettings.getPlayers());
@@ -148,6 +151,27 @@ public class Game {
         return currentPlayer.getProperties().contains(property);
     }
 
+    /**
+     * This method makes sure that the a house is bought and then built, it takes a locale which the player whiches to
+     * buy houses on then makes sure that player is eligble, then tries to build and draw the correct amount
+     * @param locale The locale that the player whishes to buy houses on.
+     */
+    public void buyHouse(Locale locale){
+        if (currentPlayer.hasMonopoly(locale)){
+
+            try {
+                locale.buildHouse();
+                currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
+            }
+            catch (IllegalArgumentException ignored){
+            }
+        }
+        else{
+            System.out.println("You do not own all properties within this section");
+        }
+    }
+
+
     private boolean isCurrentSpaceTax() {
         return currentSpace instanceof Tax;
     }
@@ -155,6 +179,7 @@ public class Game {
     private boolean isCurrentSpaceChance() {
         return currentSpace instanceof Chance;
     }
+
 
     /**
      * Places the current player (index 0) in a temporary variable.
@@ -187,4 +212,31 @@ public class Game {
     public Space getCurrentSpace() {
         return currentSpace;
     }
+    public Space getSelectedSpace() { return selectedSpace; }
+
+    /**
+     * This notifes observers that a space has been selected and sets the selected space to that space.
+     * @param selectedSpace
+     */
+    public void setSelectedSpace(Space selectedSpace) {
+        this.selectedSpace = selectedSpace;
+        notifyAllObservers();
+    }
+
+    /**
+     * Notifies all observer of a change
+     */
+    public void notifyAllObservers() {
+        for (Observer observer: observers){
+            observer.update();
+        }
+
+    }
+    /**
+     * This method attaches an observer to this class.
+     */
+    public void attach(Observer observer){
+        observers.add(observer);
+    }
+
 }

@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author JonEmilsson
+ */
 public class SetUpPlayerController {
     GameSettings gameSettings = new GameSettings();
     private List<String> nameList = new ArrayList<>();
@@ -78,6 +80,14 @@ public class SetUpPlayerController {
            }
         flowPane.getChildren().add(new PlayerSetUpController(gameSettings.getPlayers().size()));
     }
+    @FXML public void removePlayer(){
+        try{
+            gameSettings.removePlayer();
+        } catch (IllegalArgumentException e){
+           return;
+        }
+        flowPane.getChildren().remove(flowPane.getChildren().remove(flowPane.getChildren().size() - 1));
+    }
 
     @FXML
     private ComboBox<String> playerType1CBox;
@@ -97,6 +107,7 @@ public class SetUpPlayerController {
     private CheckBox p4Checkbox;
 
     public void initialize() {
+        addPlayer();
         addPlayer();
 
     }

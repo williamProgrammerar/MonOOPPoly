@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import Model.Locale;
+import Observers.Observer;
 import View.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.List;
 
 
-public class BoardController {
+public class BoardController implements Observer {
     private Game game;
 
     private final PieceController pv = new PieceController();
@@ -38,7 +39,6 @@ public class BoardController {
 
     private final UnownedPropertyController unownedPropertyController = new UnownedPropertyController(this);
     private final UnownedPropertyView unownedPropertyView = new UnownedPropertyView(unownedPropertyController);
-
     private final AuctionController auctionController = new AuctionController(this);
     private final AuctionView auctionView = new AuctionView(auctionController);
 
@@ -61,7 +61,9 @@ public class BoardController {
     private FlowPane diceFlowPane;
 
     public void initGame(Game game) {
+
         this.game = game;
+        game.attach(this);
         this.diceView  = new DiceView(game.getDice());
         showDiceView();
         initSpaceCellMap();
@@ -75,20 +77,25 @@ public class BoardController {
         showTradeView();
     }
 
+
     /**
      * Goes through every space on the board and assigns a controller to each space.
      */
     private void initSpaceViewMap() {
+
         for (Space space : game.getBoard().getSpaceList()) {
-            SpaceView spaceView = new SpaceView(space);
+            SpaceView spaceView = new SpaceView(space,game);
+
             spaceViewMap.put(space.getSpaceName(), spaceView);
         }
     }
+
 
     /**
      * Goes through every space on the board and places spaces that are either instances of Locale, Station and Utility
      * in their respective maps.
      */
+
     private void initRentViewMaps() {
         for (Space space : game.getBoard().getSpaceList()) {
             if (space instanceof Locale) {
@@ -102,7 +109,6 @@ public class BoardController {
             }
         }
     }
-
     private void setUpLocaleViewMap(Locale locale) {
         LocaleRentView localeRentView = new LocaleRentView(locale);
         localeRentViewMap.put(locale.getSpaceName(), localeRentView);
@@ -202,7 +208,9 @@ public class BoardController {
             playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
         }
     }
+    private void displayBuyHouseController(){
 
+    }
     /**
      * Method initiates all the players.
      * It creates a visual piece for each player and places all the pieces on the board.
@@ -293,12 +301,20 @@ public class BoardController {
         }
     }
 
+
+    private void showSelectedSpace(SpaceView spaceView){
+    }
+    private void updateLocaleRentView() {
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
+    }
     private AnchorPane getLocaleRentView() {
         return localeRentViewMap.get(game.getCurrentSpace().getSpaceName());
     }
 
     private AnchorPane getStationRentView() {
         return stationRentViewMap.get(game.getCurrentSpace().getSpaceName());
+
     }
 
     private AnchorPane getUtilityRentView() {
@@ -309,6 +325,17 @@ public class BoardController {
         boardFlowPane.getChildren().clear();
         updatePlayerCapital();
     }
+
+    /**
+     * This is called when a space is selected, making sure that that space is shown and that a buy house controller
+     * is created with the current instance of game.
+     */
+    private void updateLocaleShown(){
+        clearBoardFlowPane();
+        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
+        boardFlowPane.getChildren().add(new BuyHouseController(game));
+    }
+
 
     /**
      * Converts the players position to corresponding row and column.
@@ -498,6 +525,9 @@ public class BoardController {
         boardGrid.getChildren().remove(piece);
         boardGrid.add(piece, (int) col, (int) row);
     }
+    private void buyHouse(){
+
+    }
 
     public void buyProperty() {
         if (game.getCurrentSpace() instanceof Property) {
@@ -510,18 +540,32 @@ public class BoardController {
         }
     }
 
-    public void newPropertyOwner(Property property, Player player) {
-        spaceViewMap.get(property.getSpaceName()).setOwner(player);
-        updatePlayerCapital();
-    }
-
-    private void updatePlayerCapital() {
-        for (Player player : game.getPlayers()) {
-            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+    /**
+     * This method makes sure that when it gets information from an observer about a space being selected it
+     * will visualise that on the screen and call updateLocaleShown.
+     */
+    @Override
+    public void update() {
+        if (game.getSelectedSpace() instanceof Locale) {
+            updateLocaleShown();
         }
     }
+
+
+
+        public void newPropertyOwner(Property property, Player player) {
+            spaceViewMap.get(property.getSpaceName()).setOwner(player);
+            updatePlayerCapital();
+        }
+
+        private void updatePlayerCapital() {
+            for (Player player : game.getPlayers()) {
+                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+            }
+        }
 
     public Game getGame() {
         return game;
     }
 }
+
