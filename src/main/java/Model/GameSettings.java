@@ -56,7 +56,14 @@ public class GameSettings {
         }
     }
     public void removePlayer(){
-        players.remove(players.size() -1);
+        if(players.size() > 1){
+            players.remove(players.size() -1);
+        }
+        else {
+            System.out.println("You must have atleast 1 players");
+            throw new IllegalArgumentException();
+        }
+
     }
     public List<Player> getPlayers() {
         return players;
