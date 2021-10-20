@@ -11,7 +11,7 @@ import java.util.List;
  * @author williamProgrammerar
  * @author rhedinh
  * @author JonEmilsson
- * @author HedQuist
+ * @author Hedquist
  */
 public class Game {
     private final Dice dice = new Dice();
@@ -75,10 +75,6 @@ public class Game {
             System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
         } else if(isCurrentSpaceChance()) {
             //TODO chance card
-        } else if(currentSpace.getSpaceName().equals("GO")) {
-            int salary = 200;
-            currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
-            System.out.println("Player " + currentPlayer.getPlayerId() + " passed GO and recieved " + salary);
         } else if(currentSpace.getSpaceName().equals("U")) {
             currentPlayer.moveTo(10, false);
             currentPlayer.setTurnsInJail(1);
@@ -140,6 +136,26 @@ public class Game {
             next();
             dice.setHasRolled(false);
             hasMoved = false;
+            checkBankruptcy();
+        }
+    }
+
+    /**
+     * Should prevent currentPlayer from moving until they are debt free,
+     * currently just instantly makes players bankrupt if they start a turn while in debt.
+     * Calls next() to pass the turn if the player declares bankruptcy.
+     * @author Hedquist
+     */
+    private void checkBankruptcy() {
+        if(currentPlayer.getCapital() < 1) {
+            System.out.println("You cannot move while in debt!");
+            //TODO if time available, add way to sell items before bankruptcy
+            //Allow selling
+            //After selling, call checkBankruptcy again
+
+            //If option to become bankrupt is selected do this
+            currentPlayer.setBankrupt();
+            next();
         }
     }
 
@@ -184,13 +200,31 @@ public class Game {
     /**
      * Places the current player (index 0) in a temporary variable.
      * Player index 0 in the player list is then removed, which leads to a new current player.
-     * Finally adds the player stored in the temporary variable to the back of the list.
+     * Then adds the player stored in the temporary variable to the back of the list if the player isn't bankrupt.
+     * Finally checks how many players are left and ends the game if there is only one.
      * @author williamProgrammerar
      */
     public void next() {
         Player temporaryPlayer = players.get(0);
         players.remove(0);
-        players.add(temporaryPlayer);
+        if (!temporaryPlayer.isBankrupt()) {
+            players.add(temporaryPlayer);
+        }
+        if (players.size() == 1) {
+            endGame(temporaryPlayer);
+        }
+    }
+
+    /**
+     * Should prompt a popup announcing the winning player,
+     * however currently only prints it and terminates the program
+     * @param winningPlayer
+     */
+    private void endGame(Player winningPlayer) {
+        //TODO insert popup here for view with controller
+        System.out.println("GAME OVER! " + winningPlayer.getName() + " wins!");
+        //on pressing continue/accept button:
+        System.exit(0);
     }
 
     public Dice getDice() {

@@ -47,6 +47,10 @@ public class Player {
         if(position >= 40) {
             position -= 40;
             hasPassedGo = true;
+            //maybe this should not be here, check with group
+            int salary = 200;
+            this.setCapital(this.getCapital() + salary); //this should maybe be a variable, you could change it in settings
+            System.out.println(this.getName() + " passed GO and recieved " + salary + "kr");
         }
         else if (position < 0) {
             position += 40;
@@ -147,5 +151,9 @@ public class Player {
 
     public boolean isBankrupt() {
         return isBankrupt;
+    }
+
+    public void setBankrupt() {
+        isBankrupt = true;
     }
 }
