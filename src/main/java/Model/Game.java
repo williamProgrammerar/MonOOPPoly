@@ -238,5 +238,26 @@ public class Game {
     public void attach(Observer observer){
         observers.add(observer);
     }
+    public void payBackMortgage(){
+        if(isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && ((Property) getSelectedSpace()).isMortgaged()){
+            ((Property) getSelectedSpace()).setMortgaged(false);
+            currentPlayer.setCapital(currentPlayer.getCapital() - ((Property) getSelectedSpace()).getMortgage());
+        }
+    }
 
-}
+    public void mortgageLocale() {
+        if (isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && !((Property) getSelectedSpace()).isMortgaged()){
+            ((Property) getSelectedSpace()).setMortgaged(true);
+            currentPlayer.setCapital(((Property)getSelectedSpace()).getMortgage() + currentPlayer.getCapital());
+        }
+        else {
+            System.out.println("You cant mortgage locale you don't own or one you have already mortgaged.");
+        }
+    }
+
+    private boolean isPropertyOwnedByPlayer(Property property, Player player) {
+        return player.getProperties().contains(property);
+    }
+    }
+
+

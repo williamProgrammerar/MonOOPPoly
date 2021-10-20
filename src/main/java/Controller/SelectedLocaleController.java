@@ -11,13 +11,15 @@ import java.io.IOException;
 /**
  * @author JonEmilsson
  */
-public class BuyHouseController extends AnchorPane {
+public class SelectedLocaleController extends AnchorPane {
     Game game;
-    public BuyHouseController(Game game){
+    Locale locale;
+    public SelectedLocaleController(Game game){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/buyHouse.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         this.game = game;
+        locale = (Locale) game.getSelectedSpace();
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -30,7 +32,9 @@ public class BuyHouseController extends AnchorPane {
      * This method simply calls for game to buy house, when buy house is clicked.
      */
     public void buyHouse(){
-        Locale locale = (Locale) game.getSelectedSpace(); // should probably not cast and this should be changed
         game.buyHouse(locale);
+    }
+    public void mortgageProperty(){
+        game.mortgageLocale();
     }
 }

@@ -325,7 +325,7 @@ public class BoardController implements Observer {
     private void updateLocaleShown(){
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
-        boardFlowPane.getChildren().add(new BuyHouseController(game));
+        boardFlowPane.getChildren().add(new SelectedLocaleController(game));
     }
 
 

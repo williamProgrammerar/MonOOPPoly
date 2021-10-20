@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.*;
-import Observers.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -12,8 +11,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * View for the spaces
@@ -31,7 +28,7 @@ public class SpaceView extends AnchorPane {
     Game game;
     Space space;
 
-    BuyHouseController buyHouseController;
+    SelectedLocaleController buyHouseController;
     @FXML
     Rectangle localeColor;
     @FXML
@@ -76,8 +73,7 @@ public class SpaceView extends AnchorPane {
 
     @FXML
     public void spaceSelected(){
-
-        game.setSelectedSpace(space);
+        game.setSelecterProperty((Property) space);
         System.out.println("I was Clicked");
     }
 
