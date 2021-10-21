@@ -6,6 +6,6 @@
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="220.0" type="AnchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="74.0" layoutY="22.0" mnemonicParsing="false" onAction="#buyHouse" text="Buy House" />
-      <Button layoutX="74.0" layoutY="64.0" mnemonicParsing="false" onAction="#mortgageProperty" text="Mortgage" />
+      <Button fx:id="mortgageButton" layoutX="74.0" layoutY="64.0" mnemonicParsing="false" onAction="#mortgageProperty" text="Mortgage" />
    </children>
 </fx:root>

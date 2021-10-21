@@ -243,6 +243,10 @@ public class Game {
             ((Property) getSelectedSpace()).setMortgaged(false);
             currentPlayer.setCapital(currentPlayer.getCapital() - ((Property) getSelectedSpace()).getMortgage());
         }
+        else{
+            System.out.println("You don't own this property");
+            throw new IllegalArgumentException();
+        }
     }
 
     public void mortgageLocale() {
@@ -252,6 +256,7 @@ public class Game {
         }
         else {
             System.out.println("You cant mortgage locale you don't own or one you have already mortgaged.");
+            throw new IllegalArgumentException();
         }
     }
 

@@ -73,7 +73,7 @@ public class SpaceView extends AnchorPane {
 
     @FXML
     public void spaceSelected(){
-        game.setSelecterProperty((Property) space);
+        game.setSelectedSpace((Property) space);
         System.out.println("I was Clicked");
     }
 
