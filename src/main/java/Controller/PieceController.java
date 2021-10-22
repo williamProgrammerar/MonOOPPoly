@@ -2,21 +2,23 @@ package Controller;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PieceController {
 
     private final List<Image> images = new ArrayList<>();
+    private final List<Image> colors = new ArrayList<>();
     private final Random rand = new Random();
+    private final Map<Image, Color> imageColorMap = new HashMap<>();
 
     /**
      * Constructor calls initImages to initiate the list of pieces.
      */
     public PieceController() {
         initImages();
+        initImageColorMap();
     }
 
     public ImageView createPiece() {
@@ -41,5 +43,9 @@ public class PieceController {
         images.add(new Image("pic/LuckyLuke.png"));
         images.add(new Image("pic/Mario.png"));
         images.add(new Image("pic/Smurf.png"));
+    }
+
+    public void assignColor(){
+
     }
 }
