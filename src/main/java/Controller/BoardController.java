@@ -64,7 +64,7 @@ public class BoardController implements Observer {
 
         this.game = game;
         game.attach(this);
-        this.diceView  = new DiceView(game.getDice());
+        this.diceView = new DiceView(game.getDice());
         showDiceView();
         initSpaceCellMap();
         initSpaceViewMap();
@@ -84,7 +84,7 @@ public class BoardController implements Observer {
     private void initSpaceViewMap() {
 
         for (Space space : game.getBoard().getSpaceList()) {
-            SpaceView spaceView = new SpaceView(space,game);
+            SpaceView spaceView = new SpaceView(space, game);
 
             spaceViewMap.put(space.getSpaceName(), spaceView);
         }
@@ -100,15 +100,14 @@ public class BoardController implements Observer {
         for (Space space : game.getBoard().getSpaceList()) {
             if (space instanceof Locale) {
                 setUpLocaleViewMap((Locale) space);
-            }
-            else if (space instanceof Station) {
+            } else if (space instanceof Station) {
                 setUpStationViewMap((Station) space);
-            }
-            else if (space instanceof Utility) {
+            } else if (space instanceof Utility) {
                 setUpUtilityViewMap((Utility) space);
             }
         }
     }
+
     private void setUpLocaleViewMap(Locale locale) {
         LocaleRentView localeRentView = new LocaleRentView(locale);
         localeRentViewMap.put(locale.getSpaceName(), localeRentView);
@@ -124,7 +123,7 @@ public class BoardController implements Observer {
         utilityRentViewMap.put(utility.getSpaceName(), utilityRentView);
     }
 
-    private void initSpaceCellMap(){
+    private void initSpaceCellMap() {
         int r = 10;
         int c = 10;
 
@@ -208,9 +207,11 @@ public class BoardController implements Observer {
             playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
         }
     }
-    private void displayBuyHouseController(){
+
+    private void displayBuyHouseController() {
 
     }
+
     /**
      * Method initiates all the players.
      * It creates a visual piece for each player and places all the pieces on the board.
@@ -234,6 +235,7 @@ public class BoardController implements Observer {
             boardGrid.add(piece.getPiece(), 10, 10);
             System.out.println("Player added to grid");
         }
+        //playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
     }
 
     /**
@@ -266,7 +268,7 @@ public class BoardController implements Observer {
     }
 
     private void landedOnChance() {
-        if (game.getCurrentSpace() instanceof Chance){
+        if (game.getCurrentSpace() instanceof Chance) {
             IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
             chanceCardText.setText(chanceCard.getText());
             chanceCard.doAction(game.getCurrentPlayer());
@@ -275,7 +277,9 @@ public class BoardController implements Observer {
     }
 
     public void endTurn() {
+        playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(false);
         game.endTurn();
+        playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
     }
 
     /**
@@ -292,22 +296,22 @@ public class BoardController implements Observer {
     public AnchorPane getPropertyRentView() {
         if (game.getCurrentSpace() instanceof Locale) {
             return getLocaleRentView();
-        }
-        else if (game.getCurrentSpace() instanceof Station) {
+        } else if (game.getCurrentSpace() instanceof Station) {
             return getStationRentView();
-        }
-        else {
+        } else {
             return getUtilityRentView();
         }
     }
 
 
-    private void showSelectedSpace(SpaceView spaceView){
+    private void showSelectedSpace(SpaceView spaceView) {
     }
+
     private void updateLocaleRentView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
     }
+
     private AnchorPane getLocaleRentView() {
         return localeRentViewMap.get(game.getCurrentSpace().getSpaceName());
     }
@@ -330,7 +334,7 @@ public class BoardController implements Observer {
      * This is called when a space is selected, making sure that that space is shown and that a buy house controller
      * is created with the current instance of game.
      */
-    private void updateLocaleShown(){
+    private void updateLocaleShown() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
         boardFlowPane.getChildren().add(new BuyHouseController(game));
@@ -525,7 +529,8 @@ public class BoardController implements Observer {
         boardGrid.getChildren().remove(piece);
         boardGrid.add(piece, (int) col, (int) row);
     }
-    private void buyHouse(){
+
+    private void buyHouse() {
 
     }
 
@@ -552,17 +557,16 @@ public class BoardController implements Observer {
     }
 
 
+    public void newPropertyOwner(Property property, Player player) {
+        spaceViewMap.get(property.getSpaceName()).setOwner(player);
+        updatePlayerCapital();
+    }
 
-        public void newPropertyOwner(Property property, Player player) {
-            spaceViewMap.get(property.getSpaceName()).setOwner(player);
-            updatePlayerCapital();
+    private void updatePlayerCapital() {
+        for (Player player : game.getPlayers()) {
+            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
         }
-
-        private void updatePlayerCapital() {
-            for (Player player : game.getPlayers()) {
-                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
-            }
-        }
+    }
 
     public Game getGame() {
         return game;

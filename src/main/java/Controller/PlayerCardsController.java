@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -19,9 +20,12 @@ import java.io.IOException;
 public class PlayerCardsController extends AnchorPane {
     @FXML
     Text capitalLabel;
-    @FXML Text nameLabel;
+    @FXML
+    Text nameLabel;
     @FXML
     ImageView playerIcon;
+    @FXML
+    Rectangle playersTurn;
 
     public PlayerCardsController(Piece piece) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerCard.fxml"));
@@ -39,7 +43,11 @@ public class PlayerCardsController extends AnchorPane {
         playerIcon.setImage(piece.getPiece().getImage());
     }
 
-    public void updateCapital(Player player){
+    public void updateCapital(Player player) {
         capitalLabel.setText(player.getCapital() + "kr");
+    }
+
+    public void updateCurrentPlayer(boolean b){
+        playersTurn.setVisible(b);
     }
 }

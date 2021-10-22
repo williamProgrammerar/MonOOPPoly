@@ -3,6 +3,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="300.0" type="AnchorPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -14,6 +15,7 @@
       </ImageView>
       <Text fx:id="nameLabel" layoutX="33.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Namn" />
       <Text fx:id="capitalLabel" layoutX="131.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pengar" />
-      <ImageView fx:id="playerIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="playerIcon" fitHeight="50.0" fitWidth="50.0" layoutX="24.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="playersTurn" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="193.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="6.0" visible="false" width="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </fx:root>
