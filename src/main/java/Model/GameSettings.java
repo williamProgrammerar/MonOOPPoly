@@ -43,24 +43,24 @@ public class GameSettings {
     }
 
     /**
-     * This Method adds a player to the gameSettings it does not allow more then 4 players and throws an exception
+     * This Method adds a player to the gameSettings it does not allow more than 4 players and throws an exception
      * if a user tries to implement more.
      */
     public void addPlayer() {
-        if(players.size() < 4 && players.size() > 1){
+        if(players.size() < 4){
             players.add(new Player(players.size(),startCapital));
         }
         else {
-            System.out.println("This game supports a maximum of 4 players and a minimum of 2");
+            System.out.println("This game supports a maximum of 4 players");
             throw new IllegalArgumentException();
         }
     }
     public void removePlayer(){
-        if(players.size() > 1){
+        if(players.size() > 2){
             players.remove(players.size() -1);
         }
         else {
-            System.out.println("You must have atleast 1 players");
+            System.out.println("You must have atleast 2 players");
             throw new IllegalArgumentException();
         }
 
