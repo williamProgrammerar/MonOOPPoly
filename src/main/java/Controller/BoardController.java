@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -252,7 +253,6 @@ public class BoardController implements Observer {
         game.move(game.getDice().getSum());
         updateAllPieces();
         landedOnProperty();
-        chanceCardText.setText("CHANCE CARD");
         landedOnChance();
         updatePlayerCapital();
     }
@@ -269,23 +269,26 @@ public class BoardController implements Observer {
 
     private void landedOnChance() {
         if (game.getCurrentSpace() instanceof Chance) {
-            IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
-            chanceCardText.setText(chanceCard.getText());
-            chanceCard.doAction(game.getCurrentPlayer());
-            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
+            chanceCardText.setText("KLICKA HÄR FÖR ATT DRA ETT KORT");
+            System.out.println(chanceCardText.getOnMouseClicked());
+            chanceCardText.setOnMouseClicked(this::showChanceCard);
         }
     }
 
-
-    public void showChanceCard(){
-        System.out.println("HEJSAN HALLÅ DÄR");
+    public void showChanceCard(MouseEvent mouseEvent){
         IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
         chanceCardText.setText(chanceCard.getText());
         chanceCard.doAction(game.getCurrentPlayer());
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
+        chanceCardText.setOnMouseClicked(null);
+    }
+
+    private void putAwayChanceCard(){
+        chanceCardText.setText("CHANSKORT");
     }
 
     public void endTurn() {
+        putAwayChanceCard();
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(false);
         game.endTurn();
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
