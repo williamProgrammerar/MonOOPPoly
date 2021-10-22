@@ -26,6 +26,7 @@ public class PlayerCardsController extends AnchorPane {
     ImageView playerIcon;
     @FXML
     Rectangle playersTurn;
+    @FXML Rectangle playerColor;
 
     public PlayerCardsController(Piece piece) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerCard.fxml"));
@@ -41,6 +42,7 @@ public class PlayerCardsController extends AnchorPane {
         capitalLabel.setText(piece.getPlayer().getCapital() + " kr");
         nameLabel.setText(piece.getPlayer().getName());
         playerIcon.setImage(piece.getPiece().getImage());
+        playerColor.setFill(piece.getPlayer().getColor());
     }
 
     public void updateCapital(Player player) {

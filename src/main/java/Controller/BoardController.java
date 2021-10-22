@@ -235,7 +235,7 @@ public class BoardController implements Observer {
             boardGrid.add(piece.getPiece(), 10, 10);
             System.out.println("Player added to grid");
         }
-        //playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
+        playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
     }
 
     /**

@@ -13,9 +13,18 @@
             <Image url="@../pic/karkort.png" />
          </image>
       </ImageView>
-      <Text fx:id="nameLabel" layoutX="33.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Namn" />
-      <Text fx:id="capitalLabel" layoutX="131.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pengar" />
-      <ImageView fx:id="playerIcon" fitHeight="50.0" fitWidth="50.0" layoutX="24.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="nameLabel" layoutX="115.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Namn" />
+      <Text fx:id="capitalLabel" layoutX="112.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pengar" />
+      <AnchorPane layoutX="23.0" layoutY="111.0" prefHeight="60.0" prefWidth="60.0">
+         <children>
+            <Rectangle fx:id="playerColor" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+            <ImageView fx:id="playerIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <image>
+                  <Image url="@../pic/Smurf.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
       <Rectangle fx:id="playersTurn" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="193.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="6.0" visible="false" width="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </fx:root>
