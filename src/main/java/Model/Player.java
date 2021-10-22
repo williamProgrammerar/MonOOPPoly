@@ -15,7 +15,7 @@ public class Player {
     private boolean hasPassedGo;
     private int turnsInJail;
     private final List<Property> properties = new ArrayList<>();
-    private final javafx.scene.paint.Color color = Color.TURQUOISE;
+    private javafx.scene.paint.Color color;
     private boolean isBankrupt;
 
     public Player(int playerId, int capital) {
@@ -70,7 +70,7 @@ public class Player {
     }
 
     public void setColor(Color c){
-        //color = c;
+        color = c;
     }
 
     public int getPosition() {

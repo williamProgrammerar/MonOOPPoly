@@ -21,8 +21,6 @@ public class PieceController {
      */
     public PieceController() {
         initImagesAndColors();
-        initImages();
-        initImageColorMap();
     }
 
     public ColorPiece createPiece() {
@@ -42,35 +40,11 @@ public class PieceController {
     }
 
     private void initImagesAndColors(){
-        colorPieceList.add(new ColorPiece(new Image("pic/Asterix.png"), Color.SADDLEBROWN));
-        colorPieceList.add(new ColorPiece(new Image("pic/HackeHackspett.png"), Color.ORANGE));
-        colorPieceList.add(new ColorPiece(new Image("pic/KalleAnkaa.png"), Color.ROYALBLUE));
-        colorPieceList.add(new ColorPiece(new Image("pic/LuckyLuke.png"), Color.DARKGRAY));
-        colorPieceList.add(new ColorPiece(new Image("pic/Mario.png"), Color.RED));
-        colorPieceList.add(new ColorPiece(new Image("pic/Smurf.png"), Color.TURQUOISE));
-    }
-
-    private void initImages() {
-        /*images.add(new Image("pic/Asterix.png"));
-        images.add(new Image("pic/HackeHackspett.png"));
-        images.add(new Image("pic/KalleAnkaa.png"));
-        images.add(new Image("pic/LuckyLuke.png"));
-        images.add(new Image("pic/Mario.png"));
-        images.add(new Image("pic/Smurf.png"));*/
-    }
-
-    private void initImageColorMap(){
-        /*imageColorMap.put(new Image("pic/Asterix.png"), Color.SADDLEBROWN);
-        imageColorMap.put(new Image("pic/HackeHackspett.png"), Color.ORANGE);
-        imageColorMap.put(new Image("pic/KalleAnkaa.png"), Color.ROYALBLUE);
-        imageColorMap.put(new Image("pic/LuckyLuke.png"), Color.DARKGRAY);
-        imageColorMap.put(new Image("pic/Mario.png"), Color.RED);
-        imageColorMap.put(new Image("pic/Smurf.png"), Color.TURQUOISE);*/
-    }
-
-
-
-    public void assignColor(){
-
+        colorPieceList.add(new ColorPiece(new ImageView("pic/Asterix.png"), Color.SADDLEBROWN));
+        colorPieceList.add(new ColorPiece(new ImageView("pic/HackeHackspett.png"), Color.ORANGE));
+        colorPieceList.add(new ColorPiece(new ImageView("pic/KalleAnkaa.png"), Color.ROYALBLUE));
+        colorPieceList.add(new ColorPiece(new ImageView("pic/LuckyLuke.png"), Color.DARKGRAY));
+        colorPieceList.add(new ColorPiece(new ImageView("pic/Mario.png"), Color.RED));
+        colorPieceList.add(new ColorPiece(new ImageView("pic/Smurf.png"), Color.TURQUOISE));
     }
 }
