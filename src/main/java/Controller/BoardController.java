@@ -74,9 +74,7 @@ public class BoardController implements Observer {
         initPlayers();
 
         initRentViewMaps();
-        showTradeView();
     }
-
 
     /**
      * Goes through every space on the board and assigns a controller to each space.
@@ -162,6 +160,7 @@ public class BoardController implements Observer {
     public void showTradeView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(tradeView);
+        tradeController.loadTrade(game.getCurrentPlayer(), game.getPlayers());
     }
     /**
      * Method goes through all the spaces in board and places them around the edges of a grid
@@ -550,19 +549,28 @@ public class BoardController implements Observer {
             updateLocaleShown();
         }
     }
+    public void newPropertyOwner(Property property, Player player) {
+        spaceViewMap.get(property.getSpaceName()).setOwner(player);
+        updatePlayerCapital();
+    }
 
-
-
-        public void newPropertyOwner(Property property, Player player) {
-            spaceViewMap.get(property.getSpaceName()).setOwner(player);
-            updatePlayerCapital();
-        }
-
-        private void updatePlayerCapital() {
-            for (Player player : game.getPlayers()) {
-                playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+    public void updatePropertyOwnership() throws Exception {
+        for (Space space : getGame().getBoard().getSpaceList()) {
+            if (space instanceof Property) {
+                Property property = (Property) space;
+                if (property.isOwned()) {
+                    Player owner = game.getPlayerUsingID(property.getOwnerId());
+                    spaceViewMap.get(property.getSpaceName()).setOwner(owner);
+                }
             }
         }
+    }
+
+    public void updatePlayerCapital() {
+        for (Player player : game.getPlayers()) {
+            playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
+        }
+    }
 
     public Game getGame() {
         return game;
