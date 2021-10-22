@@ -540,6 +540,7 @@ public class BoardController implements Observer {
     public void update() {
         if (game.getSelectedSpace() instanceof Locale) {
             updateLocaleShown();
+
         }
     }
 

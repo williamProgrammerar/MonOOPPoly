@@ -60,7 +60,7 @@ public class Game {
         if (isCurrentSpaceProperty()) {
             Property property = (Property) currentSpace;
             if(property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
-                currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
+                subtractPlayerCapital(property.getRent(),currentPlayer);
                 System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
                 for (Player player : players) {
                     if(player.getPlayerId() == property.getOwnerId()) {
@@ -71,13 +71,15 @@ public class Game {
             }
         } else if(isCurrentSpaceTax()) {
             Tax tax = (Tax) currentSpace;
+            subtractPlayerCapital(tax.getTax(),currentPlayer);
             currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
             System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
         } else if(isCurrentSpaceChance()) {
             //TODO chance card
         } else if(currentSpace.getSpaceName().equals("GO")) {
             int salary = 200;
-            currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
+            addPlayerCapital(salary,currentPlayer);
+           //this should maybe be a variable, you could change it in settings
             System.out.println("Player " + currentPlayer.getPlayerId() + " passed GO and recieved " + salary);
         } else if(currentSpace.getSpaceName().equals("U")) {
             currentPlayer.moveTo(10, false);
@@ -116,7 +118,7 @@ public class Game {
                 System.out.println("You're stuck!");
                 currentPlayer.setTurnsInJail(currentPlayer.getTurnsInJail() + 1);
                 if(currentPlayer.getTurnsInJail()>3) {
-                    currentPlayer.setCapital(currentPlayer.getCapital() - jailFine);
+                    subtractPlayerCapital(jailFine,currentPlayer);
                     System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
 
                     currentPlayer.move(dice.getSum());
@@ -134,7 +136,14 @@ public class Game {
         }
         return false;
     }
-
+    public void addPlayerCapital (int moneyGained, Player player){
+        player.setCapital(player.getCapital() + moneyGained);
+        notifyAllObservers();
+    }
+    public void subtractPlayerCapital(int moneyLost,Player player){
+        player.setCapital(player.getCapital() - moneyLost);
+        notifyAllObservers();
+    }
     public void endTurn () {
         if (dice.isHasRolled()) {
             next();
@@ -161,7 +170,7 @@ public class Game {
 
             try {
                 locale.buildHouse();
-                currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
+                subtractPlayerCapital(locale.getHouseCost(),currentPlayer);
             }
             catch (IllegalArgumentException ignored){
             }
@@ -241,7 +250,7 @@ public class Game {
     public void payBackMortgage(){
         if(isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && ((Property) getSelectedSpace()).isMortgaged()){
             ((Property) getSelectedSpace()).setMortgaged(false);
-            currentPlayer.setCapital(currentPlayer.getCapital() - ((Property) getSelectedSpace()).getMortgage());
+            subtractPlayerCapital(((Property) getSelectedSpace()).getMortgage(), currentPlayer);
         }
         else{
             System.out.println("You don't own this property");
@@ -252,7 +261,7 @@ public class Game {
     public void mortgageLocale() {
         if (isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && !((Property) getSelectedSpace()).isMortgaged()){
             ((Property) getSelectedSpace()).setMortgaged(true);
-            currentPlayer.setCapital(((Property)getSelectedSpace()).getMortgage() + currentPlayer.getCapital());
+            addPlayerCapital(((Property) getSelectedSpace()).getMortgage(), currentPlayer);
         }
         else {
             System.out.println("You cant mortgage locale you don't own or one you have already mortgaged.");
