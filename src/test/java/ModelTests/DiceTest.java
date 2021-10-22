@@ -21,12 +21,12 @@ public class DiceTest {
         int k = dice.getDice2();
         assertEquals(dice.getSum(), o + k);
     }
-
+/*
     @Test
     void rolledDoublesTest() {
         while(!dice.isDoubles()) {
             dice.rollDice();
         }
         assertTrue(dice.isDoubles());
-    }
+    }*/
 }
