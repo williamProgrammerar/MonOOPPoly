@@ -274,10 +274,6 @@ public class BoardController implements Observer {
             chanceCard.doAction(game.getCurrentPlayer());
             playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
         }
-        landedOnProperty();
-        chanceCardText.setText("CHANCE CARD");
-        landedOnChance();
-        updatePlayerCapital();
     }
 
 
