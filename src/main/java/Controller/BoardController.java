@@ -199,6 +199,37 @@ public class BoardController {
         dice2.setText(String.valueOf(game.getDice().getDice2()));
         game.move(game.getDice().getSum());
         updateAllPieces();
+        landedOnProperty();
+        chanceCardText.setText("CHANCE CARD");
+        landedOnChance();
+        updatePlayerCapital();
+    }
+
+    private void landedOnProperty() {
+        if (game.getCurrentSpace() instanceof Property) {
+            Property property = (Property) game.getCurrentSpace();
+            if (!property.isOwned()) {
+                showUnownedPropertyView();
+            }
+            // TODO if owned then show who payed rent to who
+        }
+    }
+
+    private void landedOnChance() {
+        if (game.getCurrentSpace() instanceof Chance) {
+            /*IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+            chanceCardText.setText(chanceCard.getText());
+            chanceCard.doAction(game.getCurrentPlayer());
+            playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());*/
+        }
+    }
+
+    public void showChanceCard(){
+        System.out.println("HEJSAN HALLÅ DÄR");
+        IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
+        chanceCardText.setText(chanceCard.getText());
+        chanceCard.doAction(game.getCurrentPlayer());
+        playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
     }
 
     public void endTurn() {

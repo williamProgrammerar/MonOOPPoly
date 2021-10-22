@@ -45,25 +45,35 @@
               </rowConstraints>
             </GridPane>
          </children>
-      </StackPane>                  <Button layoutX="14.0" layoutY="273.0" mnemonicParsing="false" onAction="#rollDice" text="ROLL!" />
-      <Button fx:id="dice1" layoutX="73.0" layoutY="247.0" mnemonicParsing="false" text="  ">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Button>
-      <Button fx:id="dice2" layoutX="158.0" layoutY="247.0" mnemonicParsing="false" text="  ">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Button>
-      <Text fx:id="diceText" layoutX="-143.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press the button to roll the dice" x="200.0" y="250.0" />
-      <Button layoutX="107.0" layoutY="350.0" mnemonicParsing="false" onAction="#buyProperty" text="Buy Property" />
-      <Button layoutX="117.0" layoutY="385.0" mnemonicParsing="false" onAction="#endTurn" text="End Turn" />
-      <FlowPane fx:id="boardFlowPane" layoutX="1050.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0" />
-      <TextArea fx:id="chanceCardText" editable="false" layoutX="493.0" layoutY="118.0" prefHeight="200.0" prefWidth="324.0" promptText="CHANS KORT TEXT">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </TextArea>
+
+      </StackPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <FlowPane fx:id="boardFlowPane" alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <FlowPane fx:id="diceFlowPane" alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />                  <Button mnemonicParsing="false" onAction="#rollDice" text="ROLL!" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0" />
+                        <Button mnemonicParsing="false" onAction="#endTurn" text="End Turn" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="140.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                         <TextArea fx:id="chanceCardText" editable="false" onMouseClicked="#showChanceCard" prefHeight="200.0" prefWidth="324.0" promptText="CHANCE CARD" style="-fx-background-color: black;" text="CHANCE CARD" wrapText="true" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+                             <font>
+                                 <Font size="17.0" />
+                             </font>
+                         </TextArea>
+                     </children></AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+       
    </children>
 </AnchorPane>
