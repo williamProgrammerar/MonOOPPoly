@@ -152,4 +152,8 @@ public class Player {
     public boolean isBankrupt() {
         return isBankrupt;
     }
+
+    public void setBankrupt() {
+        isBankrupt = true;
+    }
 }
