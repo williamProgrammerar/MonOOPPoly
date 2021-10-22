@@ -25,6 +25,7 @@ public class Game {
 
     public Game(GameSettings gameSettings)  {
        this.players.addAll(gameSettings.getPlayers());
+       updateCurrentPlayer();
     }
 
     /**
@@ -33,7 +34,7 @@ public class Game {
      */
     public void move(int spaces) {
         if(!hasMoved) {
-            currentPlayer = players.get(0);
+            //currentPlayer = players.get(0);
             if (!jailTurn(currentPlayer)) {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
@@ -224,6 +225,11 @@ public class Game {
             players.add(temporaryPlayer);
         }
         checkEndCondition(temporaryPlayer);
+        updateCurrentPlayer();
+    }
+
+    private void updateCurrentPlayer(){
+        currentPlayer = players.get(0);
     }
 
     private void checkEndCondition(Player currentPlayer) {
