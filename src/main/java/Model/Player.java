@@ -16,12 +16,14 @@ public class Player {
     private int turnsInJail;
     private final List<Property> properties = new ArrayList<>();
     private final javafx.scene.paint.Color color;
+    private boolean isBankrupt;
 
     public Player(int playerId, int capital) {
         this.playerId = playerId;
         this.capital = capital;
         this.position = 0;
         this.name = "Inget namn än";
+        this.isBankrupt = false;
         switch (playerId){
             case 0 -> this.color = Color.RED;
             case 1 -> this.color = Color.DARKTURQUOISE;
@@ -128,7 +130,9 @@ public class Player {
             System.out.println("Property already has owner");
         }
     }
-
+    public boolean hasMonopoly(Locale locale){
+        return properties.containsAll(locale.getSection().getLocaleList());
+    }
     public List<Property> getProperties() {
         return properties;
     }
@@ -139,5 +143,9 @@ public class Player {
 
     public void setTurnsInJail(int turnsInJail) {
         this.turnsInJail = turnsInJail;
+    }
+
+    public boolean isBankrupt() {
+        return isBankrupt;
     }
 }

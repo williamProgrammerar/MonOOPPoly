@@ -11,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * @author JonEmilsson
+ */
 public class PlayerSetUpController extends AnchorPane {
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human");
     @FXML

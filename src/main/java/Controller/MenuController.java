@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * @author JonEmilsson
+ */
 public class MenuController {
     @FXML private Button startGameButton;
 
