@@ -38,6 +38,7 @@ public class Game {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
+                recieveGoPay(currentPlayer);
                 inspectCurrentSpace();
 
                 hasMoved = true;
@@ -46,6 +47,18 @@ public class Game {
                 System.out.println(currentPlayer.getPosition());
 
             }
+        }
+    }
+
+    /**
+     * If the player has passed go this turn, recieve appropriate payment
+     * @param currentPlayer
+     */
+    private void recieveGoPay(Player currentPlayer) {
+        if(currentPlayer.HasPassedGo()) {
+            int salary = 200;
+            currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
+            System.out.println(currentPlayer.getName() + " passed GO and recieved " + salary + "kr");
         }
     }
 
@@ -210,8 +223,12 @@ public class Game {
         if (!temporaryPlayer.isBankrupt()) {
             players.add(temporaryPlayer);
         }
+        checkEndCondition(temporaryPlayer);
+    }
+
+    private void checkEndCondition(Player currentPlayer) {
         if (players.size() == 1) {
-            endGame(temporaryPlayer);
+            endGame(currentPlayer);
         }
     }
 
