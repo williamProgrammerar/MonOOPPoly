@@ -67,22 +67,7 @@ public class GameTest {
 
     @Test
     void testJailTurn() {
-        gameSettings.addPlayer();
-        Player player = gameSettings.getPlayers().get(0);
-        player.moveTo(10, false);
-        player.setTurnsInJail(1);
-        game = new Game(gameSettings);
 
-        game.move(game.getDice().getSum());
-
-        if(game.getDice().isDoubles()) {
-            assertEquals(game.getDice().getSum(), player.getPosition()-10);
-            assertEquals(0, player.getTurnsInJail());
-        }
-        else {
-            assertEquals(10, player.getPosition());
-            assertEquals(2, player.getTurnsInJail());
-        }
     }
 
     @Test

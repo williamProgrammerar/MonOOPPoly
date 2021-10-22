@@ -13,7 +13,6 @@ public class Player {
     private final int playerId;
     private int position;
     private boolean hasPassedGo;
-    private int turnsInJail;
     private final List<Property> properties = new ArrayList<>();
     private final javafx.scene.paint.Color color = Color.TURQUOISE;
     private boolean isBankrupt;
@@ -31,7 +30,6 @@ public class Player {
             case 3 -> this.color = Color.ORANGE;
             default -> throw new IllegalStateException("Unexpected value: " + playerId);
         }*/
-        this.turnsInJail = 0;
     }
 
     /**
@@ -139,14 +137,6 @@ public class Player {
     }
     public List<Property> getProperties() {
         return properties;
-    }
-
-    public int getTurnsInJail() {
-        return turnsInJail;
-    }
-
-    public void setTurnsInJail(int turnsInJail) {
-        this.turnsInJail = turnsInJail;
     }
 
     public boolean isBankrupt() {

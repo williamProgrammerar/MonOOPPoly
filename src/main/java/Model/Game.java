@@ -17,6 +17,7 @@ import java.util.List;
 public class Game {
     private final Dice dice = new Dice();
     private final Board board = new Board();
+    private final Jail jail = new Jail(50, dice);
     private List<Player> players = new ArrayList<>();
     private Space currentSpace;
     private Player currentPlayer;
@@ -31,16 +32,14 @@ public class Game {
 
     /**
      * Moves the current player sum spaces.
-     * @author williamProgrammerar
      */
     public void move(int spaces) {
         if(!hasMoved) {
-            //currentPlayer = players.get(0);
-            if (!jailTurn(currentPlayer)) {
+            if (!jail.jailTurn(currentPlayer)) {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
-                recieveGoPay(currentPlayer);
+                receiveGoPay(currentPlayer);
                 inspectCurrentSpace();
 
                 hasMoved = true;
@@ -53,14 +52,14 @@ public class Game {
     }
 
     /**
-     * If the player has passed go this turn, recieve appropriate payment
+     * If the player has passed go this turn, receive appropriate payment
      * @param currentPlayer
      */
-    private void recieveGoPay(Player currentPlayer) {
+    private void receiveGoPay(Player currentPlayer) {
         if(currentPlayer.HasPassedGo()) {
             int salary = 200;
             currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
-            System.out.println(currentPlayer.getName() + " passed GO and recieved " + salary + "kr");
+            System.out.println(currentPlayer.getName() + " passed GO and received " + salary + "kr");
         }
     }
 
@@ -68,8 +67,6 @@ public class Game {
      * inspectCurrentSpace() checks what type the current space is.
      * If the current space is a property, owned by another player and not mortgaged then the player
      * has to pay rent to the owner of the property.
-     * @author williamProgrammerar
-     * @author Hedquist
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
@@ -92,58 +89,8 @@ public class Game {
             //TODO chance card
         } else if(currentSpace.getSpaceName().equals("U")) {
             currentPlayer.moveTo(10, false);
-            currentPlayer.setTurnsInJail(1);
-            System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
+            jail.addToJail(currentPlayer);
         }
-    }
-
-    /**
-     * Checks if the player is in Jail. If they are, they must roll doubles in order to get out.
-     * If they do, move them according to the dice roll.
-     * If they fail for 3 turns, pay fine and move according to dice roll.
-     * Sets turnsInJail to 0 when they get out.
-     * @param currentPlayer
-     * @return if the player is in jail or not
-     * @author Hedquist
-     */
-    private boolean jailTurn(Player currentPlayer) {
-        if(currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
-            int jailFine = 50;
-            System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
-            dice.rollDice(); //this needs to be coupled to the view
-            if(dice.isDoubles()) {
-                System.out.println("You got out!");
-
-                currentPlayer.move(dice.getSum());
-                currentSpace = board.getSpace(currentPlayer.getPosition());
-
-                inspectCurrentSpace();
-
-                System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-                System.out.println(currentPlayer.getPosition());
-
-                currentPlayer.setTurnsInJail(0);
-            } else {
-                System.out.println("You're stuck!");
-                currentPlayer.setTurnsInJail(currentPlayer.getTurnsInJail() + 1);
-                if(currentPlayer.getTurnsInJail()>3) {
-                    currentPlayer.setCapital(currentPlayer.getCapital() - jailFine);
-                    System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
-
-                    currentPlayer.move(dice.getSum());
-                    currentSpace = board.getSpace(currentPlayer.getPosition());
-
-                    inspectCurrentSpace();
-
-                    System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-                    System.out.println(currentPlayer.getPosition());
-
-                    currentPlayer.setTurnsInJail(0);
-                }
-            }
-            return true;
-        }
-        return false;
     }
 
     public void endTurn () {
