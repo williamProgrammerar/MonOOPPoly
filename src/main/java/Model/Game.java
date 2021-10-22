@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Game class is responsible for
+ * Game class is responsible for handling the game rules, such as turn order and
+ * winning/losing etc.
  *
  * @author williamProgrammerar
  * @author rhedinh
@@ -158,7 +159,6 @@ public class Game {
      * Should prevent currentPlayer from moving until they are debt free,
      * currently just instantly makes players bankrupt if they start a turn while in debt.
      * Calls next() to pass the turn if the player declares bankruptcy.
-     * @author Hedquist
      */
     private void checkBankruptcy() {
         if(currentPlayer.getCapital() < 1) {
@@ -213,29 +213,26 @@ public class Game {
 
     /**
      * Places the current player (index 0) in a temporary variable.
-     * Player index 0 in the player list is then removed, which leads to a new current player.
-     * Then adds the player stored in the temporary variable to the back of the list if the player isn't bankrupt.
+     * Player index 0 in the player list is then removed, which leads to a new current player who is not bankrupt.
+     * Then adds the player stored in the temporary variable to the back of the list.
      * Finally checks how many players are left and ends the game if there is only one.
-     * @author williamProgrammerar
      */
     public void next() {
         Player temporaryPlayer = players.get(0);
         players.remove(0);
-        if (!temporaryPlayer.isBankrupt()) {
-            players.add(temporaryPlayer);
-        }
-        checkEndCondition(temporaryPlayer);
+        players.add(temporaryPlayer);
         updateCurrentPlayer();
+
+        if(currentPlayer.isBankrupt()) {
+            next();
+        }
+        if(currentPlayer.equals(temporaryPlayer)) {
+            endGame(temporaryPlayer);
+        }
     }
 
     private void updateCurrentPlayer(){
         currentPlayer = players.get(0);
-    }
-
-    private void checkEndCondition(Player currentPlayer) {
-        if (players.size() == 1) {
-            endGame(currentPlayer);
-        }
     }
 
     /**
