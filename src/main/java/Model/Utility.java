@@ -1,7 +1,7 @@
 package Model;
 
 public class Utility extends Property {
-    Dice dice = new Dice();
+    RollDice dice = new RollDice(2,6);
 
     private final int[] rent;
 
@@ -18,8 +18,8 @@ public class Utility extends Property {
 
     public int getRent() {
         dice.rollDice();
-        System.out.println("Dice rolled a sum of " + dice.getSum());
-        System.out.println("Rent is " + dice.getSum() * rent[nrOfUtilitiesOwned]);
-        return dice.getSum() * rent[nrOfUtilitiesOwned];
+        System.out.println("Dice rolled a sum of " + dice.getTotalValue());
+        System.out.println("Rent is " + dice.getTotalValue() * rent[nrOfUtilitiesOwned]);
+        return dice.getTotalValue() * rent[nrOfUtilitiesOwned];
     }
 }

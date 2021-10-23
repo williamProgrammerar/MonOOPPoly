@@ -260,7 +260,7 @@ public class BoardController implements Observer {
     }
 
     private void moveCurrentPlayer() {
-        game.move(game.getDice().getSum());
+        game.move(game.getDice().getTotalValue());
         updateAllPieces();
         landedOnProperty();
         landedOnChance();

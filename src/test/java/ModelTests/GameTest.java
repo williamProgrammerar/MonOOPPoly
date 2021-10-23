@@ -62,7 +62,7 @@ public class GameTest {
     void moveToUSpaceTest() {
         game.getPlayers().get(0).moveTo(0,false);
         game.move(game.getBoard().findSpace("U"));
-        assertTrue(game.getCurrentPlayer().getPosition() == 10);
+        assertEquals(game.getCurrentPlayer().getPosition(), 10);
     }
 
     @Test
@@ -73,10 +73,10 @@ public class GameTest {
         player.setTurnsInJail(1);
         game = new Game(gameSettings);
 
-        game.move(game.getDice().getSum());
+        game.move(game.getDice().getTotalValue());
 
-        if(game.getDice().isDoubles()) {
-            assertEquals(game.getDice().getSum(), player.getPosition()-10);
+        if(game.getDice().hasRolledDoubles()) {
+            assertEquals(game.getDice().getTotalValue(), player.getPosition()-10);
             assertEquals(0, player.getTurnsInJail());
         }
         else {

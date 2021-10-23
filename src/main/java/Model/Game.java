@@ -15,7 +15,7 @@ import java.util.List;
  * @author Hedquist
  */
 public class Game {
-    private final Dice dice = new Dice();
+    private final RollDice dice = new RollDice(2,6);
     private final Board board = new Board();
     private final List<Player> players = new ArrayList<>();
     private Space currentSpace;
@@ -106,10 +106,10 @@ public class Game {
             int jailFine = 50;
             System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
             dice.rollDice(); //this needs to be coupled to the view
-            if (dice.isDoubles()) {
+            if (dice.hasRolledDoubles()) {
                 System.out.println("You got out!");
 
-                currentPlayer.move(dice.getSum());
+                currentPlayer.move(dice.getTotalValue());
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
                 inspectCurrentSpace();
@@ -125,7 +125,7 @@ public class Game {
                     currentPlayer.setCapital(currentPlayer.getCapital() - jailFine);
                     System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
 
-                    currentPlayer.move(dice.getSum());
+                    currentPlayer.move(dice.getTotalValue());
                     currentSpace = board.getSpace(currentPlayer.getPosition());
 
                     inspectCurrentSpace();
@@ -142,9 +142,9 @@ public class Game {
     }
 
     public void endTurn() {
-        if (dice.isHasRolled()) {
+        if (dice.isHasRolledDice()) {
             next();
-            dice.setHasRolled(false);
+            dice.setHasRolledDice(false);
             hasMoved = false;
             checkBankruptcy();
         }
@@ -237,7 +237,7 @@ public class Game {
         System.exit(0);
     }
 
-    public Dice getDice() {
+    public RollDice getDice() {
         return dice;
     }
 
