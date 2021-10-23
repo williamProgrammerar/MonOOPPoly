@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.*;
-import Observers.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -12,19 +11,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * View for the spaces
  *
  * @author rhedinh
  */
-
-
 public class SpaceView extends AnchorPane {
     @FXML
     Text localeName;
+
     @FXML
     Text localePrice;
 
@@ -32,14 +28,19 @@ public class SpaceView extends AnchorPane {
     Space space;
 
     BuyHouseController buyHouseController;
+
     @FXML
     Rectangle localeColor;
+
     @FXML
     Rectangle spaceStroke;
+
     @FXML
     SplitPane splitSpace;
+
     @FXML
     AnchorPane ap;
+
     @FXML
     AnchorPane spaceText;
 
@@ -49,6 +50,7 @@ public class SpaceView extends AnchorPane {
         fxmlLoader.setController(this);
         this.space = space;
         this.game = game;
+
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -65,18 +67,15 @@ public class SpaceView extends AnchorPane {
             localeColor.setVisible(false);
         }
 
-
         if (space instanceof Property) {
             localePrice.setText(((Property) space).getPrice() + " kr");
         } else {
             localePrice.setVisible(false);
         }
-
     }
 
     @FXML
-    public void spaceSelected(){
-
+    public void spaceSelected() {
         game.setSelectedSpace(space);
         System.out.println("I was Clicked");
     }
