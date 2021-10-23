@@ -1,8 +1,6 @@
 package Model;
 
-
 /**
- *
  * @author rhedinh
  */
 public class MoveChanceCard extends IChanceCard {
