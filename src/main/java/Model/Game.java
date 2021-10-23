@@ -70,26 +70,42 @@ public class Game {
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
-            Property property = (Property) currentSpace;
-            if (property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
-                currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
-                System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
-                for (Player player : players) {
-                    if (player.getPlayerId() == property.getOwnerId()) {
-                        player.setCapital(player.getCapital() + property.getRent());
-                        System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
-                    }
-                }
-            }
+            landedOnProperty();
         } else if (isCurrentSpaceTax()) {
-            Tax tax = (Tax) currentSpace;
-            currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
-            System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
-        } else if(currentSpace.getSpaceName().equals("U")) {
-            currentPlayer.moveTo(10, false);
-            currentPlayer.setTurnsInJail(1);
-            System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
+            landedOnTax();
+        } else if(isCurrentSpaceU()) {
+            landedOnU();
         }
+    }
+
+    private void landedOnProperty() {
+        Property property = (Property) currentSpace;
+        if (property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
+            landedOnOwnedProperty(property);
+        }
+    }
+
+    private void landedOnOwnedProperty(Property property) {
+        currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
+        System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
+        for (Player player : players) {
+            if (player.getPlayerId() == property.getOwnerId()) {
+                player.setCapital(player.getCapital() + property.getRent());
+                System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
+            }
+        }
+    }
+
+    private void landedOnTax() {
+        Tax tax = (Tax) currentSpace;
+        currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
+        System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
+    }
+
+    private void landedOnU() {
+        currentPlayer.moveTo(10, false);
+        currentPlayer.setTurnsInJail(1);
+        System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
     }
 
     /**
@@ -198,6 +214,8 @@ public class Game {
     private boolean isCurrentSpaceTax() {
         return currentSpace instanceof Tax;
     }
+
+    private boolean isCurrentSpaceU() { return currentSpace.getSpaceName().equals("U"); }
 
     /**
      * Places the current player (index 0) in a temporary variable.
