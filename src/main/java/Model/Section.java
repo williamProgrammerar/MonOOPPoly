@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * @author JonEmilsson
  */
@@ -11,11 +12,10 @@ public class Section {
     }
 
     String sectionColour;
-    public Section( String sectionColour) {
 
+    public Section( String sectionColour) {
         this.sectionColour = sectionColour;
     }
-
 
     public List<Locale> getLocaleList() {
         return localeList;
@@ -31,6 +31,4 @@ public class Section {
     public void addLocale(Locale locale){
         localeList.add(locale);
     }
-
-
 }
