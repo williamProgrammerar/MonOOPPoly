@@ -30,7 +30,7 @@ import java.util.List;
 public class BoardController implements Observer {
     private Game game;
 
-    private final PieceController pv = new PieceController();
+    private final PieceController pieceController = new PieceController();
 
     private final List<PieceView> pieceViews = new ArrayList<>();
 
@@ -212,7 +212,7 @@ public class BoardController implements Observer {
 
     private void initPlayerCardsControllerMap() {
         for (Player player : game.getPlayers()) {
-            PieceView pieceView = new PieceView(pv.createPiece(), player);
+            PieceView pieceView = new PieceView(pieceController.createPiece(), player);
             pieceViews.add(pieceView);
             PlayerCardsController playerCardsController = new PlayerCardsController(pieceView);
             playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
