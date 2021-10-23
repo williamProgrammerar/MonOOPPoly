@@ -1,7 +1,6 @@
 package Model;
 
 /**
- *
  * @author rhedinh
  */
 public class MoneyChanceCard extends IChanceCard {
