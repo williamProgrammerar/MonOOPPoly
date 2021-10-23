@@ -6,16 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-
     private int capital;
+
     private String name;
     private String state;
+
     private final int playerId;
+
     private int position;
+
     private boolean hasPassedGo;
+
     private int turnsInJail;
+
     private final List<Property> properties = new ArrayList<>();
+
     private javafx.scene.paint.Color color;
+
     private boolean isBankrupt;
 
     public Player(int playerId, int capital) {
@@ -44,7 +51,7 @@ public class Player {
      */
     public void move(int spaces) {
         position += spaces;
-        if(position >= 40) {
+        if (position >= 40) {
             position -= 40;
             hasPassedGo = true;
         }
@@ -118,7 +125,7 @@ public class Player {
      * @param property the property player is attempting to buy
      */
     public void buyProperty(Property property) {
-        if(!property.isOwned()) {
+        if (!property.isOwned()) {
             if (property.getPrice() <= capital) {
                 properties.add(property);
                 capital -= property.getPrice();
@@ -134,9 +141,11 @@ public class Player {
             System.out.println("Property already has owner");
         }
     }
+
     public boolean hasMonopoly(Locale locale){
         return properties.containsAll(locale.getSection().getLocaleList());
     }
+
     public List<Property> getProperties() {
         return properties;
     }
