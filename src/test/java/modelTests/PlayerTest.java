@@ -40,10 +40,11 @@ public class PlayerTest {
         assertEquals(player.getProperties().size(), 1);
     }
 
+    /*
     @Test
     void playerColourTest() {
         assertSame(player.getColor(), Color.DARKTURQUOISE);
-    }
+    }*/
 
     @Test
     void playerStateTest() {
