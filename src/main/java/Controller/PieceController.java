@@ -1,20 +1,15 @@
 package Controller;
 
 import Model.ColorPiece;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-import javax.swing.plaf.ColorUIResource;
 import java.util.*;
 
 public class PieceController {
 
-    //private final List<Image> images = new ArrayList<>();
-    //private final List<Color> colors = new ArrayList<>();
     private final List<ColorPiece> colorPieceList = new ArrayList<>();
     private final Random rand = new Random();
-    //private final Map<Image, Color> imageColorMap = new HashMap<>();
 
     /**
      * Constructor calls initImages to initiate the list of pieces.
@@ -24,8 +19,7 @@ public class PieceController {
     }
 
     public ColorPiece createPiece() {
-        ColorPiece selectedColorPiece = selectPiece();
-        return selectedColorPiece;
+        return selectPiece();
     }
 
     /**
@@ -39,7 +33,7 @@ public class PieceController {
         return colorPiece;
     }
 
-    private void initImagesAndColors(){
+    private void initImagesAndColors() {
         colorPieceList.add(new ColorPiece(new ImageView("pic/Asterix.png"), Color.SADDLEBROWN));
         colorPieceList.add(new ColorPiece(new ImageView("pic/HackeHackspett.png"), Color.ORANGE));
         colorPieceList.add(new ColorPiece(new ImageView("pic/KalleAnkaa.png"), Color.ROYALBLUE));
