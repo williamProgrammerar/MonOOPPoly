@@ -193,15 +193,18 @@ public class Game {
     }
 
     /**
-     * This method makes sure that the a house is bought and then built, it takes a locale which the player whiches to
-     * buy houses on then makes sure that player is eligble, then tries to build and draw the correct amount
-     * @param locale The locale that the player whishes to buy houses on.
+     * This method makes sure that the a house is bought and then built, it takes a locale which the player wishes to
+     * buy houses on then makes sure that player is eligible, then tries to build and draw the correct amount
+     *
+     * @param locale The locale that the player wishes to buy houses on.
      */
     public void buyHouse(Locale locale) {
-        if (currentPlayer.hasMonopoly(locale)) {
+        if (currentPlayer.hasMonopoly(locale) && (currentPlayer.getCapital() >= locale.getHouseCost()) && !locale.hasMaxHouses()) {
             try {
                 locale.buildHouse();
                 currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
+                System.out.println("House built");
+                System.out.println(currentPlayer.getCapital());
             }
             catch (IllegalArgumentException ignored) {
             }

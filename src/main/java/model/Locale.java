@@ -50,4 +50,8 @@ public class Locale extends Property {
     public int getHouseCost() {
         return houseCost;
     }
+
+    public boolean hasMaxHouses() {
+        return !(houses.size() < maxHouses);
+    }
 }

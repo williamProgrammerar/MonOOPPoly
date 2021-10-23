@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +14,13 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
+import static javafx.scene.paint.Color.*;
+
 /**
  * View for the spaces
  *
  * @author rhedinh
+ * @author williamProgrammerar
  */
 public class SpaceView extends AnchorPane {
     @FXML
@@ -24,10 +29,8 @@ public class SpaceView extends AnchorPane {
     @FXML
     Text localePrice;
 
-    Game game;
-    Space space;
-
-    BuyHouseController buyHouseController;
+    private final Game game;
+    private final Space space;
 
     @FXML
     Rectangle localeColor;
@@ -44,12 +47,18 @@ public class SpaceView extends AnchorPane {
     @FXML
     AnchorPane spaceText;
 
+    @FXML
+    HBox houseHBox;
+
+    private boolean hasHotel;
+
     public SpaceView(Space space, Game game) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MonopolySpace.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         this.space = space;
         this.game = game;
+        this.hasHotel = false;
 
         try {
             fxmlLoader.load();
@@ -83,6 +92,32 @@ public class SpaceView extends AnchorPane {
     public void setOwner(Color c) {
         localeColor.setStroke(c);
         spaceStroke.setStroke(c);
+    }
+
+    public void addHouse() {
+        if(houseHBox.getChildren().size() < 4 && !hasHotel) {
+            Circle circle = new Circle(5, GREEN);
+            circle.setStroke(BLACK);
+            houseHBox.getChildren().add(circle);
+        }
+        else {
+            addHotel();
+        }
+    }
+
+    private void addHotel() {
+        houseHBox.getChildren().clear();
+
+        Circle circle = new Circle(5, RED);
+        circle.setStroke(BLACK);
+
+        houseHBox.getChildren().add(circle);
+        hasHotel = true;
+    }
+
+    public void clearHouses() {
+        houseHBox.getChildren().clear();
+        hasHotel = false;
     }
 
     public AnchorPane getSpaceText() {

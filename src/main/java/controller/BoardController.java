@@ -364,7 +364,7 @@ public class BoardController implements Observer {
     private void updateLocaleShown() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
-        boardFlowPane.getChildren().add(new BuyHouseController(game));
+        boardFlowPane.getChildren().add(new BuyHouseController(game, this));
     }
 
 
@@ -381,10 +381,6 @@ public class BoardController implements Observer {
         col = spaceCellMap.get(position).getY();
         boardGrid.getChildren().remove(piece);
         boardGrid.add(piece, (int) col, (int) row);
-    }
-
-    private void buyHouse() {
-
     }
 
     public void buyProperty() {
@@ -460,6 +456,17 @@ public class BoardController implements Observer {
 
     public Game getGame() {
         return game;
+    }
+
+    /**
+     * buildBuilding builds a building on a locale.
+     * Public so that BuyHouseController can access it.
+     *
+     * @param locale the locale where house should be built.
+     */
+    public void buildBuilding(Locale locale) {
+        spaceViewMap.get(locale.getSpaceName()).addHouse();
+        updatePlayerCapital();
     }
 }
 
