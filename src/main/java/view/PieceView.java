@@ -1,6 +1,5 @@
 package view;
 
-import model.ColorPiece;
 import model.Player;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;

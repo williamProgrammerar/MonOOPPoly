@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;

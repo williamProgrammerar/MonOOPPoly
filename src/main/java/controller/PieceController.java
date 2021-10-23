@@ -1,6 +1,6 @@
 package controller;
 
-import model.ColorPiece;
+import view.ColorPiece;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
