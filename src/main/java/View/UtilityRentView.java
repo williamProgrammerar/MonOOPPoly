@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class UtilityRentView extends AnchorPane {
+public class UtilityRentView extends PropertyRentView {
 
     private @FXML
     Text PropertyName;

@@ -2,8 +2,10 @@ package Controller;
 
 import Model.*;
 import Model.Locale;
+import Observers.Observable;
 import Observers.Observer;
 import View.*;
+import Visitor.HandleRentViewMap;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
@@ -26,13 +28,12 @@ public class BoardController implements Observer {
     private final List<Piece> pieces = new ArrayList<>();
 
     private final Map<String, SpaceView> spaceViewMap = new HashMap<>();
-
+    private RentViewManager rentViewManager = new RentViewManager();
     private final Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<>();
-
+    private final Map<String,PropertyRentView> propertyRentViewHashMap = new HashMap<>();
     private final Map<String, LocaleRentView> localeRentViewMap = new HashMap<>();
     private final Map<String, StationRentView> stationRentViewMap = new HashMap<>();
     private final Map<String, UtilityRentView> utilityRentViewMap = new HashMap<>();
-
     private final Map<Integer, Point> spaceCellMap = new HashMap<>();
 
     private DiceView diceView;
@@ -82,43 +83,35 @@ public class BoardController implements Observer {
      * Goes through every space on the board and assigns a controller to each space.
      */
     private void initSpaceViewMap() {
-
         for (Space space : game.getBoard().getSpaceList()) {
             SpaceView spaceView = new SpaceView(space, game);
-
             spaceViewMap.put(space.getSpaceName(), spaceView);
         }
     }
-
+    private void initRentViewMaps() {
+        for (Property property : game.getBoard().getPropertyList()) {
+            rentViewManager.add(property);
+        }
+    }
 
     /**
      * Goes through every space on the board and places spaces that are either instances of Locale, Station and Utility
      * in their respective maps.
      */
 
-    private void initRentViewMaps() {
-        for (Space space : game.getBoard().getSpaceList()) {
-            if (space instanceof Locale) {
-                setUpLocaleViewMap((Locale) space);
-            } else if (space instanceof Station) {
-                setUpStationViewMap((Station) space);
-            } else if (space instanceof Utility) {
-                setUpUtilityViewMap((Utility) space);
-            }
-        }
-    }
 
-    private void setUpLocaleViewMap(Locale locale) {
+    private void setUpPropertyViewMap(Locale locale) {
+
         LocaleRentView localeRentView = new LocaleRentView(locale);
         localeRentViewMap.put(locale.getSpaceName(), localeRentView);
     }
 
-    private void setUpStationViewMap(Station station) {
+    private void setUpPropertyViewMap(Station station) {
         StationRentView stationRentView = new StationRentView(station);
         stationRentViewMap.put(station.getSpaceName(), stationRentView);
     }
 
-    private void setUpUtilityViewMap(Utility utility) {
+    private void setUpPropertyViewMap(Utility utility) {
         UtilityRentView utilityRentView = new UtilityRentView(utility);
         utilityRentViewMap.put(utility.getSpaceName(), utilityRentView);
     }
@@ -294,35 +287,13 @@ public class BoardController implements Observer {
     }
 
     public AnchorPane getPropertyRentView() {
-        if (game.getCurrentSpace() instanceof Locale) {
-            return getLocaleRentView();
-        } else if (game.getCurrentSpace() instanceof Station) {
-            return getStationRentView();
-        } else {
-            return getUtilityRentView();
+        try{
+            return  rentViewManager.getPropertyRentViewHashMap().get(game.getCurrentSpace().getSpaceName());
         }
-    }
-
-
-    private void showSelectedSpace(SpaceView spaceView) {
-    }
-
-    private void updateLocaleRentView() {
-        clearBoardFlowPane();
-        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
-    }
-
-    private AnchorPane getLocaleRentView() {
-        return localeRentViewMap.get(game.getCurrentSpace().getSpaceName());
-    }
-
-    private AnchorPane getStationRentView() {
-        return stationRentViewMap.get(game.getCurrentSpace().getSpaceName());
-
-    }
-
-    private AnchorPane getUtilityRentView() {
-        return utilityRentViewMap.get(game.getCurrentSpace().getSpaceName());
+        catch (IllegalArgumentException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void clearBoardFlowPane() {
@@ -334,9 +305,9 @@ public class BoardController implements Observer {
      * This is called when a space is selected, making sure that that space is shown and that a buy house controller
      * is created with the current instance of game.
      */
-    private void updateLocaleShown() {
+    private void updateSpaceShown(Space space) {
         clearBoardFlowPane();
-        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getSelectedSpace().getSpaceName()));
+        boardFlowPane.getChildren().add(rentViewManager.propertyRentViewHashMap.get(space.getSpaceName()));
         boardFlowPane.getChildren().add(new SelectedLocaleController(game));
     }
 
@@ -376,11 +347,9 @@ public class BoardController implements Observer {
      * will visualise that on the screen and call updateLocaleShown.
      */
     @Override
-    public void update() {
-        if (game.getSelectedSpace() instanceof Locale) {
-            updateLocaleShown();
-
-        }
+    public void update(Observable observable,Object arg) {
+        updateSpaceShown((Space) arg);
+        updatePlayerCapital();
     }
 
 

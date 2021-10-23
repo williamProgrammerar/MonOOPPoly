@@ -1,5 +1,6 @@
-package Controller;
+package View;
 
+import Controller.SelectedLocaleController;
 import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +69,10 @@ public class SpaceView extends AnchorPane {
         } else {
             localePrice.setVisible(false);
         }
+
+    }
+
+    public SpaceView() {
 
     }
 

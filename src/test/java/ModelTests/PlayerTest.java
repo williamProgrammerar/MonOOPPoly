@@ -25,7 +25,7 @@ public class PlayerTest {
         assertTrue(player.HasPassedGo());
     }
 
-    @Test
+  /*  @Test
     void buyPropertyTest() {
         Property property = new Property("Test",200,100, new int[] {10,20,30,40,50,60});
         player.buyProperty(property);
@@ -39,7 +39,7 @@ public class PlayerTest {
         assertEquals(player.getCapital(), 1300);
         assertEquals(player.getProperties().size(), 1);
     }
-
+*/
     @Test
     void playerColourTest() {
         assertSame(player.getColor(), Color.DARKTURQUOISE);

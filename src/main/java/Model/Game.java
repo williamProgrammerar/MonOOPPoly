@@ -1,5 +1,6 @@
 package Model;
 
+import Observers.Observable;
 import Observers.Observer;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author JonEmilsson
  * @author HedQuist
  */
-public class Game {
+public class Game implements Observable {
     private final Dice dice = new Dice();
     private final Board board = new Board();
     private List<Player> players = new ArrayList<>();
@@ -139,11 +140,11 @@ public class Game {
     }
     public void addPlayerCapital (int moneyGained, Player player){
         player.setCapital(player.getCapital() + moneyGained);
-        notifyAllObservers();
+        notifyObservers();
     }
     public void subtractPlayerCapital(int moneyLost,Player player){
         player.setCapital(player.getCapital() - moneyLost);
-        notifyAllObservers();
+        notifyObservers(moneyLost);
     }
     public void endTurn () {
         if (dice.isHasRolled()) {
@@ -210,6 +211,7 @@ public class Game {
 
     public Dice getDice() {
         return dice;
+
     }
 
     public Board getBoard() {
@@ -235,18 +237,13 @@ public class Game {
      */
     public void setSelectedSpace(Space selectedSpace) {
         this.selectedSpace = selectedSpace;
-        notifyAllObservers();
+        notifyObservers(selectedSpace);
     }
 
     /**
      * Notifies all observer of a change
      */
-    public void notifyAllObservers() {
-        for (Observer observer: observers){
-            observer.update();
-        }
 
-    }
     /**
      * This method attaches an observer to this class.
      */
@@ -278,6 +275,32 @@ public class Game {
     private boolean isPropertyOwnedByPlayer(Property property, Player player) {
         return player.getProperties().contains(property);
     }
+
+    @Override
+    public void attachObserver(Observer observer) {
+        observers.add(observer);
+
     }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+
+    }
+
+    @Override
+    public void notifyObservers(Object arg) {
+        for (Observer observer: observers){
+           observer.update(this,arg);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer: observers){
+            observer.update(this,null);
+        }
+    }
+}
 
 

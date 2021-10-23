@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * @author williamProgrammerar
  */
-public class UnownedPropertyView extends AnchorPane {
+public class UnownedPropertyView extends SpaceView {
 
     public UnownedPropertyView(UnownedPropertyController unownedPropertyController) {
         setUpFxml(unownedPropertyController);

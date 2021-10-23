@@ -1,10 +1,17 @@
 package Model;
 
+import Visitor.HandleRentViewMap;
+
 public class Utility extends Property {
 
     Dice dice = new Dice();
     private final int[] rent;
     private int nrOfUtilitiesOwned = 0;
+
+    @Override
+    public void accept(HandleRentViewMap visitor) {
+        visitor.visit(this);
+    }
 
     public Utility(String spaceName, int price, int mortgage, int[] rent) {
         super(spaceName, price, mortgage, rent);
