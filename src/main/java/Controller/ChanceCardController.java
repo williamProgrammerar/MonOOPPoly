@@ -9,7 +9,6 @@ import Model.IChanceCard;
  * @author rhedinh
  */
 public class ChanceCardController {
-
     private IChanceCard chanceCard;
 
     public ChanceCardController() {

@@ -11,7 +11,6 @@ import java.io.IOException;
  * @author JonEmilsson
  */
 public class BuyHouseController extends AnchorPane {
-
     Game game;
 
     public BuyHouseController(Game game) {

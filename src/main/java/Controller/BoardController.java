@@ -27,7 +27,6 @@ import java.util.List;
  * @author Hedquist
  */
 public class BoardController implements Observer {
-
     private Game game;
 
     private final PieceController pv = new PieceController();

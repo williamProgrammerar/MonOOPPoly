@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
  * @author williamProgrammerar
  */
 public class AuctionController {
-
     @FXML
     private FlowPane auctionFlowPane;
 
