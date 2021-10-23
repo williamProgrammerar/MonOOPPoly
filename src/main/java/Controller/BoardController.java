@@ -18,7 +18,14 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-
+/**
+ * BoardController is the main controller responsible for handling most of the user input.
+ *
+ * @author williamProgrammerar
+ * @author rhedinh
+ * @author JonEmilsson
+ * @author Hedquist
+ */
 public class BoardController implements Observer {
     private Game game;
 
@@ -61,6 +68,12 @@ public class BoardController implements Observer {
     @FXML
     private FlowPane diceFlowPane;
 
+    /**
+     * initGame initiates everything necessary for the game to run.
+     * initGame is called once when SetUpPlayerController starts the game.
+     *
+     * @param game same instance of the Game class as in SetUpPlayerController.
+     */
     public void initGame(Game game) {
 
         this.game = game;
@@ -89,12 +102,10 @@ public class BoardController implements Observer {
         }
     }
 
-
     /**
      * Goes through every space on the board and places spaces that are either instances of Locale, Station and Utility
      * in their respective maps.
      */
-
     private void initRentViewMaps() {
         for (Space space : game.getBoard().getSpaceList()) {
             if (space instanceof Locale) {
@@ -162,6 +173,7 @@ public class BoardController implements Observer {
         boardFlowPane.getChildren().add(tradeView);
         tradeController.loadTrade(game.getCurrentPlayer(), game.getPlayers());
     }
+
     /**
      * Method goes through all the spaces in board and places them around the edges of a grid
      * in order to give the visual board a similar look to the original Monopoly game.
@@ -170,7 +182,6 @@ public class BoardController implements Observer {
         List<Space> spaceList = game.getBoard().getSpaceList();
 
         boardGrid.getChildren().clear();
-
 
         int r = 10;
         int c = 10;
@@ -196,7 +207,6 @@ public class BoardController implements Observer {
                 r++;
             }
         }
-
     }
 
     private void initPlayerCardsControllerMap() {
@@ -225,16 +235,17 @@ public class BoardController implements Observer {
         alignmentDeque.add(Pos.BOTTOM_RIGHT);
 
         for (Player player : players) {
-            //pieces.add(new Piece(pv.createPiece(), player));
             System.out.println("Player added to list");
             PlayerCardsController playerCardsController = playerCardsControllerMap.get(player.getPlayerId());
             monopolyScene.getChildren().add(playerCardsController);
             StackPane.setAlignment(playerCardsController, alignmentDeque.remove());
         }
+
         for (Piece piece : pieces) {
             boardGrid.add(piece.getPiece(), 10, 10);
             System.out.println("Player added to grid");
         }
+
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
     }
 
@@ -256,16 +267,22 @@ public class BoardController implements Observer {
         updatePlayerCapital();
     }
 
+    /**
+     * landedOnProperty checks if the player landed on an unowned property, in order to determine whether or not
+     * to show showUnownedPropertyView.
+     */
     private void landedOnProperty() {
         if (game.getCurrentSpace() instanceof Property) {
             Property property = (Property) game.getCurrentSpace();
             if (!property.isOwned()) {
                 showUnownedPropertyView();
             }
-            // TODO if owned then show who payed rent to who
         }
     }
 
+    /**
+     * Checks if the current player landed on a chance space.
+     */
     private void landedOnChance() {
         if (game.getCurrentSpace() instanceof Chance) {
             chanceCardText.setText("KLICKA HÄR FÖR ATT DRA ETT KORT");
@@ -274,7 +291,7 @@ public class BoardController implements Observer {
         }
     }
 
-    public void showChanceCard(MouseEvent mouseEvent){
+    private void showChanceCard(MouseEvent mouseEvent) {
         IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
         chanceCardText.setText(chanceCard.getText());
         chanceCard.doAction(game.getCurrentPlayer());
@@ -282,10 +299,13 @@ public class BoardController implements Observer {
         chanceCardText.setOnMouseClicked(null);
     }
 
-    private void putAwayChanceCard(){
+    private void putAwayChanceCard() {
         chanceCardText.setText("CHANSKORT");
     }
 
+    /**
+     * endTurn is public so that a button can access this method to end the turn.
+     */
     public void endTurn() {
         putAwayChanceCard();
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(false);
@@ -296,7 +316,7 @@ public class BoardController implements Observer {
     /**
      * Updates the position of all the visual pieces.
      */
-    public void updateAllPieces() {
+    private void updateAllPieces() {
         for (Piece piece : pieces) {
             int playerPosition = piece.getPlayer().getPosition();
             ImageView pieceImage = piece.getPiece();
@@ -304,7 +324,7 @@ public class BoardController implements Observer {
         }
     }
 
-    public AnchorPane getPropertyRentView() {
+    private AnchorPane getPropertyRentView() {
         if (game.getCurrentSpace() instanceof Locale) {
             return getLocaleRentView();
         } else if (game.getCurrentSpace() instanceof Station) {
@@ -316,11 +336,7 @@ public class BoardController implements Observer {
 
 
     private void showSelectedSpace(SpaceView spaceView) {
-    }
 
-    private void updateLocaleRentView() {
-        clearBoardFlowPane();
-        boardFlowPane.getChildren().add(localeRentViewMap.get(game.getCurrentSpace().getSpaceName()));
     }
 
     private AnchorPane getLocaleRentView() {
@@ -329,7 +345,6 @@ public class BoardController implements Observer {
 
     private AnchorPane getStationRentView() {
         return stationRentViewMap.get(game.getCurrentSpace().getSpaceName());
-
     }
 
     private AnchorPane getUtilityRentView() {
@@ -392,11 +407,25 @@ public class BoardController implements Observer {
             updateLocaleShown();
         }
     }
+
+    /**
+     * newPropertyOwner is called when an unowned property gets an owner for the first time.
+     * public method so that AuctionController can access it.
+     *
+     * @param property the property.
+     * @param player   the player.
+     */
     public void newPropertyOwner(Property property, Player player) {
         spaceViewMap.get(property.getSpaceName()).setOwner(player);
         updatePlayerCapital();
     }
 
+    /**
+     * updatePropertyOwnership transfers the ownership of an already owned property to another player.
+     * public method so that TradeController can access it.
+     *
+     * @throws Exception exception should never have to be thrown.
+     */
     public void updatePropertyOwnership() throws Exception {
         for (Space space : getGame().getBoard().getSpaceList()) {
             if (space instanceof Property) {
@@ -409,6 +438,10 @@ public class BoardController implements Observer {
         }
     }
 
+    /**
+     * Updates all players capital.
+     * public method so that TradeController can access it.
+     */
     public void updatePlayerCapital() {
         for (Player player : game.getPlayers()) {
             playerCardsControllerMap.get(player.getPlayerId()).updateCapital(player);
