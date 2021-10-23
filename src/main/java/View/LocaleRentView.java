@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 public class LocaleRentView extends AnchorPane {
-
     private @FXML
     Rectangle localeColor;
 
