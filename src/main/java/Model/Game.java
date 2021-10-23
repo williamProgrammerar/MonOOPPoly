@@ -17,46 +17,45 @@ import java.util.List;
 public class Game {
     private final Dice dice = new Dice();
     private final Board board = new Board();
-    private List<Player> players = new ArrayList<>();
+    private final List<Player> players = new ArrayList<>();
     private Space currentSpace;
     private Player currentPlayer;
     private Space selectedSpace;
     private boolean hasMoved = false;
+
     List<Observer> observers = new ArrayList<>();
 
-    public Game(GameSettings gameSettings)  {
+    public Game(GameSettings gameSettings) {
        this.players.addAll(gameSettings.getPlayers());
        updateCurrentPlayer();
     }
 
     /**
      * Moves the current player sum spaces.
-     * @author williamProgrammerar
      */
     public void move(int spaces) {
         if(!hasMoved) {
-            //currentPlayer = players.get(0);
             if (!jailTurn(currentPlayer)) {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
-                recieveGoPay(currentPlayer);
+                receiveGoPay(currentPlayer);
                 inspectCurrentSpace();
 
                 hasMoved = true;
 
                 System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
                 System.out.println(currentPlayer.getPosition());
-
             }
         }
     }
 
     /**
-     * If the player has passed go this turn, recieve appropriate payment
-     * @param currentPlayer
+     * If the player has passed go this turn, receive appropriate payment
+     *
+     * @param currentPlayer currentPlayer.
      */
-    private void recieveGoPay(Player currentPlayer) {
+    private void receiveGoPay(Player currentPlayer) {
         if(currentPlayer.HasPassedGo()) {
             int salary = 200;
             currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
@@ -68,28 +67,24 @@ public class Game {
      * inspectCurrentSpace() checks what type the current space is.
      * If the current space is a property, owned by another player and not mortgaged then the player
      * has to pay rent to the owner of the property.
-     * @author williamProgrammerar
-     * @author Hedquist
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
             Property property = (Property) currentSpace;
-            if(property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
+            if (property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
                 currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
                 System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
                 for (Player player : players) {
-                    if(player.getPlayerId() == property.getOwnerId()) {
+                    if (player.getPlayerId() == property.getOwnerId()) {
                         player.setCapital(player.getCapital() + property.getRent());
                         System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
                     }
                 }
             }
-        } else if(isCurrentSpaceTax()) {
+        } else if (isCurrentSpaceTax()) {
             Tax tax = (Tax) currentSpace;
             currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
             System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
-        } else if(isCurrentSpaceChance()) {
-            //TODO chance card
         } else if(currentSpace.getSpaceName().equals("U")) {
             currentPlayer.moveTo(10, false);
             currentPlayer.setTurnsInJail(1);
@@ -102,16 +97,16 @@ public class Game {
      * If they do, move them according to the dice roll.
      * If they fail for 3 turns, pay fine and move according to dice roll.
      * Sets turnsInJail to 0 when they get out.
-     * @param currentPlayer
-     * @return if the player is in jail or not
-     * @author Hedquist
+     *
+     * @param currentPlayer currentPlayer.
+     * @return if the player is in jail or not.
      */
     private boolean jailTurn(Player currentPlayer) {
-        if(currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
+        if (currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
             int jailFine = 50;
             System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
             dice.rollDice(); //this needs to be coupled to the view
-            if(dice.isDoubles()) {
+            if (dice.isDoubles()) {
                 System.out.println("You got out!");
 
                 currentPlayer.move(dice.getSum());
@@ -126,7 +121,7 @@ public class Game {
             } else {
                 System.out.println("You're stuck!");
                 currentPlayer.setTurnsInJail(currentPlayer.getTurnsInJail() + 1);
-                if(currentPlayer.getTurnsInJail()>3) {
+                if (currentPlayer.getTurnsInJail()>3) {
                     currentPlayer.setCapital(currentPlayer.getCapital() - jailFine);
                     System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
 
@@ -146,7 +141,7 @@ public class Game {
         return false;
     }
 
-    public void endTurn () {
+    public void endTurn() {
         if (dice.isHasRolled()) {
             next();
             dice.setHasRolled(false);
@@ -161,7 +156,7 @@ public class Game {
      * Calls next() to pass the turn if the player declares bankruptcy.
      */
     private void checkBankruptcy() {
-        if(currentPlayer.getCapital() < 1) {
+        if (currentPlayer.getCapital() < 1) {
             System.out.println("You cannot move while in debt!");
             //TODO if time available, add way to sell items before bankruptcy
             //Allow selling
@@ -186,30 +181,23 @@ public class Game {
      * buy houses on then makes sure that player is eligble, then tries to build and draw the correct amount
      * @param locale The locale that the player whishes to buy houses on.
      */
-    public void buyHouse(Locale locale){
-        if (currentPlayer.hasMonopoly(locale)){
-
+    public void buyHouse(Locale locale) {
+        if (currentPlayer.hasMonopoly(locale)) {
             try {
                 locale.buildHouse();
                 currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
             }
-            catch (IllegalArgumentException ignored){
+            catch (IllegalArgumentException ignored) {
             }
         }
-        else{
+        else {
             System.out.println("You do not own all properties within this section");
         }
     }
 
-
     private boolean isCurrentSpaceTax() {
         return currentSpace instanceof Tax;
     }
-
-    private boolean isCurrentSpaceChance() {
-        return currentSpace instanceof Chance;
-    }
-
 
     /**
      * Places the current player (index 0) in a temporary variable.
@@ -223,10 +211,11 @@ public class Game {
         players.add(temporaryPlayer);
         updateCurrentPlayer();
 
-        if(currentPlayer.isBankrupt()) {
+        if (currentPlayer.isBankrupt()) {
             next();
         }
-        if(currentPlayer.equals(temporaryPlayer)) {
+
+        if (currentPlayer.equals(temporaryPlayer)) {
             endGame(temporaryPlayer);
         }
     }
@@ -237,8 +226,9 @@ public class Game {
 
     /**
      * Should prompt a popup announcing the winning player,
-     * however currently only prints it and terminates the program
-     * @param winningPlayer
+     * however currently only prints it and terminates the program.
+     *
+     * @param winningPlayer the player who won.
      */
     private void endGame(Player winningPlayer) {
         //TODO insert popup here for view with controller
@@ -266,11 +256,13 @@ public class Game {
     public Space getCurrentSpace() {
         return currentSpace;
     }
+
     public Space getSelectedSpace() { return selectedSpace; }
 
     /**
-     * This notifes observers that a space has been selected and sets the selected space to that space.
-     * @param selectedSpace
+     * This notifies observers that a space has been selected and sets the selected space to that space.
+     *
+     * @param selectedSpace the selected space.
      */
     public void setSelectedSpace(Space selectedSpace) {
         this.selectedSpace = selectedSpace;
@@ -281,11 +273,11 @@ public class Game {
      * Notifies all observer of a change
      */
     public void notifyAllObservers() {
-        for (Observer observer: observers){
+        for (Observer observer: observers) {
             observer.update();
         }
-
     }
+
     /**
      * This method attaches an observer to this class.
      */
@@ -302,7 +294,7 @@ public class Game {
      */
     public Player getPlayerUsingID(int ID) throws Exception {
         for (Player player : getPlayers()) {
-            if(player.getPlayerId() == ID) { return player; }
+            if (player.getPlayerId() == ID) { return player; }
         }
         throw new Exception("No player matching the ID");
     }
