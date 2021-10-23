@@ -9,7 +9,6 @@ import java.util.List;
  * @author williamProgrammerar
  */
 public class Auction {
-
     private boolean isAuctionOngoing = false;
 
     private final List<Player> bidders = new ArrayList<>();
@@ -30,7 +29,7 @@ public class Auction {
      * @param property the property that will be up auction.
      */
     public void startAuction(List<Player> players, Property property) {
-        if(!isAuctionOngoing) {
+        if (!isAuctionOngoing) {
             initBidders(players);
             initAuctionProperty(property);
             resetHighestOffer();
