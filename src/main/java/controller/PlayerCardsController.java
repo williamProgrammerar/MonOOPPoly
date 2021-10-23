@@ -47,7 +47,7 @@ public class PlayerCardsController extends AnchorPane {
         capitalLabel.setText(pieceView.getPlayer().getCapital() + " kr");
         nameLabel.setText(pieceView.getPlayer().getName());
         playerIcon.setImage(pieceView.getPiece().getImage());
-        playerColor.setFill(pieceView.getPlayer().getColor());
+        playerColor.setFill(pieceView.getColor());
     }
 
     public void updateCapital(Player player) {

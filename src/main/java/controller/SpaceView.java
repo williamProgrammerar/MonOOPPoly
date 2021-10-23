@@ -80,10 +80,9 @@ public class SpaceView extends AnchorPane {
         System.out.println("I was Clicked");
     }
 
-    public void setOwner(Player player) {
-        Color color = player.getColor();
-        localeColor.setStroke(color);
-        spaceStroke.setStroke(color);
+    public void setOwner(Color c) {
+        localeColor.setStroke(c);
+        spaceStroke.setStroke(c);
     }
 
     public AnchorPane getSpaceText() {

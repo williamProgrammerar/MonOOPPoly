@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.paint.Color;
 import model.*;
 import model.Locale;
 import observers.Observer;
@@ -416,8 +417,17 @@ public class BoardController implements Observer {
      * @param player   the player.
      */
     public void newPropertyOwner(Property property, Player player) {
-        spaceViewMap.get(property.getSpaceName()).setOwner(player);
+        spaceViewMap.get(property.getSpaceName()).setOwner(findColor(player));
         updatePlayerCapital();
+    }
+
+    private Color findColor(Player player) {
+        for (PieceView pieceView : pieceViews) {
+            if (pieceView.getPlayer() == player) {
+                return pieceView.getColor();
+            }
+        }
+        return null;
     }
 
     /**
@@ -432,7 +442,7 @@ public class BoardController implements Observer {
                 Property property = (Property) space;
                 if (property.isOwned()) {
                     Player owner = game.getPlayerUsingID(property.getOwnerId());
-                    spaceViewMap.get(property.getSpaceName()).setOwner(owner);
+                    spaceViewMap.get(property.getSpaceName()).setOwner(findColor(owner));
                 }
             }
         }

@@ -1,7 +1,5 @@
 package model;
 
-import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class Player {
 
     private final List<Property> properties = new ArrayList<>();
 
-    private javafx.scene.paint.Color color;
+    //private javafx.scene.paint.Color color;
 
     private boolean isBankrupt;
 
@@ -76,10 +74,6 @@ public class Player {
         position = space;
     }
 
-    public void setColor(Color c){
-        color = c;
-    }
-
     public int getPosition() {
         return position;
     }
@@ -115,8 +109,6 @@ public class Player {
     public void setState(String state) {
         this.state = state;
     }
-
-    public javafx.scene.paint.Color getColor(){return color;}
 
     /**
      * buyProperty checks if property is unowned. If the property is unowned the method then checks

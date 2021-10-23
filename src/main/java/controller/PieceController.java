@@ -28,7 +28,7 @@ public class PieceController {
      */
     private ColorPiece selectPiece() {
         int i = rand.nextInt(colorPieceList.size());
-        ColorPiece colorPiece =  colorPieceList.get(i);
+        ColorPiece colorPiece = colorPieceList.get(i);
         colorPieceList.remove(i);
         return colorPiece;
     }
