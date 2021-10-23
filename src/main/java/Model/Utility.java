@@ -1,9 +1,10 @@
 package Model;
 
 public class Utility extends Property {
-
     Dice dice = new Dice();
+
     private final int[] rent;
+
     private int nrOfUtilitiesOwned = 0;
 
     public Utility(String spaceName, int price, int mortgage, int[] rent) {
