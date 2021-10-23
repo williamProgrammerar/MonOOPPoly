@@ -10,8 +10,10 @@ import java.util.Random;
  */
 public class Dice {
     private static final Random rand = new Random();
+
     private int dice1;
     private int dice2;
+
     private boolean hasRolled = false;
 
     public void rollDice() {
