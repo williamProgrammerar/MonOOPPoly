@@ -28,23 +28,28 @@ public class MenuController {
         window.setScene(monopolyScene);
         window.show();
     }
-    @FXML public void exitGame(ActionEvent event){
+
+    @FXML
+    public void exitGame(ActionEvent event){
         System.exit(0);
     }
+
     @FXML
     private final ComboBox<String> playerType1CBox = new ComboBox<>();
+
     @FXML
     private ComboBox<String> playerType2CBox;
+
     @FXML
     private ComboBox<String> playerType3CBox;
+
     @FXML
     private ComboBox<String> playerType4CBox;
 
+    private final ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
 
-    private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
     @FXML
     public void initialize() {
-
         playerType1CBox.getItems().removeAll(playerType1CBox.getItems());
         playerType1CBox.getItems().addAll("Option A", "Option B", "Option C");
         playerType1CBox.getSelectionModel().select("Option B");
