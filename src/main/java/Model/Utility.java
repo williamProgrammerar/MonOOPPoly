@@ -1,6 +1,6 @@
 package Model;
 
-import Visitor.HandleRentViewMap;
+import Visitor.HandleRentViewMapVisitor;
 
 public class Utility extends Property {
 
@@ -9,7 +9,7 @@ public class Utility extends Property {
     private int nrOfUtilitiesOwned = 0;
 
     @Override
-    public void accept(HandleRentViewMap visitor) {
+    public void accept(HandleRentViewMapVisitor visitor) {
         visitor.visit(this);
     }
 

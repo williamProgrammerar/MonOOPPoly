@@ -8,9 +8,9 @@ import View.*;
 
 import java.util.HashMap;
 
-public class HandleRentViewMap implements SomebodyVisitor {
+public class HandleRentViewMapVisitor implements SomebodyVisitor {
     private final RentViewManager rentViewManager;
-    public HandleRentViewMap(RentViewManager rentViewManager) {
+    public HandleRentViewMapVisitor(RentViewManager rentViewManager) {
         this.rentViewManager = rentViewManager;
     }
     public void visit(Locale locale){

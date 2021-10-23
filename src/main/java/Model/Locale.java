@@ -1,6 +1,6 @@
 package Model;
 
-import Visitor.HandleRentViewMap;
+import Visitor.HandleRentViewMapVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class Locale extends Property {
     }
 
     @Override
-    public void accept(HandleRentViewMap visitor) {
+    public void accept(HandleRentViewMapVisitor visitor) {
         visitor.visit(this);
     }
 

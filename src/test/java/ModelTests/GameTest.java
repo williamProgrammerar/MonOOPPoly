@@ -21,7 +21,7 @@ public class GameTest {
         game.getDice().rollDice();
     }
 
-    /*
+
     @Test
     void moveTest() {
         game.move(0);
@@ -30,7 +30,7 @@ public class GameTest {
         game.move(game.getDice().getSum());
         assertNotEquals(previousPos, game.getCurrentPlayer().getPosition());
         assertNotEquals(previousSpace, game.getCurrentSpace());
-    }*/
+    }
 
     @Test
     void nextPlayerTest() {

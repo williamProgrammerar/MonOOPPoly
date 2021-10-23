@@ -1,6 +1,6 @@
 package Model;
 
-import Visitor.HandleRentViewMap;
+import Visitor.HandleRentViewMapVisitor;
 
 public class Station extends Property {
 
@@ -8,7 +8,7 @@ public class Station extends Property {
     private int nrOfStationsOwned = 0;
 
     @Override
-    public void accept(HandleRentViewMap visitor) {
+    public void accept(HandleRentViewMapVisitor visitor) {
         visitor.visit(this);
     }
 

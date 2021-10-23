@@ -4,7 +4,7 @@ import Model.Locale;
 import Model.Property;
 import Model.Station;
 import Model.Utility;
-import Visitor.HandleRentViewMap;
+import Visitor.HandleRentViewMapVisitor;
 
 import java.util.HashMap;
 
@@ -12,7 +12,7 @@ public class RentViewManager {
 
     public HashMap<String,PropertyRentView> propertyRentViewHashMap = new HashMap<>();
 
-    private HandleRentViewMap handleRentViewMap = new HandleRentViewMap(this);
+    private final HandleRentViewMapVisitor handleRentViewMap = new HandleRentViewMapVisitor(this);
 
     public void add(Property property){
         property.accept(handleRentViewMap);

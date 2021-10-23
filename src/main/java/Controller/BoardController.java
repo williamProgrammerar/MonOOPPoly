@@ -1,11 +1,9 @@
 package Controller;
 
 import Model.*;
-import Model.Locale;
 import Observers.Observable;
 import Observers.Observer;
 import View.*;
-import Visitor.HandleRentViewMap;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
@@ -84,8 +82,7 @@ public class BoardController implements Observer {
      */
     private void initSpaceViewMap() {
         for (Space space : game.getBoard().getSpaceList()) {
-            SpaceView spaceView = new SpaceView(space, game);
-            spaceViewMap.put(space.getSpaceName(), spaceView);
+            spaceViewMap.put(space.getSpaceName(), new SpaceView(space, game));
         }
     }
     private void initRentViewMaps() {
@@ -98,23 +95,6 @@ public class BoardController implements Observer {
      * Goes through every space on the board and places spaces that are either instances of Locale, Station and Utility
      * in their respective maps.
      */
-
-
-    private void setUpPropertyViewMap(Locale locale) {
-
-        LocaleRentView localeRentView = new LocaleRentView(locale);
-        localeRentViewMap.put(locale.getSpaceName(), localeRentView);
-    }
-
-    private void setUpPropertyViewMap(Station station) {
-        StationRentView stationRentView = new StationRentView(station);
-        stationRentViewMap.put(station.getSpaceName(), stationRentView);
-    }
-
-    private void setUpPropertyViewMap(Utility utility) {
-        UtilityRentView utilityRentView = new UtilityRentView(utility);
-        utilityRentViewMap.put(utility.getSpaceName(), utilityRentView);
-    }
 
     private void initSpaceCellMap() {
         int r = 10;
