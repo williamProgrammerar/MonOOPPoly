@@ -22,7 +22,7 @@ public class Trade {
      * startTrade has to be called FIRST in order to proceed with the trading.
      */
     public void startTrade(Player playerA, Player playerB) {
-        if(!isTradeActive) {
+        if (!isTradeActive) {
             setUpTrade(playerA, playerB);
         }
     }
@@ -42,7 +42,7 @@ public class Trade {
      * an active trade to cancel a trade.
      */
     public void closeTrade() {
-        if(isTradeActive) {
+        if (isTradeActive) {
             resetTrade();
         }
     }
@@ -72,7 +72,7 @@ public class Trade {
      * @param amount The amount of money they try to add.
      */
     public void addCurrencyToTrade(Player player, int amount) {
-        if(canAfford(player, amount) && isValidAmount(amount)) {
+        if (canAfford(player, amount) && isValidAmount(amount)) {
             currencyOffers.put(player, amount);
         }
     }
@@ -108,8 +108,8 @@ public class Trade {
      * @param property the property the player is attempting to add.
      */
     public void addPropertyToTrade(Player player, Property property) {
-        if(isOwner(player, property)) {
-            if(hasPropertyOffer(player)) {
+        if (isOwner(player, property)) {
+            if (hasPropertyOffer(player)) {
                 addPropertyOffer(player, property);
             }
             else {
@@ -145,7 +145,7 @@ public class Trade {
      * @param property their property.
      */
     private void addPropertyOffer(Player player, Property property) {
-        if(!propertyOffers.get(player).contains(property)) {
+        if (!propertyOffers.get(player).contains(property)) {
             propertyOffers.get(player).add(property);
         }
     }
@@ -166,17 +166,17 @@ public class Trade {
      * This will then exchange their offers and end the trade process.
      */
     public void acceptTrade() {
-        if(isTradeActive) {
+        if (isTradeActive) {
             exchangeOffers();
             closeTrade();
         }
     }
 
     private void exchangeOffers() {
-        if(!currencyOffers.isEmpty()) {
+        if (!currencyOffers.isEmpty()) {
             exchangeCurrency();
         }
-        if(!propertyOffers.isEmpty()) {
+        if (!propertyOffers.isEmpty()) {
             exchangeProperty();
         }
     }
@@ -189,10 +189,10 @@ public class Trade {
         int amountA, amountB;
         amountA = amountB = 0;
 
-        if(hasCurrencyOffer(players[0])) {
+        if (hasCurrencyOffer(players[0])) {
             amountA = getCurrencyOffer(0);
         }
-        if(hasCurrencyOffer(players[1])) {
+        if (hasCurrencyOffer(players[1])) {
             amountB = getCurrencyOffer(1);
         }
 
@@ -226,17 +226,17 @@ public class Trade {
         List<Property> propertyListA, propertyListB;
         propertyListA = propertyListB = null;
 
-        if(hasPropertyOffer(players[0])) {
+        if (hasPropertyOffer(players[0])) {
             propertyListA = getPropertyOffer(0);
         }
-        if(hasPropertyOffer(players[1])) {
+        if (hasPropertyOffer(players[1])) {
             propertyListB = getPropertyOffer(1);
         }
 
-        if(propertyListA != null) {
+        if (propertyListA != null) {
             transferProperty(propertyListA,1,0);
         }
-        if(propertyListB != null) {
+        if (propertyListB != null) {
             transferProperty(propertyListB,0,1);
         }
     }
