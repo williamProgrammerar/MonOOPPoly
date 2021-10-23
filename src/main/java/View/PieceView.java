@@ -5,11 +5,11 @@ import Model.Player;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
-public class Piece {
+public class PieceView {
     private final ImageView piece;
     private final Player player;
 
-    public Piece(ColorPiece colorPiece, Player player) {
+    public PieceView(ColorPiece colorPiece, Player player) {
         this.piece = colorPiece.getImage();
         this.player = player;
         assignColor(colorPiece.getColor());

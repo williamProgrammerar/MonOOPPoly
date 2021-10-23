@@ -31,7 +31,7 @@ public class BoardController implements Observer {
 
     private final PieceController pv = new PieceController();
 
-    private final List<Piece> pieces = new ArrayList<>();
+    private final List<PieceView> pieceViews = new ArrayList<>();
 
     private final Map<String, SpaceView> spaceViewMap = new HashMap<>();
 
@@ -211,9 +211,9 @@ public class BoardController implements Observer {
 
     private void initPlayerCardsControllerMap() {
         for (Player player : game.getPlayers()) {
-            Piece piece = new Piece(pv.createPiece(), player);
-            pieces.add(piece);
-            PlayerCardsController playerCardsController = new PlayerCardsController(piece);
+            PieceView pieceView = new PieceView(pv.createPiece(), player);
+            pieceViews.add(pieceView);
+            PlayerCardsController playerCardsController = new PlayerCardsController(pieceView);
             playerCardsControllerMap.put(player.getPlayerId(), playerCardsController);
         }
     }
@@ -241,8 +241,8 @@ public class BoardController implements Observer {
             StackPane.setAlignment(playerCardsController, alignmentDeque.remove());
         }
 
-        for (Piece piece : pieces) {
-            boardGrid.add(piece.getPiece(), 10, 10);
+        for (PieceView pieceView : pieceViews) {
+            boardGrid.add(pieceView.getPiece(), 10, 10);
             System.out.println("Player added to grid");
         }
 
@@ -317,9 +317,9 @@ public class BoardController implements Observer {
      * Updates the position of all the visual pieces.
      */
     private void updateAllPieces() {
-        for (Piece piece : pieces) {
-            int playerPosition = piece.getPlayer().getPosition();
-            ImageView pieceImage = piece.getPiece();
+        for (PieceView pieceView : pieceViews) {
+            int playerPosition = pieceView.getPlayer().getPosition();
+            ImageView pieceImage = pieceView.getPiece();
             positionToGrid(playerPosition, pieceImage);
         }
     }
