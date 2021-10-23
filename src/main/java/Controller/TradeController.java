@@ -17,7 +17,6 @@ import java.util.List;
  * @author williamProgrammerar
  */
 public class TradeController {
-
     private final BoardController boardController;
 
     private final Trade trade = new Trade();
@@ -114,8 +113,8 @@ public class TradeController {
      * @param players list of players playing the game.
      */
     private void addPlayersToComboBox(Player currentPlayer, List<Player> players) {
-        for(Player player : players) {
-            if(!player.equals(currentPlayer) && !player.isBankrupt()) {
+        for (Player player : players) {
+            if (!player.equals(currentPlayer) && !player.isBankrupt()) {
                 selectPlayer.getItems().add(new PlayerItem(player));
             }
         }
@@ -140,7 +139,7 @@ public class TradeController {
 
     private void addListener() {
         selectPlayer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(!(newValue == null)) {
+            if (!(newValue == null)) {
                 updateSelectedPlayer(newValue);
             }
         });
@@ -165,7 +164,7 @@ public class TradeController {
      * Method is public so that a button in the fxml file "Trade" will be able to call it.
      */
     public void startTrade() {
-        if(selectedPlayer != null) {
+        if (selectedPlayer != null) {
             switchToTradePane();
             errorMessage(false);
             setUpTradeWindow();
@@ -218,7 +217,7 @@ public class TradeController {
     }
 
     private void initPropertyComboBox(List<Property> properties, ComboBox<PropertyItem> pComboBox) {
-        for(Property property : properties) {
+        for (Property property : properties) {
             pComboBox.getItems().add(new PropertyItem(property));
         }
     }
@@ -250,7 +249,7 @@ public class TradeController {
      */
     private void addPropertyListener(Player player, ComboBox<PropertyItem> pComboBox) {
         pComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(!(newValue == null)) {
+            if (!(newValue == null)) {
                 trade.addPropertyToTrade(player, newValue.getProperty());
             }
         });
