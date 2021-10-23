@@ -1,6 +1,6 @@
 package ModelTests;
 
-import Model.GameSettings;
+import model.GameSettings;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

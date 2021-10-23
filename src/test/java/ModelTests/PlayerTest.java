@@ -1,9 +1,9 @@
 package ModelTests;
 
-import Model.Locale;
-import Model.Player;
-import Model.Property;
-import Model.Section;
+import model.Locale;
+import model.Player;
+import model.Property;
+import model.Section;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
