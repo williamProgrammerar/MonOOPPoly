@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 /**
- * Controlls the playercards
+ * Controls the playercards
  *
  * @author rhedinh
  */
@@ -20,13 +20,18 @@ import java.io.IOException;
 public class PlayerCardsController extends AnchorPane {
     @FXML
     Text capitalLabel;
+
     @FXML
     Text nameLabel;
+
     @FXML
     ImageView playerIcon;
+
     @FXML
     Rectangle playersTurn;
-    @FXML Rectangle playerColor;
+
+    @FXML
+    Rectangle playerColor;
 
     public PlayerCardsController(Piece piece) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerCard.fxml"));
