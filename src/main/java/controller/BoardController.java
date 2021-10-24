@@ -1,4 +1,5 @@
 package controller;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import observers.Observable;
@@ -37,7 +38,7 @@ public class BoardController implements Observer {
 
     private final List<PieceView> pieceViews = new ArrayList<>();
 
-    private final Map<String,SpaceView > spaceViewMap = new HashMap<>();
+    private final Map<String, SpaceView> spaceViewMap = new HashMap<>();
     private final RentViewManager rentViewManager = new RentViewManager();
     private final Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<>();
     private final Map<Integer, Point> spaceCellMap = new HashMap<>();
@@ -69,6 +70,8 @@ public class BoardController implements Observer {
 
     @FXML
     Button endTurnButton;
+    @FXML
+    Button tradeButton;
 
     /**
      * initGame initiates everything necessary for the game to run.
@@ -100,6 +103,7 @@ public class BoardController implements Observer {
             spaceViewMap.put(space.getSpaceName(), new SpaceView(space, game));
         }
     }
+
     /**
      * Goes through every Property on the board and places properties into a RentViewManager which makes sure
      * it creates the appropriate view.
@@ -150,7 +154,7 @@ public class BoardController implements Observer {
         makeEndTurnNotClickable();
     }
 
-    public void showTradeView() {
+    public void showTradeView(ActionEvent actionEvent) {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(tradeView);
         tradeController.loadTrade(game.getCurrentPlayer(), game.getPlayers());
@@ -272,6 +276,7 @@ public class BoardController implements Observer {
             chanceCardText.setText("KLICKA HÄR FÖR ATT DRA ETT KORT");
             makeEndTurnNotClickable();
             makeChanceCardClickable();
+            makeTradeNotClickable();
         }
     }
 
@@ -282,19 +287,27 @@ public class BoardController implements Observer {
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
         makeChanceCardNotClickable();
         makeEndTurnClickable();
+        makeTradeClickable();
     }
 
     private void putAwayChanceCard() {
         chanceCardText.setText("CHANSKORT");
     }
 
-    private void makeChanceCardClickable(){
-
+    private void makeChanceCardClickable() {
         chanceCardText.setOnMouseClicked(this::showChanceCard);
     }
 
-    private void makeChanceCardNotClickable(){
+    private void makeChanceCardNotClickable() {
         chanceCardText.setOnMouseClicked(null);
+    }
+
+    private boolean chanceCardIsClickable() {
+        if (chanceCardText.getOnMouseClicked() == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -307,14 +320,37 @@ public class BoardController implements Observer {
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
     }
 
-    public void makeEndTurnClickable(){
-        endTurnButton.setOnAction(this::endTurn);
-        endTurnButton.setVisible(true);
+    public void makeEndTurnClickable() {
+        if (endTurnIsAvailable()) {
+            endTurnButton.setOnAction(this::endTurn);
+            endTurnButton.setVisible(true);
+        }
     }
 
-    public void makeEndTurnNotClickable(){
+    public void makeEndTurnNotClickable() {
         endTurnButton.setOnAction(null);
         endTurnButton.setVisible(false);
+    }
+
+    private void makeTradeClickable() {
+        tradeButton.setOnAction(this::showTradeView);
+        tradeButton.setVisible(true);
+    }
+
+    private void makeTradeNotClickable(){
+        tradeButton.setOnAction(null);
+        tradeButton.setVisible(false);
+    }
+
+    private boolean endTurnIsAvailable() {
+        if (game.getCurrentSpace() instanceof Property && !((Property) game.getCurrentSpace()).isOwned()) {
+            landedOnProperty();
+            return false;
+        } else if (game.getCurrentSpace() instanceof Chance && chanceCardIsClickable()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -342,7 +378,7 @@ public class BoardController implements Observer {
 
     }
 
- 
+
     public void clearBoardFlowPane() {
         boardFlowPane.getChildren().clear();
         updatePlayerCapital();
@@ -390,8 +426,8 @@ public class BoardController implements Observer {
      * will visualise that on the screen and call updateLocaleShown.
      */
     @Override
-    public void update(Observable observable,Object arg) {
-        if (arg instanceof Locale){
+    public void update(Observable observable, Object arg) {
+        if (arg instanceof Locale) {
             updateSpaceShown((Space) arg);
         }
         updatePlayerCapital();
