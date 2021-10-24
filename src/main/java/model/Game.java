@@ -276,13 +276,13 @@ public class Game implements Observable {
      * @return returns the player who's ID matches the one used for the search.
      * @throws Exception This should never have to be thrown.
      */
-    public Player getPlayerUsingID(int ID) throws Exception {
+    public Player getPlayerUsingID(int ID) {
         for (Player player : getPlayers()) {
             if (player.getPlayerId() == ID) {
                 return player;
             }
         }
-        throw new Exception("No player matching the ID");
+        throw new IllegalArgumentException("No player matching the ID");
     }
 
 
