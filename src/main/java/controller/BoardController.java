@@ -144,12 +144,14 @@ public class BoardController implements Observer {
         boardFlowPane.getChildren().add(auctionView);
         auctionController.setFlowPane(getPropertyRentView());
         auctionController.startAuction();
+        makeEndTurnNotClickable();
     }
 
     public void showTradeView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(tradeView);
         tradeController.loadTrade(game.getCurrentPlayer(), game.getPlayers());
+        makeEndTurnNotClickable();
     }
 
     /**
@@ -264,6 +266,7 @@ public class BoardController implements Observer {
     private void landedOnChance() {
         if (game.getCurrentSpace() instanceof Chance) {
             chanceCardText.setText("KLICKA HÄR FÖR ATT DRA ETT KORT");
+            makeEndTurnNotClickable();
             makeChanceCardClickable();
         }
     }
@@ -274,6 +277,7 @@ public class BoardController implements Observer {
         chanceCard.doAction(game.getCurrentPlayer());
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
         makeChanceCardNotClickable();
+        makeEndTurnClickable();
     }
 
     private void putAwayChanceCard() {
@@ -305,11 +309,11 @@ public class BoardController implements Observer {
         }
     }
 
-    private void makeEndTurnClickable(){
+    public void makeEndTurnClickable(){
         endTurnButton.setOnAction(this::endTurn);
     }
 
-    private void makeEndTurnNotClickable(){
+    public void makeEndTurnNotClickable(){
         endTurnButton.setOnAction(null);
     }
 
