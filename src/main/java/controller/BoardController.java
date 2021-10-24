@@ -1,4 +1,6 @@
 package controller;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import observers.Observable;
 import view.SpaceView;
 import javafx.scene.paint.Color;
@@ -64,6 +66,9 @@ public class BoardController implements Observer {
 
     @FXML
     private FlowPane diceFlowPane;
+
+    @FXML
+    Button endTurnButton;
 
     /**
      * initGame initiates everything necessary for the game to run.
@@ -139,12 +144,14 @@ public class BoardController implements Observer {
         boardFlowPane.getChildren().add(auctionView);
         auctionController.setFlowPane(getPropertyRentView());
         auctionController.startAuction();
+        makeEndTurnNotClickable();
     }
 
     public void showTradeView() {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(tradeView);
         tradeController.loadTrade(game.getCurrentPlayer(), game.getPlayers());
+        makeEndTurnNotClickable();
     }
 
     /**
@@ -249,6 +256,7 @@ public class BoardController implements Observer {
             Property property = (Property) game.getCurrentSpace();
             if (!property.isOwned()) {
                 showUnownedPropertyView();
+                makeEndTurnNotClickable();
             }
         }
     }
@@ -259,8 +267,8 @@ public class BoardController implements Observer {
     private void landedOnChance() {
         if (game.getCurrentSpace() instanceof Chance) {
             chanceCardText.setText("KLICKA HÄR FÖR ATT DRA ETT KORT");
-            System.out.println(chanceCardText.getOnMouseClicked());
-            chanceCardText.setOnMouseClicked(this::showChanceCard);
+            makeEndTurnNotClickable();
+            makeChanceCardClickable();
         }
     }
 
@@ -269,21 +277,39 @@ public class BoardController implements Observer {
         chanceCardText.setText(chanceCard.getText());
         chanceCard.doAction(game.getCurrentPlayer());
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCapital(game.getCurrentPlayer());
-        chanceCardText.setOnMouseClicked(null);
+        makeChanceCardNotClickable();
+        makeEndTurnClickable();
     }
 
     private void putAwayChanceCard() {
         chanceCardText.setText("CHANSKORT");
     }
 
+    private void makeChanceCardClickable(){
+
+        chanceCardText.setOnMouseClicked(this::showChanceCard);
+    }
+
+    private void makeChanceCardNotClickable(){
+        chanceCardText.setOnMouseClicked(null);
+    }
+
     /**
      * endTurn is public so that a button can access this method to end the turn.
      */
-    public void endTurn() {
+    public void endTurn(ActionEvent actionEvent) {
         putAwayChanceCard();
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(false);
         game.endTurn();
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
+    }
+
+    public void makeEndTurnClickable(){
+        endTurnButton.setOnAction(this::endTurn);
+    }
+
+    public void makeEndTurnNotClickable(){
+        endTurnButton.setOnAction(null);
     }
 
     /**
