@@ -9,6 +9,7 @@ import java.util.List;
  *
  * @author williamProgrammerar
  * @author HedQuist
+ * @author JonEmilsson
  */
 public class Board {
     Section orange = new Section( "ORANGE");

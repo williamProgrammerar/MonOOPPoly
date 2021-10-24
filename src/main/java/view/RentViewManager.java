@@ -8,6 +8,10 @@ import visitor.HandleRentViewMapVisitor;
 
 import java.util.HashMap;
 
+/**
+ * This class makes it so that you don't you have to specify which class is being put into the propertyRentViewHashMap
+ * @author JonEmilsson
+ */
 public class RentViewManager {
 
     public HashMap<String,PropertyRentView> propertyRentViewHashMap = new HashMap<>();

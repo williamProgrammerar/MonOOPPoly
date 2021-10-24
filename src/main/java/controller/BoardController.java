@@ -74,7 +74,7 @@ public class BoardController implements Observer {
     public void initGame(Game game) {
 
         this.game = game;
-        game.attach(this);
+        game.attachObserver(this);
         this.diceView = new DiceView(game.getDice());
         showDiceView();
         initSpaceCellMap();
@@ -95,16 +95,15 @@ public class BoardController implements Observer {
             spaceViewMap.put(space.getSpaceName(), new SpaceView(space, game));
         }
     }
+    /**
+     * Goes through every Property on the board and places properties into a RentViewManager which makes sure
+     * it creates the appropriate view.
+     */
     private void initRentViewMaps() {
         for (Property property : game.getBoard().getPropertyList()) {
             rentViewManager.add(property);
         }
     }
-
-    /**
-     * Goes through every space on the board and places spaces that are either instances of Locale, Station and Utility
-     * in their respective maps.
-     */
 
 
     private void initSpaceCellMap() {
@@ -319,7 +318,7 @@ public class BoardController implements Observer {
     }
 
     /**
-     * This is called when a space is selected, making sure that that space is shown and that a buy house controller
+     * This is called when a space is selected, making sure that that space is shown and that a SelectedLocaleController
      * is created with the current instance of game.
      */
     private void updateSpaceShown(Space space) {

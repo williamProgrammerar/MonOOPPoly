@@ -11,6 +11,7 @@ import java.io.IOException;
 
 /**
  * @author JonEmilsson
+ * @author williamProgrammerar
  */
 public class SelectedLocaleController extends AnchorPane {
     Game game;

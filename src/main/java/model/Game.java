@@ -263,14 +263,9 @@ public class Game implements Observable {
         notifyObservers(selectedSpace);
     }
 
-  
-
     /**
-     * This method attaches an observer to this class.
+     * This method makes sure that mortgage get's paid back appropriately
      */
-    public void attach(Observer observer) {
-        observers.add(observer);
-    }
     public void payBackMortgage(){
         if(isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && ((Property) getSelectedSpace()).isMortgaged()){
             ((Property) getSelectedSpace()).setMortgaged(false);
@@ -281,7 +276,10 @@ public class Game implements Observable {
             throw new IllegalArgumentException();
         }
     }
-	
+
+    /**
+     * This method makes sure you can mortgage a locale.
+     */
     public void mortgageLocale() {
         if (isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && !((Property) getSelectedSpace()).isMortgaged()){
             ((Property) getSelectedSpace()).setMortgaged(true);

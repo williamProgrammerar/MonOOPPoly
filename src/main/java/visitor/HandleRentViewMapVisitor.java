@@ -5,7 +5,11 @@ import model.Station;
 import model.Utility;
 import view.*;
 
-public class HandleRentViewMapVisitor implements SomebodyVisitor {
+/**
+ * This class visits locales and adds them to rentViewManager
+ * @author JonEmilsson
+ */
+public class HandleRentViewMapVisitor implements PropertyVisitor {
     private final RentViewManager rentViewManager;
     public HandleRentViewMapVisitor(RentViewManager rentViewManager) {
         this.rentViewManager = rentViewManager;

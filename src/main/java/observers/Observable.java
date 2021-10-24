@@ -1,5 +1,7 @@
 package observers;
-
+/**
+ * @author JonEmilsson
+ */
 public interface Observable {
      void attachObserver(Observer observer);
 
