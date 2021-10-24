@@ -1,7 +1,9 @@
 package model;
 
-public class Property extends Space {
+import visitor.HandleRentViewMapVisitor;
 
+public abstract class Property extends Space{
+    public abstract void accept(HandleRentViewMapVisitor visitor);
     private boolean isOwned;
     private boolean isMortgaged;
     private int ownerId;
@@ -58,4 +60,5 @@ public class Property extends Space {
     public int[] getRentList() {
         return rent;
     }
+
 }

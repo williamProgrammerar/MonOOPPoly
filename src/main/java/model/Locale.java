@@ -1,5 +1,8 @@
 package model;
 
+
+import visitor.HandleRentViewMapVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,12 @@ public class Locale extends Property {
         this.rent= rent;
         this.sectionColour = section.getSectionColour();
         section.addLocale(this);
+    }
+
+
+    @Override
+    public void accept(HandleRentViewMapVisitor visitor) {
+        visitor.visit(this);
     }
 
     public int getRent() {

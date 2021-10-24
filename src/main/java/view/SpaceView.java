@@ -1,4 +1,8 @@
-package controller;
+
+package view;
+
+import controller.SelectedLocaleController;
+
 
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
@@ -14,7 +18,10 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
+
+
 import static javafx.scene.paint.Color.*;
+
 
 /**
  * View for the spaces
@@ -29,8 +36,10 @@ public class SpaceView extends AnchorPane {
     @FXML
     Text localePrice;
 
-    private final Game game;
-    private final Space space;
+    private  Game game;
+    private  Space space;
+
+    SelectedLocaleController buyHouseController;
 
     @FXML
     Rectangle localeColor;
@@ -81,6 +90,10 @@ public class SpaceView extends AnchorPane {
         } else {
             localePrice.setVisible(false);
         }
+    }
+
+    public SpaceView() {
+
     }
 
     @FXML

@@ -1,7 +1,12 @@
 package modelTests;
 
+import model.Locale;
 import model.Player;
 import model.Property;
+import model.Section;
+import model.Player;
+import model.Property;
+
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,17 +32,19 @@ public class PlayerTest {
 
     @Test
     void buyPropertyTest() {
-        Property property = new Property("Test",200,100, new int[] {10,20,30,40,50,60});
+        Property property = new Locale("Test",200,20,new Section("Rainbow"),new int[] {10,20,30,40,50,60},20);
+        int tmp = player.getCapital();
         player.buyProperty(property);
         assertTrue(player.getProperties().contains(property));
-        assertEquals(player.getCapital(), 1300);
+        assertEquals(player.getCapital(), tmp -property.getPrice());
         player.buyProperty(property);
         assertEquals(player.getProperties().size(), 1);
 
-        Property property2 = new Property("Test2",1500,100, new int[] {10,20,30,40,50,60});
+        Property property2 =  new Locale("Test2",400,200,new Section("Rainbow"),new int[] {10,20,30,40,50,60},200);
+        tmp = player.getCapital();
         player.buyProperty(property2);
-        assertEquals(player.getCapital(), 1300);
-        assertEquals(player.getProperties().size(), 1);
+        assertEquals(player.getCapital(), tmp-property2.getPrice());
+        assertEquals(player.getProperties().size(), 2);
     }
 
     /*
