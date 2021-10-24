@@ -84,13 +84,7 @@ public class Game implements Observable {
             landedOnTax();
         } else if (isCurrentSpaceU()) {
             landedOnU();
-        } else if (isCurrentSpaceChance()){
-            landedOnChance();
         }
-    }
-
-    private void landedOnChance() {
-        Chance chance = (Chance) currentSpace;
     }
 
     private void landedOnProperty() {
@@ -105,7 +99,7 @@ public class Game implements Observable {
         System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
         for (Player player : players) {
             if (player.getPlayerId() == property.getOwnerId()) {
-                addPlayerCapital(property.getPrice(), currentPlayer);
+                addPlayerCapital(property.getPrice(), player);
                 System.out.println("Player " + player.getPlayerId() + " has " + player.getCapital());
             }
         }
@@ -198,10 +192,6 @@ public class Game implements Observable {
         return currentSpace.getSpaceName().equals("U");
     }
 
-    private boolean isCurrentSpaceChance() {
-        return currentSpace instanceof Chance;
-    }
-
 
     /**
      * Places the current player (index 0) in a temporary variable.
@@ -220,7 +210,6 @@ public class Game implements Observable {
         if (currentPlayer.equals(temporaryPlayer)) {
             endGame(temporaryPlayer);
         }
-
     }
 
     private void updateCurrentPlayer() {
@@ -329,13 +318,11 @@ public class Game implements Observable {
     @Override
     public void attachObserver(Observer observer) {
         observers.add(observer);
-
     }
 
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
-
     }
 
     @Override
@@ -357,6 +344,3 @@ public class Game implements Observable {
         auction.startAuction(players, (Property) currentSpace);
     }
 }
-
-
-

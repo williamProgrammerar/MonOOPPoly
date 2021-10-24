@@ -37,10 +37,8 @@ public class GameTest {
     void moveToOwnedPropertyTest() {
         game.getPlayers().get(0).moveTo(0,false);
         int position = game.getBoard().findSpace("FORT NOX");
-        Property property = (Property) game.getBoard().getSpace(position);
-        property.setOwned(true);
-        game.getPlayers().add(new Player(2,1500));
-        property.setOwnerId(2);
+        ((Property) game.getBoard().getSpace(position)).setOwned(true);
+        ((Property) game.getBoard().getSpace(position)).setOwnerId(2);
         game.move(position);
         assertTrue(game.getPlayers().get(0).getCapital() < 1500);
     }
@@ -57,6 +55,13 @@ public class GameTest {
         game.getPlayers().get(0).moveTo(0,false);
         game.move(game.getBoard().findSpace("U"));
         assertEquals(game.getCurrentPlayer().getPosition(), 10);
+    }
+
+    @Test
+    void moveToChanceSpaceTest() {
+        game.getPlayers().get(0).moveTo(0, false);
+        game.move(game.getBoard().findSpace("Chance1"));
+        //TODO ask Hampus about Chance
     }
 
     @Test
@@ -126,5 +131,44 @@ public class GameTest {
         } catch (Exception e) {
             System.out.println("Player doesn't exist");
         }
+    }
+
+    @Test
+    void testStartAuction() {
+        assertNull(game.getAuction());
+        game.startAuction();
+        assertNotNull(game.getAuction());
+    }
+
+    @Test
+    void testRemoveObserver() {
+        Observer testObserver2 = (observable, arg) -> System.out.println("Hej");
+        game.attachObserver(testObserver2);
+        game.removeObserver(testObserver2);
+    } //doesn't crash
+
+    @Test
+    void testMortgage() {
+        Station station = (Station) game.getBoard().getSpace(game.getBoard().findSpace("Station1"));
+        game.getPlayers().get(0).buyProperty(station);
+        game.setSelectedSpace(station);
+
+        game.mortgageLocale();
+
+        assertTrue(game.getPlayers().get(0).getCapital() > 1500 - station.getPrice());
+        assertTrue(station.isMortgaged());
+    }
+
+    @Test
+    void testPayBack() {
+        Station station = (Station) game.getBoard().getSpace(game.getBoard().findSpace("Station1"));
+        game.getPlayers().get(0).buyProperty(station);
+        game.setSelectedSpace(station);
+
+        game.mortgageLocale();
+        game.payBackMortgage();
+
+        assertTrue(game.getPlayers().get(0).getCapital() < 1500 - station.getPrice() + station.getMortgage());
+        assertFalse(station.isMortgaged());
     }
 }
