@@ -1,6 +1,6 @@
-package ModelTests;
+package modelTests;
 
-import Model.Station;
+import model.Station;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

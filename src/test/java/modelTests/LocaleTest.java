@@ -1,7 +1,7 @@
-package ModelTests;
+package modelTests;
 
-import Model.Locale;
-import Model.Section;
+import model.Locale;
+import model.Section;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

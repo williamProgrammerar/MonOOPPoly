@@ -1,9 +1,12 @@
-package ModelTests;
+package modelTests;
 
 import model.Locale;
 import model.Player;
 import model.Property;
 import model.Section;
+import model.Player;
+import model.Property;
+
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,10 +47,11 @@ public class PlayerTest {
         assertEquals(player.getProperties().size(), 2);
     }
 
+    /*
     @Test
     void playerColourTest() {
         assertSame(player.getColor(), Color.DARKTURQUOISE);
-    }
+    }*/
 
     @Test
     void playerStateTest() {

@@ -16,6 +16,7 @@ import java.io.IOException;
  */
 public class PlayerSetUpController extends AnchorPane {
     private ObservableList<String> playerTypes = FXCollections.observableArrayList("Human");
+
     @FXML
     private Button nextButton;
 
@@ -62,9 +63,9 @@ public class PlayerSetUpController extends AnchorPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
         pNameTextField.setText("Player " + playerID);
         playerTypeCBox.setItems(playerTypes);
         playerTypeCBox.getSelectionModel().selectFirst();
-
     }
 }

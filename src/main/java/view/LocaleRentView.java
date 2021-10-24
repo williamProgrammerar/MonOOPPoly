@@ -1,6 +1,5 @@
 package view;
 
-
 import model.Locale;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 public class LocaleRentView extends PropertyRentView {
-
     private @FXML
     Rectangle localeColor;
 

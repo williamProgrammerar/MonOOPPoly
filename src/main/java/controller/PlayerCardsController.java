@@ -1,7 +1,8 @@
 package controller;
 
 import model.Player;
-import view.Piece;
+import view.PieceView;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
@@ -12,7 +13,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 /**
- * Controlls the playercards
+ * Controls the playercards
  *
  * @author rhedinh
  */
@@ -20,15 +21,20 @@ import java.io.IOException;
 public class PlayerCardsController extends AnchorPane {
     @FXML
     Text capitalLabel;
+
     @FXML
     Text nameLabel;
+
     @FXML
     ImageView playerIcon;
+
     @FXML
     Rectangle playersTurn;
-    @FXML Rectangle playerColor;
 
-    public PlayerCardsController(Piece piece) {
+    @FXML
+    Rectangle playerColor;
+
+    public PlayerCardsController(PieceView pieceView) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerCard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -39,10 +45,10 @@ public class PlayerCardsController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        capitalLabel.setText(piece.getPlayer().getCapital() + " kr");
-        nameLabel.setText(piece.getPlayer().getName());
-        playerIcon.setImage(piece.getPiece().getImage());
-        playerColor.setFill(piece.getPlayer().getColor());
+        capitalLabel.setText(pieceView.getPlayer().getCapital() + " kr");
+        nameLabel.setText(pieceView.getPlayer().getName());
+        playerIcon.setImage(pieceView.getPiece().getImage());
+        playerColor.setFill(pieceView.getColor());
     }
 
     public void updateCapital(Player player) {

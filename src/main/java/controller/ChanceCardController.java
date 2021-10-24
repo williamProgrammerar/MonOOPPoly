@@ -4,11 +4,10 @@ import model.ChanceCardCreator;
 import model.IChanceCard;
 
 /**
- * Controlls the chance cards
+ * Controls the chance cards
  *
  * @author rhedinh
  */
-
 public class ChanceCardController {
     private IChanceCard chanceCard;
 

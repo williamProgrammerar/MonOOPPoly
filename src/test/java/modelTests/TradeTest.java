@@ -1,6 +1,10 @@
-package ModelTests;
+package modelTests;
+
 
 import model.*;
+import model.Player;
+import model.Property;
+import model.Trade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

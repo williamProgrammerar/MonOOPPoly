@@ -1,6 +1,6 @@
-package ModelTests;
+package modelTests;
 
-import Model.Chance;
+import model.Chance;
 
 public class ChanceTest {
     private final Chance chance = new Chance("Chance");

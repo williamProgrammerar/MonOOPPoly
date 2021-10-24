@@ -1,7 +1,7 @@
-package ModelTests;
+package modelTests;
 
-import Model.Board;
-import Model.Space;
+import model.Board;
+import model.Space;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

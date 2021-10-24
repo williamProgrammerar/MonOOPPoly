@@ -1,8 +1,6 @@
-package ModelTests;
+package modelTests;
 
-import Model.Game;
-import Model.GameSettings;
-import Model.Utility;
+import model.Utility;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

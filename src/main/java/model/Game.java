@@ -15,13 +15,14 @@ import java.util.List;
  * @author HedQuist
  */
 public class Game implements Observable {
-    private final Dice dice = new Dice();
+    private final RollDice dice = new RollDice(2,6);
     private final Board board = new Board();
     private List<Player> players = new ArrayList<>();
     private Space currentSpace;
     private Player currentPlayer;
     private Space selectedSpace;
     private boolean hasMoved = false;
+
     List<Observer> observers = new ArrayList<>();
 
     public Game(GameSettings gameSettings)  {
@@ -40,6 +41,7 @@ public class Game implements Observable {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
+                receiveGoPay(currentPlayer);
                 inspectCurrentSpace();
 
                 hasMoved = true;
@@ -50,45 +52,59 @@ public class Game implements Observable {
             }
         }
     }
-
+    /**
+     * If the player has passed go this turn, receive appropriate payment
+     *
+     * @param currentPlayer currentPlayer.
+     */
+    private void receiveGoPay(Player currentPlayer) {
+        if(currentPlayer.HasPassedGo()) {
+            int salary = 200;
+            currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
+            System.out.println(currentPlayer.getName() + " passed GO and recieved " + salary + "kr");
+        }
+    }
     /**
      * inspectCurrentSpace() checks what type the current space is.
      * If the current space is a property, owned by another player and not mortgaged then the player
      * has to pay rent to the owner of the property.
-     * @author williamProgrammerar
-     * @author Hedquist
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
-            Property property = (Property) currentSpace;
-            if(property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
-                subtractPlayerCapital(property.getRent(),currentPlayer);
-                System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
-                for (Player player : players) {
-                    if(player.getPlayerId() == property.getOwnerId()) {
-                        player.setCapital(player.getCapital() + property.getRent());
-                        System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
-                    }
-                }
-            }
-        } else if(isCurrentSpaceTax()) {
-            Tax tax = (Tax) currentSpace;
-            subtractPlayerCapital(tax.getTax(),currentPlayer);
-            currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
-            System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
-        } else if(isCurrentSpaceChance()) {
-            //TODO chance card
-        } else if(currentSpace.getSpaceName().equals("GO")) {
-            int salary = 200;
-            addPlayerCapital(salary,currentPlayer);
-           //this should maybe be a variable, you could change it in settings
-            System.out.println("Player " + currentPlayer.getPlayerId() + " passed GO and recieved " + salary);
-        } else if(currentSpace.getSpaceName().equals("U")) {
-            currentPlayer.moveTo(10, false);
-            currentPlayer.setTurnsInJail(1);
-            System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
+            landedOnProperty();
+        } else if (isCurrentSpaceTax()) {
+            landedOnTax();
+        } else if(isCurrentSpaceU()) {
+            landedOnU();
         }
     }
+    private void landedOnProperty() {
+        Property property = (Property) currentSpace;
+        if (property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
+            landedOnOwnedProperty(property);
+        }
+    }
+    private void landedOnOwnedProperty(Property property) {
+        currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
+        System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
+        for (Player player : players) {
+            if (player.getPlayerId() == property.getOwnerId()) {
+                player.setCapital(player.getCapital() + property.getRent());
+                System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
+            }
+        }
+    }
+    private void landedOnTax() {
+        Tax tax = (Tax) currentSpace;
+        currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
+        System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
+    }
+    private void landedOnU() {
+        currentPlayer.moveTo(10, false);
+        currentPlayer.setTurnsInJail(1);
+        System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
+    }
+
 
     /**
      * Checks if the player is in Jail. If they are, they must roll doubles in order to get out.
@@ -104,10 +120,10 @@ public class Game implements Observable {
             int jailFine = 50;
             System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
             dice.rollDice(); //this needs to be coupled to the view
-            if(dice.isDoubles()) {
+            if(dice.hasRolledDoubles()) {
                 System.out.println("You got out!");
 
-                currentPlayer.move(dice.getSum());
+                currentPlayer.move(dice.getTotalValue());
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
                 inspectCurrentSpace();
@@ -123,7 +139,7 @@ public class Game implements Observable {
                     subtractPlayerCapital(jailFine,currentPlayer);
                     System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
 
-                    currentPlayer.move(dice.getSum());
+                    currentPlayer.move(dice.getTotalValue());
                     currentSpace = board.getSpace(currentPlayer.getPosition());
 
                     inspectCurrentSpace();
@@ -147,10 +163,28 @@ public class Game implements Observable {
         notifyObservers(moneyLost);
     }
     public void endTurn () {
-        if (dice.isHasRolled()) {
+        if (dice.hasRolledDoubles()) {
             next();
-            dice.setHasRolled(false);
+            dice.setHasRolledDice(false);
             hasMoved = false;
+            checkBankruptcy();
+        }
+    }
+    /**
+     * Should prevent currentPlayer from moving until they are debt free,
+     * currently just instantly makes players bankrupt if they start a turn while in debt.
+     * Calls next() to pass the turn if the player declares bankruptcy.
+     */
+    private void checkBankruptcy() {
+        if (currentPlayer.getCapital() < 1) {
+            System.out.println("You cannot move while in debt!");
+            //TODO if time available, add way to sell items before bankruptcy
+            //Allow selling
+            //After selling, call checkBankruptcy again
+
+            //If option to become bankrupt is selected do this
+            currentPlayer.setBankrupt();
+            next();
         }
     }
 
@@ -173,6 +207,8 @@ public class Game implements Observable {
             try {
                 locale.buildHouse();
                 subtractPlayerCapital(locale.getHouseCost(),currentPlayer);
+                System.out.println("House built");
+                System.out.println(currentPlayer.getCapital());
             }
             catch (IllegalArgumentException ignored){
             }
@@ -186,7 +222,7 @@ public class Game implements Observable {
     private boolean isCurrentSpaceTax() {
         return currentSpace instanceof Tax;
     }
-
+    private boolean isCurrentSpaceU() { return currentSpace.getSpaceName().equals("U"); }
     private boolean isCurrentSpaceChance() {
         return currentSpace instanceof Chance;
     }
@@ -203,13 +239,32 @@ public class Game implements Observable {
         players.remove(0);
         players.add(temporaryPlayer);
         updateCurrentPlayer();
+        if (currentPlayer.isBankrupt()) {
+            next();
+        }
+
+        if (currentPlayer.equals(temporaryPlayer)) {
+            endGame(temporaryPlayer);
+        }
+
     }
 
     private void updateCurrentPlayer(){
         currentPlayer = players.get(0);
     }
-
-    public Dice getDice() {
+    /**
+     * Should prompt a popup announcing the winning player,
+     * however currently only prints it and terminates the program.
+     *
+     * @param winningPlayer the player who won.
+     */
+    private void endGame(Player winningPlayer) {
+        //TODO insert popup here for view with controller
+        System.out.println("GAME OVER! " + winningPlayer.getName() + " wins!");
+        //on pressing continue/accept button:
+        System.exit(0);
+    }
+    public RollDice getDice() {
         return dice;
 
     }

@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
+
 public class StationRentView extends PropertyRentView  {
 
     private @FXML

@@ -5,10 +5,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 /**
- * @au
+ * @author williamProgrammerar
  */
 public class UnownedPropertyController {
-
     private @FXML
     FlowPane propertyFlowPane;
 

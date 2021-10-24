@@ -1,5 +1,6 @@
 package model;
 
+
 import visitor.HandleRentViewMapVisitor;
 
 import java.util.ArrayList;
@@ -15,8 +16,9 @@ public class Locale extends Property {
     }
 
     private final String sectionColour;
-    public void buildHouse(){
-        if(houses.size() < maxHouses){
+
+    public void buildHouse() {
+        if (houses.size() < maxHouses) {
             houses.add(new House());
         }
         else {
@@ -24,10 +26,13 @@ public class Locale extends Property {
         }
 
     }
+
     private final List<House> houses = new ArrayList<>();
+
     Section section;
     
     private final int[] rent;
+
     public Locale(String spaceName, int price, int mortgage, Section section, int[] rent, int houseCost) {
         super(spaceName, price, mortgage, rent);
         this.houseCost = houseCost;
@@ -37,6 +42,7 @@ public class Locale extends Property {
         section.addLocale(this);
     }
 
+
     @Override
     public void accept(HandleRentViewMapVisitor visitor) {
         visitor.visit(this);
@@ -45,11 +51,16 @@ public class Locale extends Property {
     public int getRent() {
         return rent[houses.size()];
     }
+
     public Section getSection(){
         return section;
     }
 
     public int getHouseCost() {
         return houseCost;
+    }
+
+    public boolean hasMaxHouses() {
+        return !(houses.size() < maxHouses);
     }
 }

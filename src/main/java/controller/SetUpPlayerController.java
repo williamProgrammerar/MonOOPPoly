@@ -15,13 +15,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * @author JonEmilsson
  */
 public class SetUpPlayerController {
     GameSettings gameSettings = new GameSettings();
-    private List<String> nameList = new ArrayList<>();
-    private List<String> stateList = new ArrayList<>();
+
+    private final List<String> nameList = new ArrayList<>();
+    private final List<String> stateList = new ArrayList<>();
+
     @FXML
     FlowPane flowPane;
 
@@ -29,7 +32,8 @@ public class SetUpPlayerController {
     public void startGame(ActionEvent event) throws Exception {
         updatePlayerInfo();
         gameSettings.setPlayerInfo(nameList,stateList);
-       if(gameSettings.checkPlayers()){
+
+        if (gameSettings.checkPlayers()) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/fxml/ChalmersMonopoly.fxml"));
             Parent monopolyParent = loader.load();
@@ -39,18 +43,18 @@ public class SetUpPlayerController {
             Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
             window.setScene(monopolyScene);
             window.show();
-      }
+       }
        else {
             System.out.println("player info not complete, or valid");
-      }
-
+       }
     }
 
     private int checkNumberOfplayers() {
         return 1;
     }
 
-    @FXML public void goBack(ActionEvent event) throws IOException {
+    @FXML
+    public void goBack(ActionEvent event) throws IOException {
         Parent monopolyParent = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         Scene monopolyScene = new Scene(monopolyParent);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -62,23 +66,28 @@ public class SetUpPlayerController {
      * This method simply updates the playerinfo that is later sent to game, so that
      * customized names are properly registered.
      */
-    private void updatePlayerInfo(){
+    private void updatePlayerInfo() {
         nameList.clear();
         stateList.clear();
+
         for(Node node : flowPane.getChildren()){
             nameList.add(((PlayerSetUpController)node).getpNameTextField().getText());
             stateList.add(((PlayerSetUpController)node).getPlayerTypeCBox().getValue());
         }
     }
-    @FXML public void addPlayer(){
-           try{
-               gameSettings.addPlayer();
-           } catch (IllegalArgumentException e){
-               return;
-           }
+
+    @FXML
+    public void addPlayer() {
+        try{
+            gameSettings.addPlayer();
+        } catch (IllegalArgumentException e){
+            return;
+        }
         flowPane.getChildren().add(new PlayerSetUpController(gameSettings.getPlayers().size()));
     }
-    @FXML public void removePlayer(){
+
+    @FXML
+    public void removePlayer(){
         try{
             gameSettings.removePlayer();
         } catch (IllegalArgumentException e){
@@ -89,26 +98,30 @@ public class SetUpPlayerController {
 
     @FXML
     private ComboBox<String> playerType1CBox;
+
     @FXML
     private ComboBox<String> playerType2CBox;
+
     @FXML
     private ComboBox<String> playerType3CBox;
+
     @FXML
     private ComboBox<String> playerType4CBox;
+
     @FXML
     private CheckBox p1Checkbox;
+
     @FXML
     private CheckBox p2Checkbox;
+
     @FXML
     private CheckBox p3Checkbox;
+
     @FXML
     private CheckBox p4Checkbox;
 
     public void initialize() {
         addPlayer();
         addPlayer();
-
     }
-
-
 }

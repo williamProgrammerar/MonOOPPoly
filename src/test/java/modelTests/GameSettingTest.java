@@ -1,4 +1,4 @@
-package ModelTests;
+package modelTests;
 
 import model.GameSettings;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package ModelTests;
+package modelTests;
 
 import model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
-    private final GameSettings gameSettings = new GameSettings();
-    private Game game = new Game(gameSettings);
+    private GameSettings gameSettings;
+    private Game game;
 
     @BeforeEach
-    void initPlayer() {
+    void initGame() {
+        gameSettings = new GameSettings();
         Player player = new Player(1,1500);
-        game.getPlayers().add(player);
-    }
-
-    @BeforeEach
-    void rollDice() {
+        Player player2 = new Player(2, 1500);
+        gameSettings.getPlayers().add(player);
+        gameSettings.getPlayers().add(player2);
+        game = new Game(gameSettings);
         game.getDice().rollDice();
     }
 
@@ -34,7 +34,6 @@ public class GameTest {
 
     @Test
     void nextPlayerTest() {
-        game.getPlayers().add(new Player(2,1500));
         Player prevPlayer = game.getPlayers().get(0);
         game.next();
         assertNotSame(prevPlayer, game.getPlayers().get(0));
@@ -63,7 +62,7 @@ public class GameTest {
     void moveToUSpaceTest() {
         game.getPlayers().get(0).moveTo(0,false);
         game.move(game.getBoard().findSpace("U"));
-        assertTrue(game.getCurrentPlayer().getPosition() == 10);
+        assertEquals(game.getCurrentPlayer().getPosition(), 10);
     }
 
     @Test
@@ -74,17 +73,29 @@ public class GameTest {
         player.setTurnsInJail(1);
         game = new Game(gameSettings);
 
-        game.move(game.getDice().getSum());
+        game.move(game.getDice().getTotalValue());
 
-        if(game.getDice().isDoubles()) {
-            assertEquals(game.getDice().getSum(), player.getPosition()-10);
+        if(game.getDice().hasRolledDoubles()) {
+            assertEquals(game.getDice().getTotalValue(), player.getPosition()-10);
             assertEquals(0, player.getTurnsInJail());
         }
         else {
             assertEquals(10, player.getPosition());
             assertEquals(2, player.getTurnsInJail());
         }
+    }
 
+    @Test
+    void testCheckBankruptcy() {
+        Player player3 = new Player(3, 1500);
+        game.getPlayers().add(player3);
 
+        assertFalse(game.getPlayers().get(0).isBankrupt());
+        game.getPlayers().get(0).setCapital(0);
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            game.getDice().rollDice();
+            game.endTurn();
+        }
+        assertTrue(game.getPlayers().get(game.getPlayers().size() - 1).isBankrupt());
     }
 }
