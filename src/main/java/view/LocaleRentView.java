@@ -3,14 +3,13 @@ package view;
 import model.Locale;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class LocaleRentView extends AnchorPane {
+public class LocaleRentView extends PropertyRentView {
     private @FXML
     Rectangle localeColor;
 
@@ -51,7 +50,9 @@ public class LocaleRentView extends AnchorPane {
     Text HotelCost;
 
     public LocaleRentView(Locale locale) {
+        super();
         setUpFxml();
+
 
         int[] rent = locale.getRentList();
         setUpLocale(locale, rent);
@@ -83,5 +84,8 @@ public class LocaleRentView extends AnchorPane {
         Rent5.setText(rent[5]+"kr");
         HouseCost.setText(locale.getHouseCost()+"kr");
         HotelCost.setText(locale.getHouseCost()+"kr");
+
     }
+
+
 }

@@ -5,12 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class StationRentView extends AnchorPane {
+
+public class StationRentView extends PropertyRentView  {
+
     private @FXML
     Text PropertyName;
 
@@ -64,4 +65,5 @@ public class StationRentView extends AnchorPane {
         Rent3.setText(rent[3]+"kr");
         image.setImage(new Image("pic/Tram.png"));
     }
+
 }

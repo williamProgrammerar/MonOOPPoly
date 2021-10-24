@@ -2,6 +2,7 @@ package controller;
 
 import model.Player;
 import view.PieceView;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
