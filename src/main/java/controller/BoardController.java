@@ -394,9 +394,10 @@ public class BoardController implements Observer {
         if (arg instanceof Locale){
             updateSpaceShown((Space) arg);
         }
-        if (arg instanceof Player){
+        if (arg instanceof Auction){
             clearBoardFlowPane();
-            newPropertyOwner(game.getAuction().getAuctionProperty(),((Player) arg));
+            newPropertyOwner(((Auction) arg).getAuctionProperty(),((Auction) arg).getHighestBidder());
+            makeEndTurnClickable();
         }
         updatePlayerCapital();
     }
