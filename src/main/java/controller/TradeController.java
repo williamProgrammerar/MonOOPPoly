@@ -15,6 +15,7 @@ import java.util.List;
  * TradeController allows inputs from users in order to process a trade.
  *
  * @author williamProgrammerar
+ * @author rhedinh
  */
 public class TradeController {
     Game game;
@@ -310,6 +311,7 @@ public class TradeController {
 
     /**
      * closeTrade clears the boardFlowPane and then switches back to the menuPane.
+     * It also makes the Player able to End it's turn if it want to.
      * Method is public so that a button in the fxml file "Trade" will be able to call it.
      */
     public void closeTrade() {

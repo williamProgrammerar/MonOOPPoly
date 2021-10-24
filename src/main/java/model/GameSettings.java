@@ -41,10 +41,6 @@ public class GameSettings {
         }
     }
 
-    public List<Player> amountOfPlayers(){
-        return players;
-    }
-
     /**
      * This Method adds a player to the gameSettings it does not allow more than 4 players and throws an exception
      * if a user tries to implement more.
@@ -78,13 +74,10 @@ public class GameSettings {
         return startCapital;
     }
 
-    public void setPlayerName() {
-
-    }
-
     public void setStartCapital(int startCapital) {
         this.startCapital = startCapital;
     }
+
     public int getSalary() {
         return salary;
     }

@@ -34,8 +34,6 @@ public class RollDiceTest {
     void testRollDoubles() {
         RollDice dice = new RollDice(2,6);
 
-        assertFalse(dice.hasRolledDoubles());
-
         for (int i = 0; i < dice.getDices().size(); i++) {
             dice.setSpecificDieValue(i,6);
         }

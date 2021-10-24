@@ -12,4 +12,30 @@ public class LocaleTest {
     void sectionColourTest() {
         assertEquals(locale.getSectionColour(), "Rainbow");
     }
+
+    @Test
+    void testMaxHouses() {
+        for (int i = 0; i < 10; i++) {
+            locale.buildHouse();
+        }
+        assertEquals(5, locale.getAmountOfHouses());
+        assertTrue(locale.hasMaxHouses());
+    }
+
+    @Test
+    void testLocaleRent() {
+        assertEquals(10, locale.getRent());
+
+        locale.buildHouse();
+        assertEquals(50, locale.getRent());
+
+        locale.buildHouse();
+        assertEquals(150, locale.getRent());
+
+        locale.buildHouse();
+        assertEquals(300, locale.getRent());
+
+        locale.buildHouse();
+        assertEquals(500, locale.getRent());
+    }
 }
