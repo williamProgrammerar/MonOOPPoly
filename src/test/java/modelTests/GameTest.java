@@ -68,12 +68,6 @@ public class GameTest {
         assertTrue(game.getCurrentPlayer().HasPassedGo());
     }
 
-
-    @Test
-    void testJailTurn() {
-
-    }
-
     @Test
     void testCheckBankruptcy() {
         Player player3 = new Player(3, 1500);

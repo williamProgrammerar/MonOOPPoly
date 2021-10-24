@@ -11,11 +11,23 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameSettingTest {
     GameSettings gs = new GameSettings();
 
+    void addPlayers(int k) {
+        for (int i = 0; i < k; i++) {
+            gs.addPlayer();
+        }
+    }
+
     @Test
     void addPlayersTest() throws Exception {
         try {
             addPlayers(4);
         } catch (Exception e) {
+            assertEquals(gs.getPlayers().size(), 4);
+        }
+
+        try {
+            addPlayers(4);
+        } catch (IllegalArgumentException e) {
             assertEquals(gs.getPlayers().size(), 4);
         }
     }
@@ -37,12 +49,6 @@ public class GameSettingTest {
         assertTrue(gs.checkPlayers());
     }
 
-    void addPlayers(int k) {
-        for (int i = 0; i <= k; i++) {
-            gs.addPlayer();
-        }
-    }
-
     @Test
     void checkPlayersTest() {
         addPlayers(1);
@@ -50,4 +56,24 @@ public class GameSettingTest {
         assertFalse(gs.checkPlayers());
     }
 
+    @Test
+    void testRemovePlayer() {
+        addPlayers(3);
+
+        gs.removePlayer();
+        assertEquals(2, gs.getPlayers().size());
+
+        try {
+            gs.removePlayer();
+        } catch (IllegalArgumentException e) {
+            assertEquals(2, gs.getPlayers().size());
+        }
+    }
+
+    @Test
+    void testStartCapitalSetAndGet() {
+        int temp = 2000;
+        gs.setStartCapital(temp);
+        assertEquals(temp, gs.getStartCapital());
+    }
 }

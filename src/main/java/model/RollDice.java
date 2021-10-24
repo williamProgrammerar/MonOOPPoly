@@ -83,7 +83,15 @@ public class RollDice {
     }
 
     public boolean hasRolledDoubles() {
-        return getTotalValue() == dices.size() * faces;
+        int initValue = dices.get(0).getValue();
+
+        for (Die dice : dices) {
+            if (dice.getValue() != initValue) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public int getTotalValue() {
