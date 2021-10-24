@@ -256,6 +256,7 @@ public class BoardController implements Observer {
             Property property = (Property) game.getCurrentSpace();
             if (!property.isOwned()) {
                 showUnownedPropertyView();
+                makeEndTurnNotClickable();
             }
         }
     }
