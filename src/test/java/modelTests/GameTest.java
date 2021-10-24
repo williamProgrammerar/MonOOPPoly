@@ -1,6 +1,7 @@
 package modelTests;
 
 import model.*;
+import observers.Observable;
 import observers.Observer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,8 @@ public class GameTest {
         gameSettings.getPlayers().add(player3);
         game = new Game(gameSettings);
         game.getDice().rollDice();
-        Observer observer = () -> System.out.println("hej");
-        game.attach(observer);
+        Observer observer = (observable, arg) -> System.out.println("hej");
+        game.attachObserver(observer);
     }
 
     @Test
