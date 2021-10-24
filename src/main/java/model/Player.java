@@ -17,9 +17,9 @@ public class Player {
 
     private boolean hasPassedGo;
 
-    private final List<Property> properties = new ArrayList<>();
+    private boolean canEndTurn;
 
-    //private javafx.scene.paint.Color color;
+    private final List<Property> properties = new ArrayList<>();
 
     private boolean isBankrupt;
 
@@ -29,13 +29,6 @@ public class Player {
         this.position = 0;
         this.name = "Inget namn än";
         this.isBankrupt = false;
-        /*switch (playerId){
-            case 0 -> this.color = Color.RED;
-            case 1 -> this.color = Color.DARKTURQUOISE;
-            case 2 -> this.color = Color.GREEN;
-            case 3 -> this.color = Color.ORANGE;
-            default -> throw new IllegalStateException("Unexpected value: " + playerId);
-        }*/
     }
 
     /**
@@ -79,6 +72,10 @@ public class Player {
 
     public boolean HasPassedGo() {
         return hasPassedGo;
+    }
+
+    public boolean getCanEndTurn(){
+        return canEndTurn;
     }
 
     public int getCapital() {
