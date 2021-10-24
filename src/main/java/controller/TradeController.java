@@ -15,6 +15,7 @@ import java.util.List;
  * TradeController allows inputs from users in order to process a trade.
  *
  * @author williamProgrammerar
+ * @author rhedinh
  */
 public class TradeController {
     private final BoardController boardController;
