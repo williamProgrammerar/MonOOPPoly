@@ -160,10 +160,10 @@ public class Game implements Observable {
     }
     public void subtractPlayerCapital(int moneyLost,Player player){
         player.setCapital(player.getCapital() - moneyLost);
-        notifyObservers(moneyLost);
+        notifyObservers();
     }
     public void endTurn () {
-        if (dice.hasRolledDoubles()) {
+        if (dice.isHasRolledDice()) {
             next();
             dice.setHasRolledDice(false);
             hasMoved = false;
