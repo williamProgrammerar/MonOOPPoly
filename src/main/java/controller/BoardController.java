@@ -36,7 +36,7 @@ public class BoardController implements Observer {
     private final List<PieceView> pieceViews = new ArrayList<>();
 
     private final Map<String,SpaceView > spaceViewMap = new HashMap<>();
-    private RentViewManager rentViewManager = new RentViewManager();
+    private final RentViewManager rentViewManager = new RentViewManager();
     private final Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<>();
     private final Map<Integer, Point> spaceCellMap = new HashMap<>();
 
