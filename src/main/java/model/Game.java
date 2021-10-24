@@ -183,8 +183,7 @@ public class Game implements Observable {
     /**
      * Places the current player (index 0) in a temporary variable.
      * Player index 0 in the player list is then removed, which leads to a new current player.
-     * Finally adds the player stored in the temporary variable to the back of the list.
-     * @author williamProgrammerar
+     * Finally, adds the player stored in the temporary variable to the back of the list.
      */
     public void next() {
         Player temporaryPlayer = players.get(0);
@@ -266,7 +265,7 @@ public class Game implements Observable {
     }
 
     /**
-     * This method makes sure that mortgage get's paid back appropriately
+     * This method makes sure that mortgage gets paid back appropriately
      */
     public void payBackMortgage(){
         if(isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && ((Property) getSelectedSpace()).isMortgaged()){
