@@ -47,8 +47,8 @@ public class BoardController implements Observer {
 
     private final UnownedPropertyController unownedPropertyController = new UnownedPropertyController(this);
     private final UnownedPropertyView unownedPropertyView = new UnownedPropertyView(unownedPropertyController);
-    private final AuctionController auctionController = new AuctionController(this);
-    private final AuctionView auctionView = new AuctionView(auctionController);
+    private AuctionController auctionController;
+    private AuctionView auctionView;
 
     private final TradeController tradeController = new TradeController(this);
     private final TradeView tradeView = new TradeView(tradeController);
@@ -84,6 +84,7 @@ public class BoardController implements Observer {
         this.game = game;
         game.attachObserver(this);
         this.diceView = new DiceView(game.getDice());
+
         showDiceView();
         initSpaceCellMap();
         initSpaceViewMap();
@@ -93,6 +94,8 @@ public class BoardController implements Observer {
         initPlayers();
 
         initRentViewMaps();
+        this.auctionController = new AuctionController(game);
+        this.auctionView = new AuctionView(auctionController);
     }
 
     /**
@@ -430,6 +433,11 @@ public class BoardController implements Observer {
         if (arg instanceof Locale) {
             updateSpaceShown((Space) arg);
         }
+        if (arg instanceof Auction){
+            clearBoardFlowPane();
+            newPropertyOwner(((Auction) arg).getAuctionProperty(),((Auction) arg).getHighestBidder());
+            makeEndTurnClickable();
+        }
         updatePlayerCapital();
     }
 
@@ -441,6 +449,7 @@ public class BoardController implements Observer {
      * @param player   the player.
      */
     public void newPropertyOwner(Property property, Player player) {
+
         spaceViewMap.get(property.getSpaceName()).setOwner(findColor(player));
         updatePlayerCapital();
     }

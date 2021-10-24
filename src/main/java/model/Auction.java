@@ -1,5 +1,8 @@
 package model;
 
+import observers.Observable;
+import observers.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,4 +164,5 @@ public class Auction {
     public Property getAuctionProperty() {
         return auctionProperty;
     }
+
 }

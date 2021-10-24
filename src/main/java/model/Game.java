@@ -21,6 +21,10 @@ public class Game implements Observable {
     private final List<Player> players = new ArrayList<>();
     private final Jail jail = new Jail(50, dice);
     private Space currentSpace;
+
+
+
+    private Auction auction;
     int salary;
     private Player currentPlayer;
     private Space selectedSpace;
@@ -240,6 +244,10 @@ public class Game implements Observable {
     public Space getSelectedSpace() {
         return selectedSpace;
     }
+    public Auction getAuction() {
+        return auction;
+    }
+
 
     /**
      * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
@@ -321,9 +329,12 @@ public class Game implements Observable {
         for (Observer observer : observers) {
             observer.update(this, null);
         }
-        }
-     
+    }
 
+    public void startAuction() {
+        this.auction = new Auction();
+        auction.startAuction(players,(Property) currentSpace);
+    }
 }
 
 
