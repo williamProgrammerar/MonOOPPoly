@@ -211,10 +211,6 @@ public class BoardController implements Observer {
         }
     }
 
-    private void displayBuyHouseController() {
-
-    }
-
     /**
      * Method initiates all the players.
      * It creates a visual piece for each player and places all the pieces on the board.
@@ -286,6 +282,10 @@ public class BoardController implements Observer {
         }
     }
 
+    /**
+     * Draw a chance card and shows it to the player
+     * @param mouseEvent
+     */
     private void showChanceCard(MouseEvent mouseEvent) {
         IChanceCard chanceCard = new ChanceCardCreator().getChanceCard();
         chanceCardText.setText(chanceCard.getText());
@@ -378,10 +378,6 @@ public class BoardController implements Observer {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private void showSelectedSpace(SpaceView spaceView) {
-
     }
 
 

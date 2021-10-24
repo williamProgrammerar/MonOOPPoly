@@ -15,7 +15,7 @@ import java.util.List;
  * @author williamProgrammerar
  */
 public class AuctionController {
-    Game game;
+    private Game game;
     @FXML
     private FlowPane auctionFlowPane;
 
