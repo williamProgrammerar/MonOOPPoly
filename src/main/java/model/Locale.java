@@ -24,7 +24,6 @@ public class Locale extends Property {
         else {
             System.out.println("Maximum of houses reached");
         }
-
     }
 
     private final List<House> houses = new ArrayList<>();
@@ -62,5 +61,9 @@ public class Locale extends Property {
 
     public boolean hasMaxHouses() {
         return !(houses.size() < maxHouses);
+    }
+
+    public int getAmountOfHouses() {
+        return houses.size();
     }
 }
