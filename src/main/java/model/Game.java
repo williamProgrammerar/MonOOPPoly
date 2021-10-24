@@ -322,13 +322,7 @@ public class Game implements Observable {
             observer.update(this, null);
         }
         }
-        /**
-         * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
-         *
-         * @param ID the specific ID that will be used to find a player.
-         * @return returns the player who's ID matches the one used for the search.
-         * @throws Exception This should never have to be thrown.
-         */
+     
 
 }
 
