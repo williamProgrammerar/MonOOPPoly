@@ -15,11 +15,13 @@ import java.io.IOException;
 public class SelectedLocaleController extends AnchorPane {
     Game game;
     Locale locale;
+    private final BoardController boardController;
     @FXML
     private Button mortgageButton;
 
     Boolean toogle;
-    public SelectedLocaleController(Game game){
+    public SelectedLocaleController(Game game, BoardController boardController){
+        this.boardController = boardController;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/buyHouse.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -42,6 +44,7 @@ public class SelectedLocaleController extends AnchorPane {
      */
     public void buyHouse(){
         game.buyHouse(locale);
+        buildHouse(locale);
     }
     public void mortgageProperty(){
 
@@ -72,6 +75,12 @@ public class SelectedLocaleController extends AnchorPane {
         }
         else{
             mortgageButton.setText("Mortgage");
+        }
+
+    }
+    private void buildHouse(Locale locale) {
+        if (game.getCurrentPlayer().hasMonopoly(locale) && game.getCurrentPlayer().getCapital() >= locale.getHouseCost()) {
+            boardController.buildBuilding(locale);
         }
     }
 

@@ -325,7 +325,7 @@ public class BoardController implements Observer {
     private void updateSpaceShown(Space space) {
         clearBoardFlowPane();
         boardFlowPane.getChildren().add(rentViewManager.propertyRentViewHashMap.get(space.getSpaceName()));
-        boardFlowPane.getChildren().add(new SelectedLocaleController(game));
+        boardFlowPane.getChildren().add(new SelectedLocaleController(game, this));
     }
 
 
@@ -422,7 +422,7 @@ public class BoardController implements Observer {
 
     /**
      * buildBuilding builds a building on a locale.
-     * Public so that BuyHouseController can access it.
+     * Public so that SelectedLocaleController can access it.
      *
      * @param locale the locale where house should be built.
      */
