@@ -17,8 +17,6 @@ public class Player {
 
     private boolean hasPassedGo;
 
-    private boolean canEndTurn;
-
     private final List<Property> properties = new ArrayList<>();
 
     private boolean isBankrupt;
@@ -72,10 +70,6 @@ public class Player {
 
     public boolean HasPassedGo() {
         return hasPassedGo;
-    }
-
-    public boolean getCanEndTurn(){
-        return canEndTurn;
     }
 
     public int getCapital() {

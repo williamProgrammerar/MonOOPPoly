@@ -302,12 +302,6 @@ public class BoardController implements Observer {
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(false);
         game.endTurn();
         playerCardsControllerMap.get(game.getCurrentPlayer().getPlayerId()).updateCurrentPlayer(true);
-        makeEndTurnNotClickable();
-    }
-
-    public void checkEndTurnAvailability(){
-        if (game.getCurrentPlayer().getCanEndTurn()){
-        }
     }
 
     public void makeEndTurnClickable(){
