@@ -79,6 +79,7 @@ public class AuctionController {
         if (auctionIsOver) {
             boardController.clearBoardFlowPane();
             boardController.newPropertyOwner(auction.getAuctionProperty(), auction.getHighestBidder());
+            boardController.makeEndTurnClickable();
         }
     }
 
