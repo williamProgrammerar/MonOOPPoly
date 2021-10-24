@@ -19,7 +19,6 @@ public class Game {
     private final Board board = new Board();
     private final List<Player> players = new ArrayList<>();
     private final Jail jail = new Jail(50, dice);
-    private List<Player> players = new ArrayList<>();
     private Space currentSpace;
     private Player currentPlayer;
     private Space selectedSpace;

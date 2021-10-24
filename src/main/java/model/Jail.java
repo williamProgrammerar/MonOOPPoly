@@ -8,13 +8,12 @@ import java.util.Map;
  *
  * @author Hedquist
  */
-
 public class Jail {
     private final Map<Player, Integer> jailedPlayers = new HashMap<>();
     private final int jailFine;
-    private final Dice dice;
+    private final RollDice dice;
 
-    public Jail(int jailFine, Dice dice) {
+    public Jail(int jailFine, RollDice dice) {
         this.jailFine = jailFine;
         this.dice = dice;
     }
@@ -24,13 +23,14 @@ public class Jail {
      * If they are, checks if they rolled doubles
      * if they did, lets them out
      * If third turn in jail, lets them out for a fee
+     *
      * @param player player to check
      * @return if the player should move this turn or not
      */
     public boolean jailTurn(Player player) {
         if(isInJail(player)) {
             System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
-            if(dice.isDoubles()) {
+            if(dice.hasRolledDoubles()) {
                 System.out.println("You got out!");
                 bail(player);
                 return false;
@@ -53,6 +53,7 @@ public class Jail {
     /**
      * Adds a player to Jail if not already in,
      * sets number of turns in jail to 0
+     *
      * @param newInmate
      */
     public void addToJail(Player newInmate) {
@@ -64,6 +65,7 @@ public class Jail {
 
     /**
      * Removes player from jail if present
+     *
      * @param player
      */
     public void bail(Player player) {
