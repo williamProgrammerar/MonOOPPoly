@@ -1,10 +1,8 @@
 package model;
 
 /**
- *
  * @author rhedinh
  */
-
 public abstract class IChanceCard {
     private final String text;
 

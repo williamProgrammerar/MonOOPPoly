@@ -9,7 +9,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 public class UtilityRentView extends AnchorPane {
-
     private @FXML
     Text PropertyName;
 

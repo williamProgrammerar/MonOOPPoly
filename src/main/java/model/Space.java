@@ -2,7 +2,6 @@ package model;
 
 public class Space {
     private final String spaceName;
-    //private final int tile;
 
     public Space(String spaceName) {
         this.spaceName = spaceName;
@@ -11,5 +10,4 @@ public class Space {
     public String getSpaceName() {
         return spaceName;
     }
-
 }

@@ -19,6 +19,7 @@ public class Board {
     Section gray = new Section("GREY");
     Section purple = new Section("PURPLE");
     Section turqoise = new Section("TURQUOISE");
+
     private final List<Space> spaceList;
 
     /**

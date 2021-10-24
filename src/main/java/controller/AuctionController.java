@@ -11,49 +11,70 @@ import javafx.scene.text.Text;
  * @author williamProgrammerar
  */
 public class AuctionController {
+    @FXML
+    private FlowPane auctionFlowPane;
 
-    private @FXML
-    FlowPane auctionFlowPane;
+    @FXML
+    private Text highestOffer;
 
-    private @FXML
-    Text highestOffer;
-
-    private @FXML
-    Text currentBidder;
+    @FXML
+    private Text currentBidder;
 
     private final BoardController boardController;
 
     private final Auction auction;
 
+    /**
+     * Constructor that when called gives AuctionController access to existing boardController.
+     *
+     * @param boardController the existing boardController.
+     */
     public AuctionController(BoardController boardController) {
         this.boardController = boardController;
         this.auction = new Auction();
     }
 
+    /**
+     * startAuction is public so that when the button "Auction" is pressed boardController can start the auctioning process.
+     */
     public void startAuction() {
         auction.startAuction(boardController.getGame().getPlayers(), (Property) boardController.getGame().getCurrentSpace());
         updateCurrentBidderText();
         updateHighestOffer();
     }
 
+    /**
+     * bidHigh is public so that a button can access this method and place a big bid.
+     */
     public void bidHigh() {
         auction.placeBigBid();
         updateCurrentBidderText();
         updateHighestOffer();
     }
 
+    /**
+     * bidSmall is public so that a button can access this method and place a small bid.
+     */
     public void bidSmall() {
         auction.placeSmallBid();
         updateCurrentBidderText();
         updateHighestOffer();
     }
 
+    /**
+     * dropOut is public so that a button can access this method and allow a player to drop out of the auction.
+     */
     public void dropOut() {
         auction.dropOutOfAuction(auction.getCurrentBidder());
         updateCurrentBidderText();
         endAuction(isAuctionOver());
     }
 
+    /**
+     * endAuction if the auction is over will give the person who places the highest bid the auctioned property.
+     *
+     * @param auctionIsOver boolean that states whether or not the auction is over.
+     */
     private void endAuction(boolean auctionIsOver) {
         if (auctionIsOver) {
             boardController.clearBoardFlowPane();

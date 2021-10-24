@@ -15,17 +15,19 @@ import java.util.List;
  * @author Hedquist
  */
 public class Game {
-    private final Dice dice = new Dice();
+    private final RollDice dice = new RollDice(2,6);
     private final Board board = new Board();
+    private final List<Player> players = new ArrayList<>();
     private final Jail jail = new Jail(50, dice);
     private List<Player> players = new ArrayList<>();
     private Space currentSpace;
     private Player currentPlayer;
     private Space selectedSpace;
     private boolean hasMoved = false;
+
     List<Observer> observers = new ArrayList<>();
 
-    public Game(GameSettings gameSettings)  {
+    public Game(GameSettings gameSettings) {
        this.players.addAll(gameSettings.getPlayers());
        updateCurrentPlayer();
     }
@@ -46,14 +48,14 @@ public class Game {
 
                 System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
                 System.out.println(currentPlayer.getPosition());
-
             }
         }
     }
 
     /**
      * If the player has passed go this turn, receive appropriate payment
-     * @param currentPlayer
+     *
+     * @param currentPlayer currentPlayer.
      */
     private void receiveGoPay(Player currentPlayer) {
         if(currentPlayer.HasPassedGo()) {
@@ -70,33 +72,47 @@ public class Game {
      */
     private void inspectCurrentSpace() {
         if (isCurrentSpaceProperty()) {
-            Property property = (Property) currentSpace;
-            if(property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
-                currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
-                System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
-                for (Player player : players) {
-                    if(player.getPlayerId() == property.getOwnerId()) {
-                        player.setCapital(player.getCapital() + property.getRent());
-                        System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
-                    }
-                }
-            }
-        } else if(isCurrentSpaceTax()) {
-            Tax tax = (Tax) currentSpace;
-            currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
-            System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
-        } else if(isCurrentSpaceChance()) {
-            //TODO chance card
-        } else if(currentSpace.getSpaceName().equals("U")) {
-            currentPlayer.moveTo(10, false);
-            jail.addToJail(currentPlayer);
+            landedOnProperty();
+        } else if (isCurrentSpaceTax()) {
+            landedOnTax();
+        } else if(isCurrentSpaceU()) {
+            landedOnU();
         }
     }
 
-    public void endTurn () {
-        if (dice.isHasRolled()) {
+    private void landedOnProperty() {
+        Property property = (Property) currentSpace;
+        if (property.isOwned() && !isOwnedByCurrentPlayer(property) && !property.isMortgaged()) {
+            landedOnOwnedProperty(property);
+        }
+    }
+
+    private void landedOnOwnedProperty(Property property) {
+        currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
+        System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
+        for (Player player : players) {
+            if (player.getPlayerId() == property.getOwnerId()) {
+                player.setCapital(player.getCapital() + property.getRent());
+                System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
+            }
+        }
+    }
+
+    private void landedOnTax() {
+        Tax tax = (Tax) currentSpace;
+        currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
+        System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
+    }
+
+    private void landedOnU() {
+        currentPlayer.moveTo(10, false);
+        jail.addToJail(currentPlayer);
+    }
+
+    public void endTurn() {
+        if (dice.isHasRolledDice()) {
             next();
-            dice.setHasRolled(false);
+            dice.setHasRolledDice(false);
             hasMoved = false;
             checkBankruptcy();
         }
@@ -108,7 +124,7 @@ public class Game {
      * Calls next() to pass the turn if the player declares bankruptcy.
      */
     private void checkBankruptcy() {
-        if(currentPlayer.getCapital() < 1) {
+        if (currentPlayer.getCapital() < 1) {
             System.out.println("You cannot move while in debt!");
             //TODO if time available, add way to sell items before bankruptcy
             //Allow selling
@@ -129,34 +145,32 @@ public class Game {
     }
 
     /**
-     * This method makes sure that the a house is bought and then built, it takes a locale which the player whiches to
-     * buy houses on then makes sure that player is eligble, then tries to build and draw the correct amount
-     * @param locale The locale that the player whishes to buy houses on.
+     * This method makes sure that the a house is bought and then built, it takes a locale which the player wishes to
+     * buy houses on then makes sure that player is eligible, then tries to build and draw the correct amount
+     *
+     * @param locale The locale that the player wishes to buy houses on.
      */
-    public void buyHouse(Locale locale){
-        if (currentPlayer.hasMonopoly(locale)){
-
+    public void buyHouse(Locale locale) {
+        if (currentPlayer.hasMonopoly(locale) && (currentPlayer.getCapital() >= locale.getHouseCost()) && !locale.hasMaxHouses()) {
             try {
                 locale.buildHouse();
                 currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
+                System.out.println("House built");
+                System.out.println(currentPlayer.getCapital());
             }
-            catch (IllegalArgumentException ignored){
+            catch (IllegalArgumentException ignored) {
             }
         }
-        else{
+        else {
             System.out.println("You do not own all properties within this section");
         }
     }
-
 
     private boolean isCurrentSpaceTax() {
         return currentSpace instanceof Tax;
     }
 
-    private boolean isCurrentSpaceChance() {
-        return currentSpace instanceof Chance;
-    }
-
+    private boolean isCurrentSpaceU() { return currentSpace.getSpaceName().equals("U"); }
 
     /**
      * Places the current player (index 0) in a temporary variable.
@@ -170,10 +184,11 @@ public class Game {
         players.add(temporaryPlayer);
         updateCurrentPlayer();
 
-        if(currentPlayer.isBankrupt()) {
+        if (currentPlayer.isBankrupt()) {
             next();
         }
-        if(currentPlayer.equals(temporaryPlayer)) {
+
+        if (currentPlayer.equals(temporaryPlayer)) {
             endGame(temporaryPlayer);
         }
     }
@@ -184,8 +199,9 @@ public class Game {
 
     /**
      * Should prompt a popup announcing the winning player,
-     * however currently only prints it and terminates the program
-     * @param winningPlayer
+     * however currently only prints it and terminates the program.
+     *
+     * @param winningPlayer the player who won.
      */
     private void endGame(Player winningPlayer) {
         //TODO insert popup here for view with controller
@@ -194,7 +210,7 @@ public class Game {
         System.exit(0);
     }
 
-    public Dice getDice() {
+    public RollDice getDice() {
         return dice;
     }
 
@@ -213,11 +229,13 @@ public class Game {
     public Space getCurrentSpace() {
         return currentSpace;
     }
+
     public Space getSelectedSpace() { return selectedSpace; }
 
     /**
-     * This notifes observers that a space has been selected and sets the selected space to that space.
-     * @param selectedSpace
+     * This notifies observers that a space has been selected and sets the selected space to that space.
+     *
+     * @param selectedSpace the selected space.
      */
     public void setSelectedSpace(Space selectedSpace) {
         this.selectedSpace = selectedSpace;
@@ -228,11 +246,11 @@ public class Game {
      * Notifies all observer of a change
      */
     public void notifyAllObservers() {
-        for (Observer observer: observers){
+        for (Observer observer: observers) {
             observer.update();
         }
-
     }
+
     /**
      * This method attaches an observer to this class.
      */
@@ -240,4 +258,17 @@ public class Game {
         observers.add(observer);
     }
 
+    /**
+     * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
+     *
+     * @param ID the specific ID that will be used to find a player.
+     * @return returns the player who's ID matches the one used for the search.
+     * @throws Exception This should never have to be thrown.
+     */
+    public Player getPlayerUsingID(int ID) throws Exception {
+        for (Player player : getPlayers()) {
+            if (player.getPlayerId() == ID) { return player; }
+        }
+        throw new Exception("No player matching the ID");
+    }
 }

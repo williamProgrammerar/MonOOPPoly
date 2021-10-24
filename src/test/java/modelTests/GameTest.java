@@ -62,7 +62,7 @@ public class GameTest {
     void moveToUSpaceTest() {
         game.getPlayers().get(0).moveTo(0,false);
         game.move(game.getBoard().findSpace("U"));
-        assertTrue(game.getCurrentPlayer().getPosition() == 10);
+        assertEquals(game.getCurrentPlayer().getPosition(), 10);
     }
 
     @Test

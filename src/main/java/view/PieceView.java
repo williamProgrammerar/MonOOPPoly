@@ -2,15 +2,17 @@ package view;
 
 import model.Player;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
-public class Piece {
-
+public class PieceView {
     private final ImageView piece;
     private final Player player;
+    private final Color color;
 
-    public Piece(ImageView piece, Player player) {
-        this.piece = piece;
+    public PieceView(ColorPiece colorPiece, Player player) {
+        this.piece = colorPiece.getImage();
         this.player = player;
+        this.color = colorPiece.getColor();
     }
 
     public ImageView getPiece() {
@@ -20,4 +22,6 @@ public class Piece {
     public Player getPlayer() {
         return player;
     }
+
+    public Color getColor() { return color; }
 }

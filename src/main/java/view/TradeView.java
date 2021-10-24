@@ -10,7 +10,6 @@ import java.io.IOException;
  * @author williamProgrammerar
  */
 public class TradeView extends AnchorPane {
-
     public TradeView(TradeController tradeController) {
         setUpFxml(tradeController);
     }

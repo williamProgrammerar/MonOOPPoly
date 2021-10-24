@@ -1,6 +1,6 @@
 package view;
 
-import model.Dice;
+import model.RollDice;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
@@ -19,11 +19,11 @@ public class DiceView extends AnchorPane {
     private @FXML
     ImageView dice2;
 
-    private final Dice dice;
+    private final RollDice dice;
 
     private final Map<Integer,Image> diceImages = new HashMap<>();
 
-    public DiceView(Dice dice) {
+    public DiceView(RollDice dice) {
         setUpFxml();
         this.dice = dice;
         initDiceImages();
@@ -62,10 +62,10 @@ public class DiceView extends AnchorPane {
     }
 
     private void updateDice1() {
-        dice1.setImage(diceImages.get(dice.getDice1()));
+        dice1.setImage(diceImages.get(dice.getSpecificDieValue(0)));
     }
 
     private void updateDice2() {
-        dice2.setImage(diceImages.get(dice.getDice2()));
+        dice2.setImage(diceImages.get(dice.getSpecificDieValue(1)));
     }
 }
