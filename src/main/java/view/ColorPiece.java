@@ -3,6 +3,11 @@ package view;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+/**
+ * A class which matches a color to a piece.
+ *
+ * @author rhedinh
+ */
 public class ColorPiece {
     private final ImageView image;
     private final Color color;
