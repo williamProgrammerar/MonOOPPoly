@@ -1,6 +1,8 @@
 package model;
 
 /**
+ * A chance card which moves player to another space.
+ *
  * @author rhedinh
  */
 public class MoveChanceCard extends IChanceCard {

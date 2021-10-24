@@ -1,6 +1,8 @@
 package model;
 
 /**
+ * An abstract class for every chance card there exists to extend.
+ *
  * @author rhedinh
  */
 public abstract class IChanceCard {
