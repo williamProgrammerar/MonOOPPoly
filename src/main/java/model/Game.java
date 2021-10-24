@@ -15,7 +15,7 @@ import java.util.List;
  * @author Hedquist
  */
 public class Game {
-    private final RollDice dice = new RollDice(2,6);
+    private final RollDice dice = new RollDice(2, 6);
     private final Board board = new Board();
     private final List<Player> players = new ArrayList<>();
     private final Jail jail = new Jail(50, dice);
@@ -27,15 +27,15 @@ public class Game {
     List<Observer> observers = new ArrayList<>();
 
     public Game(GameSettings gameSettings) {
-       this.players.addAll(gameSettings.getPlayers());
-       updateCurrentPlayer();
+        this.players.addAll(gameSettings.getPlayers());
+        updateCurrentPlayer();
     }
 
     /**
      * Moves the current player sum spaces.
      */
     public void move(int spaces) {
-        if(!hasMoved) {
+        if (!hasMoved) {
             if (!jail.jailTurn(currentPlayer)) {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
@@ -57,7 +57,7 @@ public class Game {
      * @param currentPlayer currentPlayer.
      */
     private void receiveGoPay(Player currentPlayer) {
-        if(currentPlayer.HasPassedGo()) {
+        if (currentPlayer.HasPassedGo()) {
             int salary = 200;
             currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
             System.out.println(currentPlayer.getName() + " passed GO and received " + salary + "kr");
@@ -74,7 +74,7 @@ public class Game {
             landedOnProperty();
         } else if (isCurrentSpaceTax()) {
             landedOnTax();
-        } else if(isCurrentSpaceU()) {
+        } else if (isCurrentSpaceU()) {
             landedOnU();
         }
     }
@@ -92,7 +92,7 @@ public class Game {
         for (Player player : players) {
             if (player.getPlayerId() == property.getOwnerId()) {
                 player.setCapital(player.getCapital() + property.getRent());
-                System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
+                System.out.println("Player " + player.getPlayerId() + " has " + player.getCapital());
             }
         }
     }
@@ -156,11 +156,9 @@ public class Game {
                 currentPlayer.setCapital(currentPlayer.getCapital() - locale.getHouseCost());
                 System.out.println("House built");
                 System.out.println(currentPlayer.getCapital());
+            } catch (IllegalArgumentException ignored) {
             }
-            catch (IllegalArgumentException ignored) {
-            }
-        }
-        else {
+        } else {
             System.out.println("You do not own all properties within this section");
         }
     }
@@ -169,7 +167,9 @@ public class Game {
         return currentSpace instanceof Tax;
     }
 
-    private boolean isCurrentSpaceU() { return currentSpace.getSpaceName().equals("U"); }
+    private boolean isCurrentSpaceU() {
+        return currentSpace.getSpaceName().equals("U");
+    }
 
     /**
      * Places the current player (index 0) in a temporary variable.
@@ -192,7 +192,7 @@ public class Game {
         }
     }
 
-    private void updateCurrentPlayer(){
+    private void updateCurrentPlayer() {
         currentPlayer = players.get(0);
     }
 
@@ -229,7 +229,9 @@ public class Game {
         return currentSpace;
     }
 
-    public Space getSelectedSpace() { return selectedSpace; }
+    public Space getSelectedSpace() {
+        return selectedSpace;
+    }
 
     /**
      * This notifies observers that a space has been selected and sets the selected space to that space.
@@ -245,7 +247,7 @@ public class Game {
      * Notifies all observer of a change
      */
     public void notifyAllObservers() {
-        for (Observer observer: observers) {
+        for (Observer observer : observers) {
             observer.update();
         }
     }
@@ -253,7 +255,7 @@ public class Game {
     /**
      * This method attaches an observer to this class.
      */
-    public void attach(Observer observer){
+    public void attach(Observer observer) {
         observers.add(observer);
     }
 
@@ -266,7 +268,9 @@ public class Game {
      */
     public Player getPlayerUsingID(int ID) throws Exception {
         for (Player player : getPlayers()) {
-            if (player.getPlayerId() == ID) { return player; }
+            if (player.getPlayerId() == ID) {
+                return player;
+            }
         }
         throw new Exception("No player matching the ID");
     }
