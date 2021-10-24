@@ -13,7 +13,7 @@ public class TradeTest {
     private final Trade trade = new Trade();
     private final Player playerA = new Player(1,1000);
     private final Player playerB = new Player(2, 1000);
-   private final Property propertyA = new Locale("A",200,100,new Section("Rainbow"), new int[] {1,2,3,4,5},20);
+    private final Property propertyA = new Locale("A",200,100,new Section("Rainbow"), new int[] {1,2,3,4,5},20);
     private final Property propertyB = new Locale("A",200,100,new Section("Rainbow"), new int[] {1,2,3,4,5},20);
     private final Property propertyC = new Locale("A",200,100,new Section("Rainbow"), new int[] {1,2,3,4,5},20);
 
@@ -35,55 +35,83 @@ public class TradeTest {
 
     @Test
     void addCurrencyToTradeTest() {
-        // Make sure there is no currency in trade
-        assertEquals(trade.getCurrencyOffers().size(), 0);
+        testIfNoCurrencyOffers();
+        testAddCurrencyOffer();
+        testChangeCurrencyOffer();
+        testAddMultipleCurrencyOffers();
+        testAddMoreMoneyThanOwned();
+        testAddInvalidCurrencyOffer();
+    }
 
-        // playerA adds 500kr to the trade
+    void testIfNoCurrencyOffers() {
+        assertEquals(trade.getCurrencyOffers().size(), 0);
+    }
+
+    void testAddCurrencyOffer() {
         trade.addCurrencyToTrade(playerA,500);
         assertEquals(trade.getCurrencyOffers().get(playerA), 500);
+    }
 
-        // playerA changes their offer to 200kr from 500kr.
+    void testChangeCurrencyOffer() {
         trade.addCurrencyToTrade(playerA,200);
         assertEquals(trade.getCurrencyOffers().get(playerA), 200);
+    }
 
-        // PlayerB adds 700kr to trade.
-        // There should be two currency offers in trade.
+    void testAddMultipleCurrencyOffers() {
         trade.addCurrencyToTrade(playerB, 700);
         assertEquals(trade.getCurrencyOffers().get(playerB), 700);
         assertEquals(trade.getCurrencyOffers().size(), 2);
+    }
 
-        // playerB attempts to add more money than they currently have. Their offer should remain as 700kr.
+    void testAddMoreMoneyThanOwned() {
         trade.addCurrencyToTrade(playerB, 1500);
         assertEquals(trade.getCurrencyOffers().get(playerB), 700);
+    }
 
-        // playerA attempts to add an invalid value to the trade. Their offer should remain as 200kr.
+    void testAddInvalidCurrencyOffer() {
         trade.addCurrencyToTrade(playerA,-100);
         assertEquals(trade.getCurrencyOffers().get(playerA), 200);
     }
 
-
+    @Test
     void addPropertyToTradeTest() {
+        addProperties();
+        assertEquals(trade.getPropertyOffers().size(), 0);
+
+        testAddInvalidProperty();
+        testAddPropertyToTrade();
+        testAddMoreProperty();
+        testAddSameProperty();
+    }
+
+    void addProperties() {
         playerA.getProperties().add(propertyA);
         playerA.getProperties().add(propertyB);
 
         playerB.getProperties().add(propertyC);
+    }
 
-        assertEquals(trade.getPropertyOffers().size(), 0);
-
-        // playerA does not own propertyC, so there should be no offers
+    void testAddInvalidProperty() {
         trade.addPropertyToTrade(playerA, propertyC);
         assertEquals(trade.getPropertyOffers().size(), 0);
+    }
 
+    void testAddPropertyToTrade() {
         trade.addPropertyToTrade(playerA, propertyA);
         assertEquals(trade.getPropertyOffers().size(), 1);
+    }
 
+    void testAddMoreProperty() {
         // There should be two properties in playerA's offer
         trade.addPropertyToTrade(playerA, propertyB);
         assertEquals(trade.getPropertyOffers().get(playerA).size(), 2);
+    }
 
+    void testAddSameProperty() {
         trade.addPropertyToTrade(playerA, propertyB);
         assertEquals(trade.getPropertyOffers().get(playerA).size(), 2);
     }
+
     @Test
     void testTradingCurrency() {
         assertEquals(playerB.getCapital(), playerA.getCapital());
@@ -100,6 +128,11 @@ public class TradeTest {
 
     @Test
     void testTradingProperties() {
+        firstTradePropertyTest();
+        secondTradePropertyTest();
+    }
+
+    void firstTradePropertyTest() {
         playerA.getProperties().add(propertyA);
         playerB.getProperties().add(propertyB);
         trade.startTrade(playerA,playerB);
@@ -107,7 +140,9 @@ public class TradeTest {
         trade.acceptTrade();
         assertTrue(playerA.getProperties().isEmpty());
         assertEquals(playerB.getProperties().size(), 2);
+    }
 
+    void secondTradePropertyTest() {
         playerA.getProperties().add(propertyC);
         trade.startTrade(playerA,playerB);
         trade.addPropertyToTrade(playerA, propertyC);
@@ -119,5 +154,4 @@ public class TradeTest {
         assertTrue(playerB.getProperties().contains(propertyC));
         assertEquals(playerB.getProperties().size(), 1);
     }
-
 }

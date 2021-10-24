@@ -316,6 +316,7 @@ public class TradeController {
     public void closeTrade() {
         boardController.clearBoardFlowPane();
         switchToMenuPane();
+        boardController.makeEndTurnClickable();
     }
 
     /**

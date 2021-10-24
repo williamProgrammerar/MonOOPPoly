@@ -81,7 +81,7 @@ public class AuctionController {
      */
     private void endAuction(boolean auctionIsOver) {
         if (auctionIsOver) {
-            game.notifyObservers(auction.getHighestBidder());
+            game.notifyObservers(auction);
         }
     }
 
