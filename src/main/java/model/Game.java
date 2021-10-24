@@ -21,14 +21,16 @@ public class Game implements Observable {
     private final List<Player> players = new ArrayList<>();
     private final Jail jail = new Jail(50, dice);
     private Space currentSpace;
+    int salary;
     private Player currentPlayer;
     private Space selectedSpace;
     private boolean hasMoved = false;
-
+    private boolean lock = false;
     List<Observer> observers = new ArrayList<>();
 
     public Game(GameSettings gameSettings) {
         this.players.addAll(gameSettings.getPlayers());
+        this.salary = gameSettings.getSalary();
         updateCurrentPlayer();
     }
 
@@ -60,8 +62,7 @@ public class Game implements Observable {
      */
     private void receiveGoPay(Player currentPlayer) {
         if (currentPlayer.HasPassedGo()) {
-            int salary = 200;
-            currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
+            addPlayerCapital(salary,currentPlayer); //this should maybe be a variable, you could change it in settings
             System.out.println(currentPlayer.getName() + " passed GO and received " + salary + "kr");
         }
     }
@@ -86,18 +87,18 @@ public class Game implements Observable {
         }
     }
     private void landedOnOwnedProperty(Property property) {
-        currentPlayer.setCapital(currentPlayer.getCapital() - property.getRent());
+        subtractPlayerCapital(property.getPrice(),currentPlayer);
         System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
         for (Player player : players) {
             if (player.getPlayerId() == property.getOwnerId()) {
-                player.setCapital(player.getCapital() + property.getRent());
+                addPlayerCapital(property.getPrice(),currentPlayer);
                 System.out.println("Player " + player.getPlayerId() + " has " + player.getCapital());
             }
         }
     }
     private void landedOnTax() {
         Tax tax = (Tax) currentSpace;
-        currentPlayer.setCapital(currentPlayer.getCapital() - tax.getTax());
+       subtractPlayerCapital(tax.getTax(),currentPlayer);
         System.out.println("Player " + currentPlayer.getPlayerId() + " had to pay tax and has " + currentPlayer.getCapital());
     }
     private void landedOnU() {

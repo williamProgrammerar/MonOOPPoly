@@ -9,6 +9,9 @@ import java.util.List;
 public class GameSettings {
     private int startCapital = 1500;
 
+
+
+    private final int salary = 200;
     private final List<Player> players = new ArrayList<>();
 
     /**
@@ -82,8 +85,7 @@ public class GameSettings {
     public void setStartCapital(int startCapital) {
         this.startCapital = startCapital;
     }
-
-
-    public static class TooManyPlayersExpection extends Throwable {
+    public int getSalary() {
+        return salary;
     }
 }
