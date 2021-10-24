@@ -37,15 +37,6 @@ public class MenuController {
     @FXML
     private final ComboBox<String> playerType1CBox = new ComboBox<>();
 
-    @FXML
-    private ComboBox<String> playerType2CBox;
-
-    @FXML
-    private ComboBox<String> playerType3CBox;
-
-    @FXML
-    private ComboBox<String> playerType4CBox;
-
     private final ObservableList<String> playerTypes = FXCollections.observableArrayList("Human", "Computer", "None");
 
     @FXML
@@ -53,8 +44,5 @@ public class MenuController {
         playerType1CBox.getItems().removeAll(playerType1CBox.getItems());
         playerType1CBox.getItems().addAll("Option A", "Option B", "Option C");
         playerType1CBox.getSelectionModel().select("Option B");
-        //playerType2CBox.setItems(playerTypes);
-        //playerType3CBox.setItems(playerTypes);
-        //playerType4CBox.setItems(playerTypes);
     }
 }
