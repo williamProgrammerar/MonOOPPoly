@@ -49,10 +49,6 @@ public class SetUpPlayerController {
        }
     }
 
-    private int checkNumberOfplayers() {
-        return 1;
-    }
-
     @FXML
     public void goBack(ActionEvent event) throws IOException {
         Parent monopolyParent = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
