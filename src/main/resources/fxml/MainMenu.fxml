@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
    <children>
       <Button fx:id="startGameButton" layoutX="296.0" layoutY="303.0" mnemonicParsing="false" onAction="#startGame" prefHeight="25.0" prefWidth="203.0" styleClass="buttonMainMenu" text="Start game" />
       <Button layoutX="292.0" layoutY="372.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="25.0" prefWidth="203.0" styleClass="buttonMainMenu" text="Exit game" />
