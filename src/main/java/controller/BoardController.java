@@ -306,10 +306,12 @@ public class BoardController implements Observer {
 
     public void makeEndTurnClickable(){
         endTurnButton.setOnAction(this::endTurn);
+        endTurnButton.setVisible(true);
     }
 
     public void makeEndTurnNotClickable(){
         endTurnButton.setOnAction(null);
+        endTurnButton.setVisible(false);
     }
 
     /**
