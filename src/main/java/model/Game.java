@@ -39,8 +39,6 @@ public class Game implements Observable {
 
     /**
      * Moves the current player sum spaces.
-     *
-     * @author williamProgrammerar
      */
     public void move(int spaces) {
         if (!hasMoved) {
@@ -76,7 +74,7 @@ public class Game implements Observable {
      * inspectCurrentSpace() checks what type the current space is.
      * If the current space is a property, owned by another player and not mortgaged then the player
      * has to pay rent to the owner of the property.
-     * If it's a tax it withdraw money from player
+     * If it's a tax it withdraws money from player
      * If its on U it sends player to Omtenta
      */
     private void inspectCurrentSpace() {
@@ -93,7 +91,6 @@ public class Game implements Observable {
 
     private void landedOnChance() {
         Chance chance = (Chance) currentSpace;
-
     }
 
     private void landedOnProperty() {
@@ -209,9 +206,7 @@ public class Game implements Observable {
     /**
      * Places the current player (index 0) in a temporary variable.
      * Player index 0 in the player list is then removed, which leads to a new current player.
-     * Finally adds the player stored in the temporary variable to the back of the list.
-     *
-     * @author williamProgrammerar
+     * Finally, adds the player stored in the temporary variable to the back of the list.
      */
     public void next() {
         Player temporaryPlayer = players.get(0);
@@ -274,7 +269,6 @@ public class Game implements Observable {
         return auction;
     }
 
-
     /**
      * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
      *
@@ -303,7 +297,7 @@ public class Game implements Observable {
     }
 
     /**
-     * This method makes sure that mortgage get's paid back appropriately
+     * This method makes sure that mortgage gets paid back appropriately
      */
     public void payBackMortgage() {
         if (isPropertyOwnedByPlayer((Property) getSelectedSpace(), currentPlayer) && ((Property) getSelectedSpace()).isMortgaged()) {
