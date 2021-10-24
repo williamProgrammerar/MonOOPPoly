@@ -318,23 +318,19 @@ public class Game implements Observable {
 
     @Override
     public void notifyObservers() {
-        for (Observer observer: observers){
-            observer.update(this,null);
-
-    /**
-     * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
-     *
-     * @param ID the specific ID that will be used to find a player.
-     * @return returns the player who's ID matches the one used for the search.
-     * @throws Exception This should never have to be thrown.
-     */
-    public Player getPlayerUsingID(int ID) throws Exception {
-        for (Player player : getPlayers()) {
-            if (player.getPlayerId() == ID) {
-                return player;
-            }
+        for (Observer observer : observers) {
+            observer.update(this, null);
         }
-    }
+        }
+        /**
+         * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
+         *
+         * @param ID the specific ID that will be used to find a player.
+         * @return returns the player who's ID matches the one used for the search.
+         * @throws Exception This should never have to be thrown.
+         */
+
 }
+
 
 
