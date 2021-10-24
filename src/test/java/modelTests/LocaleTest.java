@@ -15,8 +15,12 @@ public class LocaleTest {
 
     @Test
     void testMaxHouses() {
-        for (int i = 0; i < 10; i++) {
-            locale.buildHouse();
+        try {
+            for (int i = 0; i < 10; i++) {
+                locale.buildHouse();
+            }
+        } catch (IllegalArgumentException ignored) {
+
         }
         assertEquals(5, locale.getAmountOfHouses());
         assertTrue(locale.hasMaxHouses());
