@@ -25,7 +25,7 @@ public class Jail {
      * If third turn in jail, lets them out for a fee
      *
      * @param player player to check
-     * @return if the player should move this turn or not
+     * @return if the player should stay in jail this turn or not
      */
     public boolean jailTurn(Player player) {
         if (isInJail(player)) {
