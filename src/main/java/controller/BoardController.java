@@ -361,7 +361,9 @@ public class BoardController implements Observer {
      */
     @Override
     public void update(Observable observable,Object arg) {
-        updateSpaceShown((Space) arg);
+        if (arg instanceof Locale){
+            updateSpaceShown((Space) arg);
+        }
         updatePlayerCapital();
     }
 
