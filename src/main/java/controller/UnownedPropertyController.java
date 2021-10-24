@@ -5,7 +5,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 /**
+ *When a player lands on unowned property, this class add a choice for the player to either
+ * buy the property or set it up for auction for other players to bid on it.
+ *
  * @author williamProgrammerar
+ * @author rhedinh
  */
 public class UnownedPropertyController {
     private @FXML
