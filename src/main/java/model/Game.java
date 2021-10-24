@@ -22,8 +22,6 @@ public class Game implements Observable {
     private final Jail jail = new Jail(50, dice);
     private Space currentSpace;
 
-
-
     private Auction auction;
     int salary;
     private Player currentPlayer;
@@ -91,11 +89,11 @@ public class Game implements Observable {
         }
     }
     private void landedOnOwnedProperty(Property property) {
-        subtractPlayerCapital(property.getPrice(),currentPlayer);
+        subtractPlayerCapital(property.getRent(),currentPlayer);
         System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
         for (Player player : players) {
             if (player.getPlayerId() == property.getOwnerId()) {
-                addPlayerCapital(property.getPrice(),currentPlayer);
+                addPlayerCapital(property.getRent(),currentPlayer);
                 System.out.println("Player " + player.getPlayerId() + " has " + player.getCapital());
             }
         }

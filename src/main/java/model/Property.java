@@ -10,7 +10,6 @@ public abstract class Property extends Space{
     private final int price;
     private final int mortgage;
     private final int[] rent;
-    private Section section;
 
     public Property(String spaceName, int price, int mortgage, int[] rent) {
         super(spaceName);
