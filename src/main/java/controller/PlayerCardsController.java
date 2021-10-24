@@ -13,7 +13,8 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 /**
- * Controls the playercards
+ * Every player has a assigned playercard which shows its name, capital, piece and wheater
+ * it's its turn or not. This is the controller for the .fxml-file of the cards.
  *
  * @author rhedinh
  */
@@ -51,10 +52,23 @@ public class PlayerCardsController extends AnchorPane {
         playerColor.setFill(pieceView.getColor());
     }
 
+    /**
+     * Updates the capital of a player graphically in the playercards.
+     *
+     * @param player the player which should have an updated visual of its capital
+     */
     public void updateCapital(Player player) {
         capitalLabel.setText(player.getCapital() + "kr");
     }
 
+
+    /**
+     * Adds or removes the stroke around the player card which
+     * is used to inform the player of wheter it's its turn or not
+     *
+     * @param b if true, the stroke is visable and it's the players turn
+     *          if false, the stroke is not visable and it's not the players turn.
+     */
     public void updateCurrentPlayer(boolean b){
         playersTurn.setVisible(b);
     }

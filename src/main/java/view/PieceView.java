@@ -4,6 +4,12 @@ import model.Player;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+/**
+ * A class which assigns a piece (with a matching color) to a player.
+ *
+ * @author rhedinh
+ */
+
 public class PieceView {
     private final ImageView piece;
     private final Player player;
