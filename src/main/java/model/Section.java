@@ -11,7 +11,7 @@ public class Section {
         return sectionColour;
     }
 
-    String sectionColour;
+    private final String sectionColour;
 
     public Section( String sectionColour) {
         this.sectionColour = sectionColour;
@@ -21,7 +21,7 @@ public class Section {
         return localeList;
     }
 
-    List<Locale> localeList = new ArrayList<>();
+    private final List<Locale> localeList = new ArrayList<>();
 
     /**
      * This adds a locale to the current section, so that section can keep track how many locales are neccary for

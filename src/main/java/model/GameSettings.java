@@ -9,8 +9,6 @@ import java.util.List;
 public class GameSettings {
     private int startCapital = 1500;
 
-
-
     private final int salary = 200;
     private final List<Player> players = new ArrayList<>();
 
