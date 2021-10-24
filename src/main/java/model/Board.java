@@ -27,7 +27,7 @@ public class Board {
     /**
      * Board constructor adds all the different spaces to the list spaceList.
      */
-    public Board() {
+    public Board(RollDice dice) {
         spaceList.add(new Space("GO"));
         addToLists(new Locale("BASEN", 60, 30, orange, new int[] {2, 10, 30, 90, 160, 250}, 50));
         spaceList.add(new Chance("Chans1"));
@@ -40,7 +40,7 @@ public class Board {
         addToLists(new Locale("BULTEN", 120, 60, brown, new int[] {8, 40, 100, 300, 450, 600}, 100));
         spaceList.add(new Space("OMTENTA"));
         addToLists(new Locale("A-DAMMEN", 140, 70, red, new int[] {10, 50, 150, 450, 625, 750}, 100));
-        addToLists(new Utility("Utility1", 150, 75, new int[] {4,10}));
+        addToLists(new Utility("Utility1", 150, 75, new int[] {4,10}, dice));
         addToLists(new Locale("RÖDA RUMMET", 140, 70, red, new int[] {10, 50, 150, 450, 625, 750}, 100));
         addToLists(new Locale("HALVA SB-HUSET", 160, 80, red, new int[] {12, 60, 180, 500, 700, 900}, 100));
         addToLists(new Station("Station2", 200, 100, new int[] {25,50,100,200}));
@@ -56,7 +56,7 @@ public class Board {
         addToLists(new Station("Station3", 200, 100, new int[] {25,50,100,200}));
         addToLists(new Locale("DALTONZ BURGARTÄLT", 260, 130, gray, new int[] {22, 110, 330, 800, 975, 1150}, 150));
         addToLists(new Locale("KÅRHUSET", 260, 130, gray, new int[] {22, 110, 330, 800, 975, 1150}, 150));
-        addToLists(new Utility("Utility2", 150, 75, new int[] {4,10}));
+        addToLists(new Utility("Utility2", 150, 75, new int[] {4,10}, dice));
         addToLists(new Locale("ZALOONEN", 280, 140, gray, new int[] {24, 120, 360, 850, 1025, 1200}, 150));
         spaceList.add(new Space("U"));
         addToLists(new Locale("BONDGATAN", 300, 150, purple, new int[] {26, 130, 390, 900, 1100, 1275}, 200));

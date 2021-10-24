@@ -23,6 +23,7 @@ public class Locale extends Property {
         }
         else {
             System.out.println("Maximum of houses reached");
+            throw new IllegalArgumentException();
         }
     }
 

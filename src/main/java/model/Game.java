@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Game implements Observable {
     private final RollDice dice = new RollDice(2, 6);
-    private final Board board = new Board();
+    private final Board board = new Board(dice);
     private final List<Player> players = new ArrayList<>();
     private final Jail jail = new Jail(50, dice);
     private Space currentSpace;
@@ -95,11 +95,12 @@ public class Game implements Observable {
     }
 
     private void landedOnOwnedProperty(Property property) {
-        subtractPlayerCapital(property.getPrice(), currentPlayer);
+        subtractPlayerCapital(property.getRent(), currentPlayer);
         System.out.println("Player " + currentPlayer.getPlayerId() + " has " + currentPlayer.getCapital());
         for (Player player : players) {
             if (player.getPlayerId() == property.getOwnerId()) {
-                addPlayerCapital(property.getPrice(), player);
+                addPlayerCapital(property.getRent(), player);
+                System.out.println(property.getRent());
                 System.out.println("Player " + player.getPlayerId() + " has " + player.getCapital());
             }
         }
