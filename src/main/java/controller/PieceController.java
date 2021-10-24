@@ -6,6 +6,15 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
+/**
+ * Controls the pieces and colors for the players.
+ * When a game starts, every player is rabdomly assigned
+ * a piece and a matching color of the piece to visually
+ * seperate the different players.
+ *
+ * @author rhedinh
+ */
+
 public class PieceController {
 
     private final List<ColorPiece> colorPieceList = new ArrayList<>();
@@ -33,6 +42,9 @@ public class PieceController {
         return colorPiece;
     }
 
+    /**
+     * A list of every possible piece and matching color a player possibly can have.
+     */
     private void initImagesAndColors() {
         colorPieceList.add(new ColorPiece(new ImageView("pic/Asterix.png"), Color.SADDLEBROWN));
         colorPieceList.add(new ColorPiece(new ImageView("pic/HackeHackspett.png"), Color.ORANGE));
