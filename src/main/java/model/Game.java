@@ -22,13 +22,12 @@ public class Game implements Observable {
     private final Jail jail = new Jail(50, dice);
     private Space currentSpace;
 
-
     private Auction auction;
-    int salary;
+    private final int salary;
     private Player currentPlayer;
     private Space selectedSpace;
     private boolean hasMoved = false;
-    private boolean lock = false;
+
     List<Observer> observers = new ArrayList<>();
 
     public Game(GameSettings gameSettings) {
@@ -184,7 +183,6 @@ public class Game implements Observable {
         }
     }
 
-
     private boolean isCurrentSpaceTax() {
         return currentSpace instanceof Tax;
     }
@@ -192,7 +190,6 @@ public class Game implements Observable {
     private boolean isCurrentSpaceU() {
         return currentSpace.getSpaceName().equals("U");
     }
-
 
     /**
      * Places the current player (index 0) in a temporary variable.

@@ -29,7 +29,7 @@ public class Locale extends Property {
 
     private final List<House> houses = new ArrayList<>();
 
-    Section section;
+    private final Section section;
     
     private final int[] rent;
 
