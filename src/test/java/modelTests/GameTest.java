@@ -21,8 +21,8 @@ public class GameTest {
         gameSettings.getPlayers().add(player3);
         game = new Game(gameSettings);
         game.getDice().rollDice();
-        Observer observer = () -> System.out.println("hej");
-        game.attach(observer);
+        Observer observer = (observable,Object) -> System.out.println("hej");
+        game.attachObserver(observer);
     }
 
     @Test

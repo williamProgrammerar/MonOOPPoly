@@ -1,16 +1,21 @@
 package controller;
 
 import model.Auction;
+import model.Game;
+import model.Player;
 import model.Property;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
 /**
  * @author williamProgrammerar
  */
 public class AuctionController {
+    Game game;
     @FXML
     private FlowPane auctionFlowPane;
 
@@ -20,25 +25,24 @@ public class AuctionController {
     @FXML
     private Text currentBidder;
 
-    private final BoardController boardController;
 
-    private final Auction auction;
+    private Auction auction;
 
     /**
      * Constructor that when called gives AuctionController access to existing boardController.
      *
-     * @param boardController the existing boardController.
+     * @param game the existing game.
      */
-    public AuctionController(BoardController boardController) {
-        this.boardController = boardController;
-        this.auction = new Auction();
+    public AuctionController(Game game) {
+        this.game = game;
     }
 
     /**
      * startAuction is public so that when the button "Auction" is pressed boardController can start the auctioning process.
      */
     public void startAuction() {
-        auction.startAuction(boardController.getGame().getPlayers(), (Property) boardController.getGame().getCurrentSpace());
+        game.startAuction();
+        this.auction = game.getAuction();
         updateCurrentBidderText();
         updateHighestOffer();
     }
@@ -77,8 +81,7 @@ public class AuctionController {
      */
     private void endAuction(boolean auctionIsOver) {
         if (auctionIsOver) {
-            boardController.clearBoardFlowPane();
-            boardController.newPropertyOwner(auction.getAuctionProperty(), auction.getHighestBidder());
+            game.notifyObservers(auction.getHighestBidder());
         }
     }
 
