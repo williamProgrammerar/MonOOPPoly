@@ -14,10 +14,12 @@ import java.util.List;
  * @author JonEmilsson
  * @author HedQuist
  */
+
 public class Game implements Observable {
-    private final RollDice dice = new RollDice(2,6);
+    private final RollDice dice = new RollDice(2, 6);
     private final Board board = new Board();
-    private List<Player> players = new ArrayList<>();
+    private final List<Player> players = new ArrayList<>();
+    private final Jail jail = new Jail(50, dice);
     private Space currentSpace;
     private Player currentPlayer;
     private Space selectedSpace;
@@ -25,9 +27,9 @@ public class Game implements Observable {
 
     List<Observer> observers = new ArrayList<>();
 
-    public Game(GameSettings gameSettings)  {
-       this.players.addAll(gameSettings.getPlayers());
-       updateCurrentPlayer();
+    public Game(GameSettings gameSettings) {
+        this.players.addAll(gameSettings.getPlayers());
+        updateCurrentPlayer();
     }
 
     /**
@@ -35,9 +37,8 @@ public class Game implements Observable {
      * @author williamProgrammerar
      */
     public void move(int spaces) {
-        if(!hasMoved) {
-            //currentPlayer = players.get(0);
-            if (!jailTurn(currentPlayer)) {
+        if (!hasMoved) {
+            if (!jail.jailTurn(currentPlayer)) {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
@@ -58,10 +59,10 @@ public class Game implements Observable {
      * @param currentPlayer currentPlayer.
      */
     private void receiveGoPay(Player currentPlayer) {
-        if(currentPlayer.HasPassedGo()) {
+        if (currentPlayer.HasPassedGo()) {
             int salary = 200;
             currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
-            System.out.println(currentPlayer.getName() + " passed GO and recieved " + salary + "kr");
+            System.out.println(currentPlayer.getName() + " passed GO and received " + salary + "kr");
         }
     }
     /**
@@ -74,7 +75,7 @@ public class Game implements Observable {
             landedOnProperty();
         } else if (isCurrentSpaceTax()) {
             landedOnTax();
-        } else if(isCurrentSpaceU()) {
+        } else if (isCurrentSpaceU()) {
             landedOnU();
         }
     }
@@ -90,7 +91,7 @@ public class Game implements Observable {
         for (Player player : players) {
             if (player.getPlayerId() == property.getOwnerId()) {
                 player.setCapital(player.getCapital() + property.getRent());
-                System.out.println("Player " + player.getPlayerId() + " has "+ player.getCapital());
+                System.out.println("Player " + player.getPlayerId() + " has " + player.getCapital());
             }
         }
     }
@@ -101,58 +102,7 @@ public class Game implements Observable {
     }
     private void landedOnU() {
         currentPlayer.moveTo(10, false);
-        currentPlayer.setTurnsInJail(1);
-        System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
-    }
-
-
-    /**
-     * Checks if the player is in Jail. If they are, they must roll doubles in order to get out.
-     * If they do, move them according to the dice roll.
-     * If they fail for 3 turns, pay fine and move according to dice roll.
-     * Sets turnsInJail to 0 when they get out.
-     * @param currentPlayer
-     * @return if the player is in jail or not
-     * @author Hedquist
-     */
-    private boolean jailTurn(Player currentPlayer) {
-        if(currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
-            int jailFine = 50;
-            System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
-            dice.rollDice(); //this needs to be coupled to the view
-            if(dice.hasRolledDoubles()) {
-                System.out.println("You got out!");
-
-                currentPlayer.move(dice.getTotalValue());
-                currentSpace = board.getSpace(currentPlayer.getPosition());
-
-                inspectCurrentSpace();
-
-                System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-                System.out.println(currentPlayer.getPosition());
-
-                currentPlayer.setTurnsInJail(0);
-            } else {
-                System.out.println("You're stuck!");
-                currentPlayer.setTurnsInJail(currentPlayer.getTurnsInJail() + 1);
-                if(currentPlayer.getTurnsInJail()>3) {
-                    subtractPlayerCapital(jailFine,currentPlayer);
-                    System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
-
-                    currentPlayer.move(dice.getTotalValue());
-                    currentSpace = board.getSpace(currentPlayer.getPosition());
-
-                    inspectCurrentSpace();
-
-                    System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-                    System.out.println(currentPlayer.getPosition());
-
-                    currentPlayer.setTurnsInJail(0);
-                }
-            }
-            return true;
-        }
-        return false;
+        jail.addToJail(currentPlayer);
     }
     public void addPlayerCapital (int moneyGained, Player player){
         player.setCapital(player.getCapital() + moneyGained);
@@ -209,9 +159,9 @@ public class Game implements Observable {
                 subtractPlayerCapital(locale.getHouseCost(),currentPlayer);
                 System.out.println("House built");
                 System.out.println(currentPlayer.getCapital());
+            } catch (IllegalArgumentException ignored) {
             }
-            catch (IllegalArgumentException ignored){
-            }
+            
         }
         else{
             System.out.println("You do not own all properties within this section");
@@ -249,7 +199,7 @@ public class Game implements Observable {
 
     }
 
-    private void updateCurrentPlayer(){
+    private void updateCurrentPlayer() {
         currentPlayer = players.get(0);
     }
     /**
@@ -284,7 +234,11 @@ public class Game implements Observable {
     public Space getCurrentSpace() {
         return currentSpace;
     }
-    public Space getSelectedSpace() { return selectedSpace; }
+
+    public Space getSelectedSpace() {
+        return selectedSpace;
+    }
+
     /**
      * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
      *
@@ -309,14 +263,12 @@ public class Game implements Observable {
         notifyObservers(selectedSpace);
     }
 
-    /**
-     * Notifies all observer of a change
-     */
+  
 
     /**
      * This method attaches an observer to this class.
      */
-    public void attach(Observer observer){
+    public void attach(Observer observer) {
         observers.add(observer);
     }
     public void payBackMortgage(){
@@ -329,7 +281,7 @@ public class Game implements Observable {
             throw new IllegalArgumentException();
         }
     }
-
+	
     public void mortgageLocale() {
         if (isPropertyOwnedByPlayer((Property) getSelectedSpace(),currentPlayer) && !((Property) getSelectedSpace()).isMortgaged()){
             ((Property) getSelectedSpace()).setMortgaged(true);
@@ -368,6 +320,19 @@ public class Game implements Observable {
     public void notifyObservers() {
         for (Observer observer: observers){
             observer.update(this,null);
+
+    /**
+     * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
+     *
+     * @param ID the specific ID that will be used to find a player.
+     * @return returns the player who's ID matches the one used for the search.
+     * @throws Exception This should never have to be thrown.
+     */
+    public Player getPlayerUsingID(int ID) throws Exception {
+        for (Player player : getPlayers()) {
+            if (player.getPlayerId() == ID) {
+                return player;
+            }
         }
     }
 }
