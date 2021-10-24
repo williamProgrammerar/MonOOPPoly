@@ -17,8 +17,7 @@ import java.util.List;
  * @author williamProgrammerar
  */
 public class TradeController {
-    private final BoardController boardController;
-
+    Game game;
     private final Trade trade = new Trade();
 
     private @FXML
@@ -67,8 +66,8 @@ public class TradeController {
      *
      * @param boardController the existing boardController.
      */
-    public TradeController(BoardController boardController) {
-        this.boardController = boardController;
+    public TradeController(Game game) {
+        this.game = game;
     }
 
     /**
@@ -314,9 +313,8 @@ public class TradeController {
      * Method is public so that a button in the fxml file "Trade" will be able to call it.
      */
     public void closeTrade() {
-        boardController.clearBoardFlowPane();
         switchToMenuPane();
-        boardController.makeEndTurnClickable();
+        game.notifyObservers(trade);
     }
 
     /**
@@ -325,8 +323,7 @@ public class TradeController {
      */
     public void confirmTrade() throws Exception {
         trade.acceptTrade();
-        boardController.updatePlayerCapital();
-        boardController.updatePropertyOwnership();
         closeTrade();
     }
+
 }

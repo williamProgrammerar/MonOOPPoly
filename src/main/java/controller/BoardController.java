@@ -49,8 +49,8 @@ public class BoardController implements Observer {
     private AuctionController auctionController;
     private AuctionView auctionView;
 
-    private final TradeController tradeController = new TradeController(this);
-    private final TradeView tradeView = new TradeView(tradeController);
+    private TradeController tradeController;
+    private TradeView tradeView;
 
     @FXML
     private GridPane boardGrid;
@@ -92,7 +92,10 @@ public class BoardController implements Observer {
 
         initRentViewMaps();
         this.auctionController = new AuctionController(game);
+        this.tradeController = new TradeController(game);
         this.auctionView = new AuctionView(auctionController);
+        this.tradeView = new TradeView(tradeController);
+
     }
 
     /**
@@ -399,6 +402,11 @@ public class BoardController implements Observer {
             newPropertyOwner(((Auction) arg).getAuctionProperty(),((Auction) arg).getHighestBidder());
             makeEndTurnClickable();
         }
+        if(arg instanceof Trade){
+            clearBoardFlowPane();
+            makeEndTurnClickable();
+            updatePropertyOwnership();
+        }
         updatePlayerCapital();
     }
 
@@ -428,14 +436,13 @@ public class BoardController implements Observer {
      * updatePropertyOwnership transfers the ownership of an already owned property to another player.
      * public method so that TradeController can access it.
      *
-     * @throws Exception exception should never have to be thrown.
      */
-    public void updatePropertyOwnership() throws Exception {
+    public void updatePropertyOwnership() {
         for (Space space : getGame().getBoard().getSpaceList()) {
             if (space instanceof Property) {
                 Property property = (Property) space;
                 if (property.isOwned()) {
-                    Player owner = game.getPlayerUsingID(property.getOwnerId());
+                    Player owner = getGame().getPlayerUsingID(property.getOwnerId());
                     spaceViewMap.get(property.getSpaceName()).setOwner(findColor(owner));
                 }
             }
