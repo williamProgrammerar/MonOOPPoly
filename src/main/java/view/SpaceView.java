@@ -2,8 +2,7 @@
 package view;
 
 import controller.SelectedLocaleController;
-=======
-package controller;
+
 
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;

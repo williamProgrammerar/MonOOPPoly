@@ -27,7 +27,7 @@ public class GameTest {
         game.move(0);
         int previousPos = game.getCurrentPlayer().getPosition();
         Space previousSpace = game.getCurrentSpace();
-        game.move(game.getDice().getSum());
+        game.move(game.getDice().getTotalValue());
         assertNotEquals(previousPos, game.getCurrentPlayer().getPosition());
         assertNotEquals(previousSpace, game.getCurrentSpace());
     }

@@ -1,5 +1,5 @@
 package controller;
-
+import observers.Observable;
 import view.SpaceView;
 import javafx.scene.paint.Color;
 import model.*;
@@ -38,10 +38,6 @@ public class BoardController implements Observer {
     private final Map<String,SpaceView > spaceViewMap = new HashMap<>();
     private RentViewManager rentViewManager = new RentViewManager();
     private final Map<Integer, PlayerCardsController> playerCardsControllerMap = new HashMap<>();
-    private final Map<String,PropertyRentView> propertyRentViewHashMap = new HashMap<>();
-    private final Map<String, LocaleRentView> localeRentViewMap = new HashMap<>();
-    private final Map<String, StationRentView> stationRentViewMap = new HashMap<>();
-    private final Map<String, UtilityRentView> utilityRentViewMap = new HashMap<>();
     private final Map<Integer, Point> spaceCellMap = new HashMap<>();
 
     private DiceView diceView;
@@ -304,13 +300,13 @@ public class BoardController implements Observer {
 
 
     public AnchorPane getPropertyRentView() {
-        try{
-            return  rentViewManager.getPropertyRentViewHashMap().get(game.getCurrentSpace().getSpaceName());
-        }
-        catch (IllegalArgumentException e){
+        try {
+            return rentViewManager.getPropertyRentViewHashMap().get(game.getCurrentSpace().getSpaceName());
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return null;
         }
+    }
 
     private void showSelectedSpace(SpaceView spaceView) {
 
@@ -432,5 +428,7 @@ public class BoardController implements Observer {
         spaceViewMap.get(locale.getSpaceName()).addHouse();
         updatePlayerCapital();
     }
+
+
 }
 

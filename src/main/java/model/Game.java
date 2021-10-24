@@ -285,6 +285,20 @@ public class Game implements Observable {
         return currentSpace;
     }
     public Space getSelectedSpace() { return selectedSpace; }
+    /**
+     * getPlayerUsingID checks if there is a player with a specific ID and then returns the player with that ID.
+     *
+     * @param ID the specific ID that will be used to find a player.
+     * @return returns the player who's ID matches the one used for the search.
+     * @throws Exception This should never have to be thrown.
+     */
+    public Player getPlayerUsingID(int ID) throws Exception {
+        for (Player player : getPlayers()) {
+            if (player.getPlayerId() == ID) { return player; }
+        }
+        throw new Exception("No player matching the ID");
+    }
+
 
     /**
      * This notifes observers that a space has been selected and sets the selected space to that space.
