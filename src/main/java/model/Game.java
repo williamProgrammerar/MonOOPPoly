@@ -18,6 +18,7 @@ public class Game {
     private final RollDice dice = new RollDice(2,6);
     private final Board board = new Board();
     private final List<Player> players = new ArrayList<>();
+    private final Jail jail = new Jail(50, dice);
     private Space currentSpace;
     private Player currentPlayer;
     private Space selectedSpace;
@@ -35,7 +36,7 @@ public class Game {
      */
     public void move(int spaces) {
         if(!hasMoved) {
-            if (!jailTurn(currentPlayer)) {
+            if (!jail.jailTurn(currentPlayer)) {
                 currentPlayer.move(spaces);
                 currentSpace = board.getSpace(currentPlayer.getPosition());
 
@@ -59,7 +60,7 @@ public class Game {
         if(currentPlayer.HasPassedGo()) {
             int salary = 200;
             currentPlayer.setCapital(currentPlayer.getCapital() + salary); //this should maybe be a variable, you could change it in settings
-            System.out.println(currentPlayer.getName() + " passed GO and recieved " + salary + "kr");
+            System.out.println(currentPlayer.getName() + " passed GO and received " + salary + "kr");
         }
     }
 
@@ -104,57 +105,7 @@ public class Game {
 
     private void landedOnU() {
         currentPlayer.moveTo(10, false);
-        currentPlayer.setTurnsInJail(1);
-        System.out.println("Player " + currentPlayer.getPlayerId() + " failed their exam and has been sent to redo it!");
-    }
-
-    /**
-     * Checks if the player is in Jail. If they are, they must roll doubles in order to get out.
-     * If they do, move them according to the dice roll.
-     * If they fail for 3 turns, pay fine and move according to dice roll.
-     * Sets turnsInJail to 0 when they get out.
-     *
-     * @param currentPlayer currentPlayer.
-     * @return if the player is in jail or not.
-     */
-    private boolean jailTurn(Player currentPlayer) {
-        if (currentPlayer.getTurnsInJail() > 0 && board.getSpace(currentPlayer.getPosition()).getSpaceName().equals("OMTENTA")) {
-            int jailFine = 50;
-            System.out.println("You're stuck at a re-exam, roll doubles or pay " + jailFine + "kr to finish it!");
-            dice.rollDice(); //this needs to be coupled to the view
-            if (dice.hasRolledDoubles()) {
-                System.out.println("You got out!");
-
-                currentPlayer.move(dice.getTotalValue());
-                currentSpace = board.getSpace(currentPlayer.getPosition());
-
-                inspectCurrentSpace();
-
-                System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-                System.out.println(currentPlayer.getPosition());
-
-                currentPlayer.setTurnsInJail(0);
-            } else {
-                System.out.println("You're stuck!");
-                currentPlayer.setTurnsInJail(currentPlayer.getTurnsInJail() + 1);
-                if (currentPlayer.getTurnsInJail()>3) {
-                    currentPlayer.setCapital(currentPlayer.getCapital() - jailFine);
-                    System.out.println("You paid the bribe and have " + currentPlayer.getCapital());
-
-                    currentPlayer.move(dice.getTotalValue());
-                    currentSpace = board.getSpace(currentPlayer.getPosition());
-
-                    inspectCurrentSpace();
-
-                    System.out.println("Player" + currentPlayer.getPlayerId() + " landed on: " + currentSpace.getSpaceName());
-                    System.out.println(currentPlayer.getPosition());
-
-                    currentPlayer.setTurnsInJail(0);
-                }
-            }
-            return true;
-        }
-        return false;
+        jail.addToJail(currentPlayer);
     }
 
     public void endTurn() {
