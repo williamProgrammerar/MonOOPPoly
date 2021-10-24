@@ -121,6 +121,7 @@ public class Game implements Observable {
             checkBankruptcy();
         }
     }
+
     /**
      * Should prevent currentPlayer from moving until they are debt free,
      * currently just instantly makes players bankrupt if they start a turn while in debt.

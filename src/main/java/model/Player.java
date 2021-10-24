@@ -19,8 +19,6 @@ public class Player {
 
     private final List<Property> properties = new ArrayList<>();
 
-    //private javafx.scene.paint.Color color;
-
     private boolean isBankrupt;
 
     public Player(int playerId, int capital) {
@@ -29,13 +27,6 @@ public class Player {
         this.position = 0;
         this.name = "Inget namn än";
         this.isBankrupt = false;
-        /*switch (playerId){
-            case 0 -> this.color = Color.RED;
-            case 1 -> this.color = Color.DARKTURQUOISE;
-            case 2 -> this.color = Color.GREEN;
-            case 3 -> this.color = Color.ORANGE;
-            default -> throw new IllegalStateException("Unexpected value: " + playerId);
-        }*/
     }
 
     /**
