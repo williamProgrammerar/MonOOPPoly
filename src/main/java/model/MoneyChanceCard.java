@@ -1,6 +1,8 @@
 package model;
 
 /**
+ * A chance card which gives or takes money from the player
+ *
  * @author rhedinh
  */
 public class MoneyChanceCard extends IChanceCard {
