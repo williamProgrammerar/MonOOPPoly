@@ -111,6 +111,9 @@ public class BoardController implements Observer {
     }
 
 
+    /**
+     * Initiats a HashMap for the number of a space and a point in the GridPane
+     */
     private void initSpaceCellMap() {
         int r = 10;
         int c = 10;
