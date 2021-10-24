@@ -21,6 +21,11 @@ public class UnownedPropertyController {
         this.boardController = boardController;
     }
 
+    /**
+     * If the player chooses to but the property, the property is assinged to the player
+     * and clears the flowpane so that the options is not available any more and
+     * also makes it possible for the player to end it's turn if it want to.
+     */
     public void buyProperty() {
         boardController.buyProperty();
         boardController.clearBoardFlowPane();
