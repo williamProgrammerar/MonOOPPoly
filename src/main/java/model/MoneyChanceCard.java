@@ -5,12 +5,18 @@ package model;
  *
  * @author rhedinh
  */
-public class MoneyChanceCard extends IChanceCard {
+public class MoneyChanceCard implements IChanceCard {
     private final int money;
+    private final String text;
 
     public MoneyChanceCard(String text, int money) {
-        super(text);
+        this.text = text;
         this.money = money;
+    }
+
+    @Override
+    public String getText() {
+        return text;
     }
 
     /**
