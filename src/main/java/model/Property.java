@@ -2,7 +2,7 @@ package model;
 
 import visitor.HandleRentViewMapVisitor;
 
-public abstract class Property extends Space{
+public abstract class Property implements Space {
     public abstract void accept(HandleRentViewMapVisitor visitor);
     private boolean isOwned;
     private boolean isMortgaged;
@@ -10,9 +10,10 @@ public abstract class Property extends Space{
     private final int price;
     private final int mortgage;
     private final int[] rent;
+    private final String spaceName;
 
     public Property(String spaceName, int price, int mortgage, int[] rent) {
-        super(spaceName);
+        this.spaceName = spaceName;
         this.rent = rent;
         this.isOwned = false;
         this.isMortgaged = false;
@@ -60,4 +61,8 @@ public abstract class Property extends Space{
         return rent;
     }
 
+    @Override
+    public String getSpaceName() {
+        return spaceName;
+    }
 }

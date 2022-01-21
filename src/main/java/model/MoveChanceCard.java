@@ -5,10 +5,16 @@ package model;
  *
  * @author rhedinh
  */
-public class MoveChanceCard extends IChanceCard {
+public class MoveChanceCard implements IChanceCard {
+    private final String text;
 
     public MoveChanceCard(String text) {
-        super(text);
+        this.text = text;
+    }
+
+    @Override
+    public String getText() {
+        return text;
     }
 
     /**

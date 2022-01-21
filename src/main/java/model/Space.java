@@ -1,13 +1,11 @@
 package model;
 
-public class Space {
+/**
+ * An interface for every space on the board.
+ *
+ * @author rhedinh
+ */
 
-    private final String spaceName;
-
-    public Space(String spaceName) {
-       this.spaceName = spaceName;
-    }
-    public String getSpaceName() {
-        return spaceName;
-    }
+public interface Space {
+    String getSpaceName();
 }

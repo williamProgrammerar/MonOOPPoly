@@ -11,7 +11,7 @@ public class PlayerItemTest {
         Player player = new Player(1, 1500);
         PlayerItem playerItem = new PlayerItem(player);
 
-        assertSame(playerItem.getPlayer(), player);
-        assertSame(playerItem.getPlayerName(), player.getName());
+        assertSame(playerItem.getItemOwner(), player);
+        assertSame(playerItem.getName(), player.getName());
     }
 }
