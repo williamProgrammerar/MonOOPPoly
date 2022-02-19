@@ -5,7 +5,7 @@ package model;
  *
  * @author williamProgrammerar
  */
-public class PlayerItem {
+public class PlayerItem implements IItem {
     private final String playerName;
     private final Player player;
 
@@ -14,11 +14,19 @@ public class PlayerItem {
         this.player = player;
     }
 
-    public String getPlayerName() {
+    /*public String getPlayerName() {
         return playerName;
     }
 
-    public Player getPlayer() {
+    public Player getPlayer() {return player; }*/
+
+    @Override
+    public String getName() {
+        return playerName;
+    }
+
+    @Override
+    public Player getItemOwner() {
         return player;
     }
 }

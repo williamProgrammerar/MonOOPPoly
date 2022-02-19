@@ -17,7 +17,7 @@ public class PropertyItemTest {
             }
         };
         PropertyItem propertyItem = new PropertyItem(property);
-        assertSame(propertyItem.getProperty(), property);
-        assertSame(propertyItem.getPropertyName(), property.getSpaceName());
+        assertSame(propertyItem.getItemOwner(), property);
+        assertSame(propertyItem.getName(), property.getSpaceName());
     }
 }

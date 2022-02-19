@@ -1,14 +1,20 @@
 package model;
 
-public class Tax extends Space {
+public class Tax implements Space {
     private final int tax;
+    private final String spaceName;
 
     public Tax(String spaceName, int tax) {
-        super(spaceName);
+        this.spaceName = spaceName;
         this.tax = tax;
     }
 
     public int getTax() {
         return tax;
+    }
+
+    @Override
+    public String getSpaceName() {
+        return spaceName;
     }
 }

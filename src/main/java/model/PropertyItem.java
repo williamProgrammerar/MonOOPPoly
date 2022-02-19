@@ -5,7 +5,7 @@ package model;
  *
  * @author williamProgrammerar
  */
-public class PropertyItem {
+public class PropertyItem implements IItem {
     private final String propertyName;
     private final Property property;
 
@@ -14,11 +14,21 @@ public class PropertyItem {
         this.property = property;
     }
 
-    public String getPropertyName() {
+   /* public String getPropertyName() {
         return propertyName;
     }
 
     public Property getProperty() {
+        return property;
+    }*/
+
+    @Override
+    public String getName() {
+        return propertyName;
+    }
+
+    @Override
+    public Property getItemOwner() {
         return property;
     }
 }

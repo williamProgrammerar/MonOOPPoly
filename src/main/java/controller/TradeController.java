@@ -65,7 +65,7 @@ public class TradeController {
     /**
      * Constructor that is called when TradeController is created. Gives this class access to the existing boardController class.
      *
-     * @param boardController the existing boardController.
+     * @param game the existing boardController.
      */
     public TradeController(Game game) {
         this.game = game;
@@ -127,7 +127,7 @@ public class TradeController {
         selectPlayer.setConverter(new StringConverter<>() {
             @Override
             public String toString(PlayerItem playerItem) {
-                return playerItem.getPlayerName();
+                return playerItem.getName();
             }
 
             @Override
@@ -146,7 +146,7 @@ public class TradeController {
     }
 
     private void updateSelectedPlayer(PlayerItem player) {
-        selectedPlayer = player.getPlayer();
+        selectedPlayer = player.getItemOwner();
     }
 
     private void initPlayerMenuText() {
@@ -231,7 +231,7 @@ public class TradeController {
         pComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(PropertyItem propertyItem) {
-                return propertyItem.getPropertyName();
+                return propertyItem.getName();
             }
 
             @Override
@@ -250,7 +250,7 @@ public class TradeController {
     private void addPropertyListener(Player player, ComboBox<PropertyItem> pComboBox) {
         pComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (!(newValue == null)) {
-                trade.addPropertyToTrade(player, newValue.getProperty());
+                trade.addPropertyToTrade(player, newValue.getItemOwner());
             }
         });
     }

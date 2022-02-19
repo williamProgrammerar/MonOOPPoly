@@ -1,15 +1,14 @@
 package model;
 
-public class Chance implements Space {
+public class SpecialTile implements Space {
     String spaceName;
 
-    public Chance(String spaceName){
-    this.spaceName = spaceName;
+    public SpecialTile(String spaceName) {
+        this.spaceName = spaceName;
     }
 
     @Override
     public String getSpaceName() {
         return spaceName;
     }
-
 }

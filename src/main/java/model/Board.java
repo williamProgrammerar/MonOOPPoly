@@ -19,7 +19,7 @@ public class Board {
      * Board constructor adds all the different spaces to the list spaceList.
      */
     public Board(RollDice dice) {
-        spaceList.add(new Space("GO"));
+        spaceList.add(new SpecialTile("GO"));
         Section orange = new Section("ORANGE");
         addToLists(new Locale("BASEN", 60, 30, orange, new int[] {2, 10, 30, 90, 160, 250}, 50));
         spaceList.add(new Chance("Chans1"));
@@ -31,7 +31,7 @@ public class Board {
         spaceList.add(new Chance("Chans2"));
         addToLists(new Locale("XP-LABBET", 100, 50, brown, new int[] {6, 30, 90, 270, 400, 550}, 100));
         addToLists(new Locale("BULTEN", 120, 60, brown, new int[] {8, 40, 100, 300, 450, 600}, 100));
-        spaceList.add(new Space("OMTENTA"));
+        spaceList.add(new SpecialTile("OMTENTA"));
         Section red = new Section("RED");
         addToLists(new Locale("A-DAMMEN", 140, 70, red, new int[] {10, 50, 150, 450, 625, 750}, 100));
         addToLists(new Utility("Utility1", 150, 75, new int[] {4,10}, dice));
@@ -43,7 +43,7 @@ public class Board {
         spaceList.add(new Chance("Chans3"));
         addToLists(new Locale("ANKETORG", 180, 90, yellow, new int[] {14, 70, 200, 550, 750, 950}, 100));
         addToLists(new Locale("KAJSABAREN", 200, 100, yellow, new int[] {16, 80, 220, 600, 800, 1000}, 100));
-        spaceList.add(new Space("SJÄLVSTUDIER"));
+        spaceList.add(new SpecialTile("SJÄLVSTUDIER"));
         Section green = new Section("GREEN");
         addToLists(new Locale("KATA- KOMBERNA", 220, 110, green, new int[] {18, 90, 250, 700, 875, 1050}, 150));
         spaceList.add(new Chance("Chans4"));
@@ -55,7 +55,7 @@ public class Board {
         addToLists(new Locale("KÅRHUSET", 260, 130, gray, new int[] {22, 110, 330, 800, 975, 1150}, 150));
         addToLists(new Utility("Utility2", 150, 75, new int[] {4,10}, dice));
         addToLists(new Locale("ZALOONEN", 280, 140, gray, new int[] {24, 120, 360, 850, 1025, 1200}, 150));
-        spaceList.add(new Space("U"));
+        spaceList.add(new SpecialTile("U"));
         Section purple = new Section("PURPLE");
         addToLists(new Locale("BONDGATAN", 300, 150, purple, new int[] {26, 130, 390, 900, 1100, 1275}, 200));
         spaceList.add(new Chance("Chans5"));

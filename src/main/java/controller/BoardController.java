@@ -432,12 +432,12 @@ public class BoardController implements Observer {
         if (arg instanceof Locale) {
             updateSpaceShown((Space) arg);
         }
-        if (arg instanceof Auction){
+        if (arg instanceof Auction) {
             clearBoardFlowPane();
             newPropertyOwner(((Auction) arg).getAuctionProperty(),((Auction) arg).getHighestBidder());
             makeEndTurnClickable();
         }
-        if(arg instanceof Trade){
+        if (arg instanceof Trade) {
             clearBoardFlowPane();
             makeEndTurnClickable();
             updatePropertyOwnership();
